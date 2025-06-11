@@ -1,0 +1,220 @@
+{
+  "stage_1": [
+  {
+    "id": "reunion_grupo",
+    "title": "Recordatorio",
+    "message": "Tenes reunion de grupo hoy a las 18:00. Queres ir?",
+    "options": [
+      { "label": "Asistir", "consequence": { "reunion_grupo": true } },
+      { "label": "Ignorar", "consequence": { "reunion_grupo": false } }
+    ],
+    "followup": {
+      "condition": { "reunion_grupo": false },
+      "popup": {
+        "title": "Aviso",
+        "message": "Tus companeros decidieron avanzar sin vos."
+      }
+    }
+  },
+  {
+    "id": "leer_clase",
+    "title": "Apuntes disponibles",
+    "message": "Subieron los apuntes de la clase de ayer. Queres leerlos ahora?",
+    "options": [
+      {
+        "label": "Leer ahora",
+        "consequence": {
+          "leer_clase": true
+        }
+      },
+      {
+        "label": "Mas tarde",
+        "consequence": {
+          "leer_clase": false
+        }
+      }
+    ],
+    "followup": {
+      "condition": {
+        "leer_clase": false
+      },
+      "popup": {
+        "title": "Desorganizacion",
+        "message": "En clase sentis que te falta contexto."
+      }
+    }
+  },
+  {
+    "id": "preparar_examen",
+    "title": "Examen de Matematicas",
+    "message": "Queres empezar a preparar el examen de matematicas que es en dos semanas?",
+    "options": [
+      {
+        "label": "Empezar ahora",
+        "consequence": {
+          "preparar_examen": true
+        }
+      },
+      {
+        "label": "Mas tarde",
+        "consequence": {
+          "preparar_examen": false
+        }
+      }
+    ],
+    "followup": {
+      "condition": {
+        "preparar_examen": false
+      },
+      "popup": {
+        "title": "Arrepentimiento",
+        "message": "Te sentis estresado por el poco tiempo para estudiar antes del examen."
+      }
+    }
+  },
+  {
+    "id": "ejercicio_fisico",
+    "title": "Actividad Fisica",
+    "message": "Hoy es un buen dia para hacer ejercicio? Tu cuerpo lo agradecera!",
+    "options": [
+      {
+        "label": "Entrenar",
+        "consequence": {
+          "ejercicio_fisico": true
+        }
+      },
+      {
+        "label": "Descansar",
+        "consequence": {
+          "ejercicio_fisico": false
+        }
+      }
+    ],
+    "followup": {
+      "condition": {
+        "ejercicio_fisico": false
+      },
+      "popup": {
+        "title": "Sedentarismo",
+        "message": "Sentis que te falta energia durante el dia."
+      }
+    }
+  }
+],
+  "stage_2": [
+      {
+      "id": "descanso_1",
+      "title": "Alerta de actividad",
+      "message": "Estas hace 3 horas sin descanso. Queres parar un rato?",
+      "options": [
+        { "label": "Tomar descanso", "consequence": { "descanso_1": true } },
+        { "label": "Seguir", "consequence": { "descanso_1": false } }
+      ],
+      "followup": {
+        "condition": { "descanso_1": false },
+        "popup": {
+          "title": "Cansancio",
+          "message": "Te empieza a doler la cabeza."
+        }
+      }
+    },
+    {
+      "id": "entrega_proyecto",
+      "title": "Notificacion",
+      "message": "Faltan 2 dias para la entrega del proyecto final. Empezas hoy?",
+      "options": [
+        { "label": "Trabajar", "consequence": { "entrega_proyecto": true } },
+        { "label": "No ahora", "consequence": { "entrega_proyecto": false } }
+      ],
+      "followup": {
+        "condition": { "entrega_proyecto": false },
+        "popup": {
+          "title": "Procrastinacion",
+          "message": "La presion te empieza a pesar. No sabes por donde empezar."
+        }
+      }
+    },
+    {
+      "id": "estres",
+      "title": "Pensamiento intrusivo",
+      "message": "Siento que no estoy alcanzando nada... sigo intentando?",
+      "options": [
+        { "label": "Seguir luchando", "consequence": { "estres": true } },
+        { "label": "Cerrar todo", "consequence": { "estres": false } }
+      ],
+      "followup": {
+        "condition": { "estres": false },
+        "popup": {
+          "title": "Vacío",
+          "message": "Cerrás las ventanas... pero la mente sigue cargada."
+        }
+      }
+    },
+    {
+      "id": "estudio_examen",
+      "title": "Aviso",
+      "message": "Tenes examen en 3 dias. Estudias hoy o lo dejas pasar?",
+      "options": [
+        { "label": "Estudiar", "consequence": { "estudio_examen": true } },
+        { "label": "No ahora", "consequence": { "estudio_examen": false } }
+      ],
+      "followup": {
+        "condition": { "estudio_examen": false },
+        "popup": {
+          "title": "Preocupacion",
+          "message": "Sentis que estas dejando todo para ultimo momento otra vez."
+        }
+      }
+    }
+  ],
+  "stage_3": [
+    {
+      "id": "colapso_mental",
+      "title": "Saturacion",
+      "message": "Tu cabeza duele. Todo parece ruido. Queres cerrar todo por un momento?",
+      "options": [
+        { "label": "Cerrar todo", "consequence": { "colapso_mental": true } },
+        { "label": "Seguir con todo", "consequence": { "colapso_mental": false } }
+      ],
+      "followup": {
+        "condition": { "colapso_mental": false },
+        "popup": {
+          "title": "Desborde",
+          "message": "Sentis como si tu mente se partiera en mil ventanas."
+        }
+      }
+    },
+    {
+      "id": "aislamiento",
+      "title": "Mensaje sin leer",
+      "message": "Un amigo te escribio: 'Estas bien?' Queres responderle?",
+      "options": [
+        { "label": "Responder", "consequence": { "aislamiento": false } },
+        { "label": "Ignorar", "consequence": { "aislamiento": true } }
+      ],
+      "followup": {
+        "condition": { "aislamiento": true },
+        "popup": {
+          "title": "Soledad",
+          "message": "Te das cuenta de que no hablaste con nadie en dias."
+        }
+      }
+    },
+    {
+      "id": "abandono",
+      "title": "Pensamiento persistente",
+      "message": "Y si no termino nada? Si fracaso? Si me rindo ya mismo?",
+      "options": [
+        { "label": "Seguir", "consequence": { "abandono": false } },
+        { "label": "Rendirse", "consequence": { "abandono": true } }
+      ],
+      "followup": {
+        "condition": { "abandono": true },
+        "popup": {
+          "title": "Oscuridad",
+          "message": "Una parte de vos se apaga... pero nadie lo nota."
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "#popup_text": {
     "colours": {
-      "normal_border": ""
+      "normal_border": "transparent"
     }
   },
   "#accept_button": {
