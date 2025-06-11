@@ -28,7 +28,14 @@ canvas_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 275)
                                              object_id=ObjectID(object_id='@canvas_icon',
                                                               class_id='#icon'),
                                              )
+import time
 
+K_minutes = 2  # cada cuántos minutos mostrar
+K_seconds = 0.5
+current_time = time.time()
+last_message_time = current_time
+
+pop_up_windows = []
 windows = []
 clock = pygame.time.Clock()
 is_running = True
@@ -42,7 +49,7 @@ while is_running:
                 icon_name = event.ui_object_id.split("_")[0][1:]
                 opened = False
                 for w in windows:
-                    if w.object_ids[0].split("_")[0][1:] == icon_name:  #w.object_ids list of object ids of hierarchy
+                    if w["window"].object_ids[0].split("_")[0][1:] == icon_name:  #w.object_ids list of object ids of hierarchy
                         opened = True
                 if not opened:
                     if icon_name == "chat":
@@ -51,10 +58,23 @@ while is_running:
                         windows.append(open_canvas_window(manager))
         if event.type == pygame_gui.UI_WINDOW_CLOSE:
             for w in windows:
-                if w.object_ids[0] == event.ui_element.object_ids[0]:
+                if w["window"].object_ids[0] == event.ui_element.object_ids[0]:
                     windows.remove(w)
                     break
+        if event.type == pygame_gui.UI_BUTTON_PRESSED:
+            if event.ui_element.text == "Dismiss" or event.ui_element.text == "Aceptar":
+                for w in pop_up_windows:
+                    if w["window"].object_ids[0] == event.ui_element.object_ids[0]:
+                        pop_up_windows.remove(w)
+                        w["window"].kill()
+                        break
+
         manager.process_events(event)
+    current_time = time.time()
+    if current_time - last_message_time > K_seconds:
+        pop_up_windows.append(create_random_ui_message(manager))
+        last_message_time = current_time
+
     manager.update(time_delta)
     window_surface.blit(background, (0, 0))
     manager.draw_ui(window_surface)

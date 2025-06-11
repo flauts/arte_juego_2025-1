@@ -1,4 +1,14 @@
 {
+  "#popup_text": {
+    "colours": {
+      "normal_border": ""
+    }
+  },
+  "#accept_button": {
+    "colours": {
+      "normal_bg": "green"
+    }
+  },
     "@canvas_icon": {
         "images": {
             "normal_image": {
@@ -26,6 +36,34 @@
             "active_bg": "#cdc0b0"
 
         }
+    },
+    "#message_window":{
+     "font": {
+            "name": "retro",
+            "size": 16,
+            "regular_path": "fonts/retrofont.ttf"
+        },
+        "colours": {
+        "normal_bg": "#222222",
+        "normal_border": "#222222",
+        "hovered_bg": "#222222",
+        "active_border": "#222222",
+        "normal_text": "#FFAA00",
+        "title_bg": "#222222",
+        "title_text": "#FFAA00"
+    },
+    "misc": {
+        "shape_corner_radius": 0,
+        "border_width": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+        },
+           "shadow_width": 4,
+   "shadow_color": "#000000"
+    }
+
     },
     "defaults": {
         "colours":

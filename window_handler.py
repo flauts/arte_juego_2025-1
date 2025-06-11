@@ -1,6 +1,13 @@
+import random
 import pygame
 import pygame_gui
 from pygame_gui.core import ObjectID
+import json
+
+POPUP_PATH = "popups.json"
+
+with open(POPUP_PATH, "r", encoding="utf-8") as f:
+    POPUP_DATA = json.load(f)
 
 def open_canvas_window(manager):
     canvas_window = pygame_gui.elements.UIWindow(rect=pygame.Rect((100, 100), (400, 400)),manager=manager,
@@ -13,7 +20,9 @@ def open_canvas_window(manager):
         manager=manager,
         container=canvas_window
     )
-    return canvas_window
+    return {
+        "window": canvas_window,
+    }
 
 
 def open_chat_window(manager):
@@ -91,21 +100,69 @@ def open_chat_window(manager):
         container=main_panel
     )
 
-    return chat_window
-    # return {
-    #     'window': chat_window,
-    #     'chat_display': chat_display,
-    #     'message_input': message_input,
-    #     'send_button': send_button,
-    #     'users_list': users_list,
-    #     'clear_button': clear_button,
-    #     'settings_button': settings_button
-    # }
+    return {
+        'window': chat_window,
+        'chat_display': chat_display,
+        'message_input': message_input,
+        'send_button': send_button,
+        'users_list': users_list,
+        'clear_button': clear_button,
+        'settings_button': settings_button
+    }
 
-#
-# def open_chat_window(manager):
-#     canvas_window = pygame_gui.elements.UIWindow(rect=pygame.Rect((100, 100), (400, 400)),manager=manager,
-#                                              window_display_title='Chat',draggable=True,
-#                                                  object_id=ObjectID(object_id='@chat_window',
-#                                                                     class_id="#window"))
-#     return canvas_window
+
+def create_random_ui_message(manager, window_size=(300, 150), screen_size=(800, 600), message=None,
+                             title=None):
+
+    max_x = screen_size[0] - window_size[0]
+    max_y = screen_size[1] - window_size[1]
+    x = random.randint(0, max_x)
+    y = random.randint(0, max_y)
+
+    rect = pygame.Rect((x, y), window_size)
+    id = random.randint(0, 1000000)
+    if not message or not title:
+        popup = random.choice(POPUP_DATA)
+        title = popup.get("title", "Mensaje")
+        message = "<font face='retro'>" + popup.get("message", "") + "</font>"
+
+    # Crear ventana de mensaje UIMessageWindow
+    message_window = pygame_gui.elements.UIWindow(
+        rect=rect,
+        manager=manager,
+        window_display_title=title,
+        object_id=ObjectID(object_id=f'@retro_message_window_{id}', class_id='#message_window')
+    )
+
+    text = pygame_gui.elements.UITextBox(
+        html_text=message,
+        relative_rect=pygame.Rect((10, 10), (window_size[0] - 20, window_size[1] - 20)),
+        manager=manager,
+        container=message_window,
+        object_id=ObjectID(object_id=f'@retro_message_text_{id}', class_id='#popup_text')
+    )
+    dismiss_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((-90, -30), (70, 25)),
+        text='Dismiss',
+        manager=manager,
+        container=message_window,
+        anchors={'right':'right',
+                 'bottom':'bottom'},
+        object_id=ObjectID(object_id=f'@dismiss_button_{id}', class_id='#dismiss_button')
+    )
+
+    accept_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((10, -30), (70, 25)),
+        text='Aceptar',
+        manager=manager,
+        container=message_window,
+        anchors={'left':'left',
+                 'bottom':'bottom'},
+        object_id=ObjectID(object_id=f'@accept_button_{id}', class_id='#accept_button')
+    )
+    return {
+        'window': message_window,
+        'text': text,
+        'dismiss_button': dismiss_button,
+        'accept_button': accept_button,
+    }
