@@ -25,7 +25,9 @@ STAGE_ONE_DURATION_SECONDS = 60
 STAGE_TWO_DURATION_SECONDS = 180 - STAGE_ONE_DURATION_SECONDS # Total 180s for stage 3, so 120s for stage 2
 
 # Pop-up message timing
-POP_UP_CHECK_INTERVAL_SECONDS = 15 # How often to check for new pop-ups (in real seconds)
+POP_UP_CHECK_INTERVAL_SECONDS_STAGE_ONE = 15 # How often to check for new pop-ups (in real seconds)
+POP_UP_CHECK_INTERVAL_SECONDS_STAGE_TWO = 5 # How often to check for new pop-ups (in real seconds)
+POP_UP_CHECK_INTERVAL_SECONDS_STAGE_THREE = 1 # How often to check for new pop-ups (in real seconds)
 MAX_POP_UPS_STAGE_ONE = 1 # Max pop-ups displayed at once in stage 1
 MAX_POP_UPS_STAGE_TWO = 3
 MAX_POP_UPS_STAGE_THREE = 10
@@ -38,9 +40,9 @@ WELLNESS_BAR_ID = '@wellness_bar' # ID for the specific wellness bar instance
 WELLNESS_BAR_CLASS_ID = '#wellness_bar' # Class ID for styling UIStatusBar elements
 
 # Wellness Bar Settings
-INITIAL_WELLNESS = 100
 MIN_WELLNESS = 0
-MAX_WELLNESS = 100
+MAX_WELLNESS = 200
+INITIAL_WELLNESS = MAX_WELLNESS
 WELLNESS_BAR_RECT = pygame.Rect((10, 10), (200, 25)) # Position and size
 
 # Wellness Decay and Progression Acceleration

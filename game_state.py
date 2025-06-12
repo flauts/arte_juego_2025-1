@@ -20,7 +20,7 @@ class GameState:
 
         self._start_real_time = time.time()
         self._last_popup_check_time = time.time()
-        self.wellness = 100
+        self.wellness = INITIAL_WELLNESS
         self._last_wellness_decay_time = time.time()
         self._wellness_events_triggered = {  # Flags to prevent event spam
             "wellness_low": False,
@@ -40,7 +40,6 @@ class GameState:
             current_acceleration_factor = WELLNESS_ACCELERATION_FACTOR_LOW_WELLNESS
 
         effective_elapsed_time = elapsed_real_time * current_acceleration_factor
-
         if effective_elapsed_time >= (STAGE_ONE_DURATION_SECONDS + STAGE_TWO_DURATION_SECONDS):
             self.current_stage = 3
         elif effective_elapsed_time >= STAGE_ONE_DURATION_SECONDS:
@@ -69,6 +68,7 @@ class GameState:
     def should_check_for_popup(self, current_real_time, check_interval):
         if current_real_time - self._last_popup_check_time > check_interval:
             self._last_popup_check_time = current_real_time
+            self.in_game_time += datetime.timedelta(minutes=0.3)
             return True
         return False
 
@@ -87,6 +87,7 @@ class GameState:
             wellness_change = consequence_dict.get("wellness_change", 0)
             if wellness_change != 0: # Only adjust if there's an actual change specified
                 self.adjust_wellness(wellness_change)
+                self.in_game_time+=datetime.timedelta(minutes=0.2)
 
             # Apply other general state changes (excluding wellness_change key)
             temp_consequence_dict = {k: v for k, v in consequence_dict.items() if k != "wellness_change"}

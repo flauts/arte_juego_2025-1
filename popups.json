@@ -1,114 +1,120 @@
 {
   "stage_1": [
-  {
-    "id": "reunion_grupo",
-    "title": "Recordatorio",
-    "message": "Tenes reunion de grupo hoy a las 18:00. Queres ir?",
-    "options": [
-      { "label": "Asistir", "consequence": { "reunion_grupo": true } },
-      { "label": "Ignorar", "consequence": { "reunion_grupo": false } }
-    ],
-    "followup": {
-      "condition": { "reunion_grupo": false },
-      "popup": {
-        "title": "Aviso",
-        "message": "Tus companeros decidieron avanzar sin vos."
-      }
-    }
-  },
-  {
-    "id": "leer_clase",
-    "title": "Apuntes disponibles",
-    "message": "Subieron los apuntes de la clase de ayer. Queres leerlos ahora?",
-    "options": [
-      {
-        "label": "Leer ahora",
-        "consequence": {
-          "leer_clase": true
+    {
+      "id": "reunion_grupo",
+      "title": "Recordatorio",
+      "message": "Tenes reunion de grupo hoy a las 18:00. Queres ir?",
+      "options": [
+        { "label": "Asistir", "consequence": { "reunion_grupo": true, "wellness_change": 10 } },
+        { "label": "Ignorar", "consequence": { "reunion_grupo": false, "wellness_change": -15 } }
+      ],
+      "followup": {
+        "condition": { "reunion_grupo": false },
+        "popup": {
+          "title": "Aviso",
+          "message": "Tus companeros decidieron avanzar sin vos."
         }
-      },
-      {
-        "label": "Mas tarde",
-        "consequence": {
+      }
+    },
+    {
+      "id": "leer_clase",
+      "title": "Apuntes disponibles",
+      "message": "Subieron los apuntes de la clase de ayer. Queres leerlos ahora?",
+      "options": [
+        {
+          "label": "Leer ahora",
+          "consequence": {
+            "leer_clase": true,
+            "wellness_change": 8
+          }
+        },
+        {
+          "label": "Mas tarde",
+          "consequence": {
+            "leer_clase": false,
+            "wellness_change": -10
+          }
+        }
+      ],
+      "followup": {
+        "condition": {
           "leer_clase": false
+        },
+        "popup": {
+          "title": "Desorganizacion",
+          "message": "En clase sentis que te falta contexto."
         }
       }
-    ],
-    "followup": {
-      "condition": {
-        "leer_clase": false
-      },
-      "popup": {
-        "title": "Desorganizacion",
-        "message": "En clase sentis que te falta contexto."
-      }
-    }
-  },
-  {
-    "id": "preparar_examen",
-    "title": "Examen de Matematicas",
-    "message": "Queres empezar a preparar el examen de matematicas que es en dos semanas?",
-    "options": [
-      {
-        "label": "Empezar ahora",
-        "consequence": {
-          "preparar_examen": true
+    },
+    {
+      "id": "preparar_examen",
+      "title": "Examen de Matematicas",
+      "message": "Queres empezar a preparar el examen de matematicas que es en dos semanas?",
+      "options": [
+        {
+          "label": "Empezar ahora",
+          "consequence": {
+            "preparar_examen": true,
+            "wellness_change": 12
+          }
+        },
+        {
+          "label": "Mas tarde",
+          "consequence": {
+            "preparar_examen": false,
+            "wellness_change": -20
+          }
         }
-      },
-      {
-        "label": "Mas tarde",
-        "consequence": {
+      ],
+      "followup": {
+        "condition": {
           "preparar_examen": false
+        },
+        "popup": {
+          "title": "Arrepentimiento",
+          "message": "Te sentis estresado por el poco tiempo para estudiar antes del examen."
         }
       }
-    ],
-    "followup": {
-      "condition": {
-        "preparar_examen": false
-      },
-      "popup": {
-        "title": "Arrepentimiento",
-        "message": "Te sentis estresado por el poco tiempo para estudiar antes del examen."
-      }
-    }
-  },
-  {
-    "id": "ejercicio_fisico",
-    "title": "Actividad Fisica",
-    "message": "Hoy es un buen dia para hacer ejercicio? Tu cuerpo lo agradecera!",
-    "options": [
-      {
-        "label": "Entrenar",
-        "consequence": {
-          "ejercicio_fisico": true
+    },
+    {
+      "id": "ejercicio_fisico",
+      "title": "Actividad Fisica",
+      "message": "Hoy es un buen dia para hacer ejercicio? Tu cuerpo lo agradecera!",
+      "options": [
+        {
+          "label": "Entrenar",
+          "consequence": {
+            "ejercicio_fisico": true,
+            "wellness_change": 15
+          }
+        },
+        {
+          "label": "Descansar",
+          "consequence": {
+            "ejercicio_fisico": false,
+            "wellness_change": -5
+          }
         }
-      },
-      {
-        "label": "Descansar",
-        "consequence": {
+      ],
+      "followup": {
+        "condition": {
           "ejercicio_fisico": false
+        },
+        "popup": {
+          "title": "Sedentarismo",
+          "message": "Sentis que te falta energia durante el dia."
         }
       }
-    ],
-    "followup": {
-      "condition": {
-        "ejercicio_fisico": false
-      },
-      "popup": {
-        "title": "Sedentarismo",
-        "message": "Sentis que te falta energia durante el dia."
-      }
     }
-  }
-],
+  ],
   "stage_2": [
-      {
+    {
       "id": "descanso_1",
       "title": "Alerta de actividad",
       "message": "Estas hace 3 horas sin descanso. Queres parar un rato?",
       "options": [
-        { "label": "Tomar descanso", "consequence": { "descanso_1": true } },
-        { "label": "Seguir", "consequence": { "descanso_1": false } }
+        { "label": "Tomar descanso", "consequence": { "descanso_1": true, "wellness_change": 10 } },
+        { "label": "Seguir", "consequence": { "descanso_1": false, "wellness_change": -15 } }
       ],
       "followup": {
         "condition": { "descanso_1": false },
@@ -123,8 +129,8 @@
       "title": "Notificacion",
       "message": "Faltan 2 dias para la entrega del proyecto final. Empezas hoy?",
       "options": [
-        { "label": "Trabajar", "consequence": { "entrega_proyecto": true } },
-        { "label": "No ahora", "consequence": { "entrega_proyecto": false } }
+        { "label": "Trabajar", "consequence": { "entrega_proyecto": true, "wellness_change": 12 } },
+        { "label": "No ahora", "consequence": { "entrega_proyecto": false, "wellness_change": -20 } }
       ],
       "followup": {
         "condition": { "entrega_proyecto": false },
@@ -139,14 +145,14 @@
       "title": "Pensamiento intrusivo",
       "message": "Siento que no estoy alcanzando nada... sigo intentando?",
       "options": [
-        { "label": "Seguir luchando", "consequence": { "estres": true } },
-        { "label": "Cerrar todo", "consequence": { "estres": false } }
+        { "label": "Seguir luchando", "consequence": { "estres": true, "wellness_change": 5 } },
+        { "label": "Cerrar todo", "consequence": { "estres": false, "wellness_change": -10 } }
       ],
       "followup": {
         "condition": { "estres": false },
         "popup": {
-          "title": "Vacío",
-          "message": "Cerrás las ventanas... pero la mente sigue cargada."
+          "title": "Vacio",
+          "message": "Cerras las ventanas... pero la mente sigue cargada."
         }
       }
     },
@@ -155,8 +161,8 @@
       "title": "Aviso",
       "message": "Tenes examen en 3 dias. Estudias hoy o lo dejas pasar?",
       "options": [
-        { "label": "Estudiar", "consequence": { "estudio_examen": true } },
-        { "label": "No ahora", "consequence": { "estudio_examen": false } }
+        { "label": "Estudiar", "consequence": { "estudio_examen": true, "wellness_change": 10 } },
+        { "label": "No ahora", "consequence": { "estudio_examen": false, "wellness_change": -15 } }
       ],
       "followup": {
         "condition": { "estudio_examen": false },
@@ -173,8 +179,8 @@
       "title": "Saturacion",
       "message": "Tu cabeza duele. Todo parece ruido. Queres cerrar todo por un momento?",
       "options": [
-        { "label": "Cerrar todo", "consequence": { "colapso_mental": true } },
-        { "label": "Seguir con todo", "consequence": { "colapso_mental": false } }
+        { "label": "Cerrar todo", "consequence": { "colapso_mental": true, "wellness_change": 20 } },
+        { "label": "Seguir con todo", "consequence": { "colapso_mental": false, "wellness_change": -30 } }
       ],
       "followup": {
         "condition": { "colapso_mental": false },
@@ -189,8 +195,8 @@
       "title": "Mensaje sin leer",
       "message": "Un amigo te escribio: 'Estas bien?' Queres responderle?",
       "options": [
-        { "label": "Responder", "consequence": { "aislamiento": false } },
-        { "label": "Ignorar", "consequence": { "aislamiento": true } }
+        { "label": "Responder", "consequence": { "aislamiento": false, "wellness_change": 15 } },
+        { "label": "Ignorar", "consequence": { "aislamiento": true, "wellness_change": -25 } }
       ],
       "followup": {
         "condition": { "aislamiento": true },
@@ -205,8 +211,8 @@
       "title": "Pensamiento persistente",
       "message": "Y si no termino nada? Si fracaso? Si me rindo ya mismo?",
       "options": [
-        { "label": "Seguir", "consequence": { "abandono": false } },
-        { "label": "Rendirse", "consequence": { "abandono": true } }
+        { "label": "Seguir", "consequence": { "abandono": false, "wellness_change": 10 } },
+        { "label": "Rendirse", "consequence": { "abandono": true, "wellness_change": -40 } }
       ],
       "followup": {
         "condition": { "abandono": true },
