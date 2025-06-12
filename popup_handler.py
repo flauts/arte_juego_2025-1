@@ -64,14 +64,23 @@ class PopupManager:
 
         title = popup_data.get("title", "Mensaje")
         message = "<font face='retro'>" + popup_data.get("message", "") + "</font>"
-
-        message_window = pygame_gui.elements.UIWindow(
-            rect=rect,
-            manager=self.ui_manager,
-            window_display_title=title,
-            object_id=ObjectID(class_id='#message_window'),
-            visible=False # Initially hidden, will be shown explicitly later
-        )
+        try:
+            message_window = pygame_gui.elements.UIWindow(
+                rect=rect,
+                manager=self.ui_manager,
+                window_display_title=title,
+                object_id=ObjectID(class_id='#message_window',object_id=f"@message_window_{popup_data['id']}"),
+                visible=False # Initially hidden, will be shown explicitly later
+            )
+        except:
+            print("Popup followup")
+            message_window = pygame_gui.elements.UIWindow(
+                rect=rect,
+                manager=self.ui_manager,
+                window_display_title=title,
+                object_id=ObjectID(class_id='#message_window', object_id=f"@popup_window_{popup_data['title']}"),
+                visible=False
+            ) # Initially hidden, will be shown explicitly later
 
         text = pygame_gui.elements.UITextBox(
             html_text=message,
