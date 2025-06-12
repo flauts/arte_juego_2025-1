@@ -57,7 +57,7 @@ while is_running:
 
     # Update UI manager (updates elements, animations, etc.)
     ui_manager.update(time_delta)
-
+    # Update player wellness
     # Drawing operations
     window_surface.blit(background, (0, 0)) # Draw the background
     ui_manager.draw(window_surface) # Draw all UI elements (buttons, windows, popups)

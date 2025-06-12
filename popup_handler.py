@@ -43,10 +43,14 @@ class PopupManager:
         # Simple random selection for now. You can add more sophisticated logic here
         # (e.g., ensure it hasn't been shown before, or based on specific game state)
         popup_data = random.choice(available_popups_for_stage)
-
-        # Check if this specific popup's ID is already present in active popups to avoid duplicates
-        if any(p['data']['id'] == popup_data['id'] for p in self.active_popups):
-            return None # Don't show the same popup if it's already active
+        #remove popup chosen
+        self.all_popup_data[stage_key].remove(popup_data)
+        
+        
+        #
+        # # Check if this specific popup's ID is already present in active popups to avoid duplicates
+        # if any(p['data']['id'] == popup_data['id'] for p in self.active_popups):
+        #     return None # Don't show the same popup if it's already active
 
         new_popup_window = self._create_message_window(popup_data, screen_size)
         popup_info = {'window': new_popup_window, 'data': popup_data}
@@ -79,7 +83,7 @@ class PopupManager:
                 manager=self.ui_manager,
                 window_display_title=title,
                 object_id=ObjectID(class_id='#message_window', object_id=f"@popup_window_{popup_data['title']}"),
-                visible=False
+                visible=False,
             ) # Initially hidden, will be shown explicitly later
 
         text = pygame_gui.elements.UITextBox(
