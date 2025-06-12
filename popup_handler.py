@@ -1,55 +1,101 @@
 # popup_handler.py
+import pygame
 import pygame_gui
+from pygame_gui.core import ObjectID
 from pygame_gui.windows import UIMessageWindow
-import datetime
 import json
-POPUP_PATH = "popups2.json"
+import random
 
-with open(POPUP_PATH, "r", encoding="utf-8") as f:
-    POPUP_MESSAGES = json.load(f)
-# --- End mock data ---
+import game_config
 
+POPUP_DATA_FILE = "popups.json" # Renamed for clarity
 
 class PopupManager:
-    def __init__(self, ui_manager):
+    def __init__(self, ui_manager, game_state_ref):
         self.ui_manager = ui_manager
-        self.active_popups = [] # Stores references to the UIWindow objects
+        self.game_state = game_state_ref # Reference to the GameState object
+        self.active_popups = [] # Stores dictionary for active popups: {'window': UIMessageWindow, 'data': popup_data}
 
-    def create_popup_from_stage(self, stage, player_state):
-        # This is a simplified version. In a real game, you'd have more complex logic
-        # to determine which pop-up to show based on the stage, player state, and
-        # whether specific pop-ups have already been shown/dismissed.
+        # Load all popup data at initialization
+        try:
+            with open(POPUP_DATA_FILE, "r", encoding="utf-8") as f:
+                self.all_popup_data = json.load(f)
+        except FileNotFoundError:
+            print(f"Error: {POPUP_DATA_FILE} not found. Popups will not be available.")
+            self.all_popup_data = {}
 
-        # For demonstration, we'll just cycle through a few example messages.
-        if stage == 1 and len(self.active_popups) < 2:
-            # Example: pick a random message that hasn't been shown recently
-            # or based on player_state
-            message_data = POPUP_MESSAGES[len(self.active_popups) % len(POPUP_MESSAGES)]
-            popup_window = self._create_message_window(message_data)
-            self.active_popups.append(popup_window)
-            return {"window": popup_window, "id": message_data["id"]} # Return the window and its ID for tracking
-        return None # No popup to show
+    def create_popup_for_stage(self, stage, screen_size=(800, 600)):
+        """
+        Creates and returns a new popup window based on the current stage.
+        Returns None if no suitable popup is found or max popups are active.
+        """
+        stage_key = f"stage_{stage}"
+        if stage_key not in self.all_popup_data:
+            return None # No popups defined for this stage
 
-    def _create_message_window(self, message_data):
-        # Create UIMessageWindow
-        message_window = UIMessageWindow(
-            html_message=message_data["message"],
-            window_title=message_data["title"],
+        available_popups_for_stage = self.all_popup_data.get(stage_key, [])
+        if not available_popups_for_stage:
+            return None # No popups available in this stage
+
+        if len(self.active_popups) >= game_config.MAX_POP_UPS_STAGE_ONE: # Limit active popups (from game_config.MAX_POP_UPS_STAGE_ONE)
+            return None
+
+        # Simple random selection for now. You can add more sophisticated logic here
+        # (e.g., ensure it hasn't been shown before, or based on specific game state)
+        popup_data = random.choice(available_popups_for_stage)
+
+        # Check if this specific popup's ID is already present in active popups to avoid duplicates
+        if any(p['data']['id'] == popup_data['id'] for p in self.active_popups):
+            return None # Don't show the same popup if it's already active
+
+        new_popup_window = self._create_message_window(popup_data, screen_size)
+        popup_info = {'window': new_popup_window, 'data': popup_data}
+        self.active_popups.append(popup_info)
+        return popup_info
+
+    def _create_message_window(self, popup_data, screen_size, window_size=(300, 150)):
+        """Private helper to create the actual UIMessageWindow from popup_data."""
+        max_x = screen_size[0] - window_size[0]
+        max_y = screen_size[1] - window_size[1]
+        x = random.randint(0, max_x)
+        y = random.randint(0, max_y)
+
+        rect = pygame.Rect((x, y), window_size)
+
+        title = popup_data.get("title", "Mensaje")
+        message = "<font face='retro'>" + popup_data.get("message", "") + "</font>"
+
+        message_window = pygame_gui.elements.UIWindow(
+            rect=rect,
             manager=self.ui_manager,
-            rect=pygame.Rect((200, 200), (400, 200)),
-            object_id=f"@{message_data['id']}_popup_window" # Unique ID for the window
+            window_display_title=title,
+            object_id=ObjectID(class_id='#message_window'),
+            visible=False # Initially hidden, will be shown explicitly later
         )
 
-        # Add buttons based on options
-        button_width = 100
-        button_height = 30
-        x_offset = 20
-        y_offset = message_window.get_relative_rect().height - button_height - 10
+        text = pygame_gui.elements.UITextBox(
+            html_text=message,
+            relative_rect=pygame.Rect((10, 10), (window_size[0] - 20, window_size[1] - 55)), # Adjusted height for buttons
+            manager=self.ui_manager,
+            container=message_window,
+            object_id=ObjectID(class_id='#popup_text')
+        )
 
-        for i, option in enumerate(message_data["options"]):
+        options = popup_data.get("options", [])
+        num_options = len(options)
+        if num_options == 0: # Handle case with no options
+            return message_window
+
+        button_width = (window_size[0] - 30) // num_options
+        button_height = 25
+        padding = 5
+        total_button_width = num_options * button_width + (num_options - 1) * padding
+        start_x = (window_size[0] - total_button_width) // 2
+        y_pos = window_size[1] - button_height- 30 # Position buttons at the bottom
+
+        for i, option in enumerate(options):
             button_rect = pygame.Rect(
-                (message_window.get_relative_rect().width - button_width - x_offset - (button_width + x_offset) * i,
-                 y_offset),
+                (start_x + i * (button_width + padding), y_pos),
                 (button_width, button_height)
             )
             pygame_gui.elements.UIButton(
@@ -57,20 +103,56 @@ class PopupManager:
                 text=option["label"],
                 manager=self.ui_manager,
                 container=message_window,
-                object_id=f"@{message_data['id']}_popup_button_{option['label']}"
+                object_id=ObjectID(object_id=f"@popup_button_{popup_data['id']}_{option['label']}", class_id='#popup_button')
             )
         return message_window
 
     def handle_popup_button_press(self, ui_element, button_text):
-        # Find which popup this button belongs to
-        popup_window_id = ui_element.container.object_ids[0] # Get the parent window's object_id
+        """
+        Handles button presses within pop-up windows.
+        Applies consequences to game state and potentially triggers follow-up popups.
+        Returns True if a popup was handled, False otherwise.
+        """
+        # Find the parent window of the pressed button
+        parent_window_id = ui_element.object_ids[0]
+        corresponding_popup_info = None
 
-        for popup in self.active_popups:
-            if popup.object_ids[0] == popup_window_id:
-                # Process consequence based on button_text (e.g., "Aceptar", "Dismiss")
-                # This is where you would apply game state changes based on player choice
-                # For now, we'll just close the popup.
-                popup.kill()
-                self.active_popups.remove(popup)
-                return True
-        return False # No popup handled
+        for popup_info in self.active_popups:
+            if popup_info['window'].object_ids[0] == parent_window_id:
+                corresponding_popup_info = popup_info
+                break
+
+        if corresponding_popup_info:
+            popup_data = corresponding_popup_info['data']
+            chosen_option = None
+            for option in popup_data.get("options", []):
+                if option["label"] == button_text:
+                    chosen_option = option
+                    break
+
+            if chosen_option and "consequence" in chosen_option:
+                self.game_state.update_player_state(chosen_option["consequence"])
+
+            # Check for followup popup
+            if "followup" in popup_data:
+                followup_condition = popup_data["followup"]["condition"]
+                condition_met = True
+                for key, value in followup_condition.items():
+                    if self.game_state.player_state.get(key) != value:
+                        condition_met = False
+                        break
+
+                if condition_met and "popup" in popup_data["followup"]:
+                    followup_popup_data = popup_data["followup"]["popup"]
+                    # Create a new, temporary popup for the followup
+                    followup_window = self._create_message_window(followup_popup_data, screen_size=self.ui_manager.window_resolution)
+                    followup_window.show()
+                    # Note: Followup popups are not added to self.active_popups for simpler management.
+                    # If you need to track them or interact with them further, you'd add them here
+                    # with a unique ID and management logic.
+
+            # Remove and kill the processed popup
+            corresponding_popup_info['window'].kill()
+            self.active_popups.remove(corresponding_popup_info)
+            return True
+        return False

@@ -10,7 +10,7 @@ class GameState:
     def __init__(self):
         self.in_game_time = INITIAL_IN_GAME_TIME
         self.current_stage = 1
-        self.player_state = {} # e.g., {"reunion_grupo": None, "leer_clase": None}
+        self.player_state = {} # Stores consequences, e.g., {"reunion_grupo": True}
 
         self._start_real_time = time.time()
         self._last_popup_check_time = time.time()
@@ -25,7 +25,8 @@ class GameState:
             self.current_stage = 1
 
     def update_in_game_time(self, time_delta):
-        # Adjust time_delta based on stage if needed, or use a fixed rate
+        # The original code had: in_game_time+=datetime.timedelta(seconds=0.25*etapa)
+        # Assuming current_stage is equivalent to 'etapa' for this calculation.
         self.in_game_time += datetime.timedelta(seconds=time_delta * (1/REAL_TIME_SECONDS_PER_IN_GAME_SECOND) * self.current_stage)
 
     def should_check_for_popup(self, current_real_time, check_interval):
@@ -34,8 +35,8 @@ class GameState:
             return True
         return False
 
-    def update_player_choice(self, popup_id, choice_consequence):
-        # This method would apply the consequences of player choices
-        # For example:
-        # self.player_state[popup_id] = choice_consequence
-        print(f"Player chose for {popup_id}: {choice_consequence}")
+    def update_player_state(self, consequence_dict):
+        """Updates the player's state based on the consequence of a popup choice."""
+        if consequence_dict:
+            self.player_state.update(consequence_dict)
+            print(f"Player state updated: {self.player_state}")
