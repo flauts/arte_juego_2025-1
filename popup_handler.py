@@ -37,14 +37,21 @@ class PopupManager:
         if not available_popups_for_stage:
             return None # No popups available in this stage
 
-        if len(self.active_popups) >= game_config.MAX_POP_UPS_STAGE_ONE: # Limit active popups (from game_config.MAX_POP_UPS_STAGE_ONE)
-            return None
+        if stage == 1:
+            if len(self.active_popups) >= game_config.MAX_POP_UPS_STAGE_ONE: # Limit active popups (from game_config.MAX_POP_UPS_STAGE_ONE)
+                return None
+        if stage == 2:
+            if len(self.active_popups) >= game_config.MAX_POP_UPS_STAGE_TWO:
+                return None
+        if stage == 3:
+            if len(self.active_popups) >= game_config.MAX_POP_UPS_STAGE_THREE:
+                return None
 
         # Simple random selection for now. You can add more sophisticated logic here
         # (e.g., ensure it hasn't been shown before, or based on specific game state)
         popup_data = random.choice(available_popups_for_stage)
         #remove popup chosen
-        self.all_popup_data[stage_key].remove(popup_data)
+        # self.all_popup_data[stage_key].remove(popup_data)
         
         
         #

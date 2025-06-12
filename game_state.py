@@ -17,7 +17,7 @@ class GameState:
         self.in_game_time = INITIAL_IN_GAME_TIME
         self.current_stage = 1
         self.player_state = {} # Stores consequences, e.g., {"reunion_grupo": True}
-
+        self.time_progression_multiplier = 1.0
         self._start_real_time = time.time()
         self._last_popup_check_time = time.time()
         self.wellness = INITIAL_WELLNESS
@@ -40,9 +40,9 @@ class GameState:
             current_acceleration_factor = WELLNESS_ACCELERATION_FACTOR_LOW_WELLNESS
 
         effective_elapsed_time = elapsed_real_time * current_acceleration_factor
-        if effective_elapsed_time >= (STAGE_ONE_DURATION_SECONDS + STAGE_TWO_DURATION_SECONDS):
+        if effective_elapsed_time >= (STAGE_ONE_DURATION_SECONDS + STAGE_TWO_DURATION_SECONDS) or self.wellness <= WELLNESS_THRESHOLD_GAME_OVER:
             self.current_stage = 3
-        elif effective_elapsed_time >= STAGE_ONE_DURATION_SECONDS:
+        elif effective_elapsed_time >= STAGE_ONE_DURATION_SECONDS or self.wellness <= WELLNESS_THRESHOLD_LOW:
             self.current_stage = 2
         else:
             self.current_stage = 1
@@ -50,14 +50,14 @@ class GameState:
     def update_in_game_time(self, time_delta):
         # The original code had: in_game_time+=datetime.timedelta(seconds=0.25*etapa)
         # Assuming current_stage is equivalent to 'etapa' for this calculation.
-        time_progression_multiplier = 1.0
         if self.wellness <= WELLNESS_THRESHOLD_CRITICAL:
-            time_progression_multiplier = WELLNESS_ACCELERATION_FACTOR_CRITICAL_WELLNESS
+            self.time_progression_multiplier += WELLNESS_ACCELERATION_FACTOR_CRITICAL_WELLNESS*0.001
         elif self.wellness <= WELLNESS_THRESHOLD_LOW:
-            time_progression_multiplier = WELLNESS_ACCELERATION_FACTOR_LOW_WELLNESS
+            self.time_progression_multiplier += WELLNESS_ACCELERATION_FACTOR_LOW_WELLNESS*0.001
 
-        self.in_game_time += datetime.timedelta(seconds=time_delta * (
-                    1 / REAL_TIME_SECONDS_PER_IN_GAME_SECOND) * self.current_stage * time_progression_multiplier)
+        self.time_progression_multiplier = max(10,self.time_progression_multiplier)
+
+        self.in_game_time += datetime.timedelta(seconds=0.001*self.time_progression_multiplier)
 
         current_time = time.time()
         decay_interval = current_time - self._last_wellness_decay_time

@@ -41,7 +41,7 @@ WELLNESS_BAR_CLASS_ID = '#wellness_bar' # Class ID for styling UIStatusBar eleme
 
 # Wellness Bar Settings
 MIN_WELLNESS = 0
-MAX_WELLNESS = 200
+MAX_WELLNESS = 100
 INITIAL_WELLNESS = MAX_WELLNESS
 WELLNESS_BAR_RECT = pygame.Rect((10, 10), (200, 25)) # Position and size
 
