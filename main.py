@@ -224,8 +224,6 @@ while is_running:
                 PLAY_BUTTON.kill()
                 # QUIT_BUTTON.kill()
                 play()
-            if event.ui_element == QUIT_BUTTON:
-                is_running = False
         ui_manager.manager.process_events(event)
         ui_manager.manager.update(time_delta)
     ui_manager.manager.draw_ui(window_surface)
