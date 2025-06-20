@@ -15,7 +15,7 @@ class UIManager:
         # Pass the main UIManager and GameState reference to the PopupManager
         self.popup_manager = PopupManager(self.manager, game_state_ref)
 
-        self._create_buttons()
+        # self._create_buttons()
 
     def _create_buttons(self):
         self.chat_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (40, 40)),

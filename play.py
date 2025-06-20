@@ -1,7 +1,5 @@
-
-
 # play.py
-import pygame, sys
+import pygame
 import pygame_gui
 import time
 import datetime
@@ -9,7 +7,7 @@ import math # ADD THIS IMPORT
 
 from pygame_gui.core import ObjectID
 from pygame_gui.core.interfaces import IUIManagerInterface
-from pygame_gui.elements import UIStatusBar, UIProgressBar, UIScreenSpaceHealthBar, UIButton
+from pygame_gui.elements import UIStatusBar, UIProgressBar, UIScreenSpaceHealthBar
 
 from game_config import (
     WINDOWS_WIDTH, WINDOWS_HEIGHT, POP_UP_CHECK_INTERVAL_SECONDS_STAGE_TWO,POP_UP_CHECK_INTERVAL_SECONDS_STAGE_THREE, MAX_POP_UPS_STAGE_ONE,
@@ -32,11 +30,11 @@ pygame.display.set_caption('Quick Start')
 window_surface = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
 background = pygame.Surface((WINDOWS_WIDTH, WINDOWS_HEIGHT))
 background.fill(pygame.Color('antiquewhite3'))
-game_state = GameState()
-ui_manager = UIManager((WINDOWS_WIDTH, WINDOWS_HEIGHT), theme_path="theme.json", game_state_ref=game_state)
 def play():
+    game_state = GameState()
+    ui_manager = UIManager((WINDOWS_WIDTH, WINDOWS_HEIGHT), theme_path="theme.json", game_state_ref=game_state)
     game_clock_drawer = GameClock(window_surface)
-    ui_manager._create_buttons()
+
     # Define pop-ups for wellness events (can also be in popups2.json if preferred)
     WELLNESS_LOW_POPUP_DEFINITION = {
         "id": "wellness_low_alert",
@@ -72,7 +70,6 @@ def play():
     wellness_bar = UIStatusBar(
         relative_rect=WELLNESS_BAR_RECT,
         container=None,
-        manager=ui_manager.manager,
         object_id=WELLNESS_BAR_ID # Now only uses object_id for specific styling
     )
     # Initialize the status bar using percent_full
@@ -195,38 +192,3 @@ def play():
         pygame.display.update()
 
     pygame.quit()
-
-pygame.display.set_caption('Menu')
-
-BG = pygame.image.load('bg/bg.png')
-clock = pygame.time.Clock()
-is_running = True
-
-PLAY_BUTTON = UIButton(relative_rect=pygame.Rect((275, 275), (200, 70)),
-                        anchors={'left':'left',
-                                 'right':'right',
-                                 'top':'top',
-                                 'bottom':'bottom'},
-                        text='PLAY',
-                       manager=ui_manager.manager)
-# QUIT_BUTTON = UIButton(relative_rect=pygame.Rect((199, 345), (30, 10)),
-#                        text='QUIT',
-#                        manager=ui_manager.manager)
-while is_running:
-    time_delta = clock.tick(60) / 1000.0
-    window_surface.blit(BG, (0, 0))
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            is_running = False
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == PLAY_BUTTON:
-                PLAY_BUTTON.kill()
-                # QUIT_BUTTON.kill()
-                play()
-            if event.ui_element == QUIT_BUTTON:
-                is_running = False
-        ui_manager.manager.process_events(event)
-        ui_manager.manager.update(time_delta)
-    ui_manager.manager.draw_ui(window_surface)
-    pygame.display.update()
