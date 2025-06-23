@@ -1,4 +1,42 @@
 {
+    "#desktop_icon": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "#3366CC44",
+            "pressed_bg": "#3366CC66",
+            "normal_border": "#00000000",
+            "hovered_border": "#3366CC",
+            "pressed_border": "#225599"
+        },
+        "misc": {
+            "border_width": "1",
+            "shadow_width": "0"
+        }
+    },
+    "#desktop_icon_default": {
+        "colours": {
+            "normal_bg": "#4488CC",
+            "hovered_bg": "#5599DD",
+            "pressed_bg": "#3377BB",
+            "normal_border": "#2266AA",
+            "hovered_border": "#3377BB",
+            "pressed_border": "#225599",
+            "normal_text": "#FFFFFF",
+            "hovered_text": "#FFFFFF",
+            "pressed_text": "#FFFFFF"
+        },
+        "font": {
+            "name": "arial",
+            "size": "24",
+            "bold": "1"
+        },
+        "misc": {
+            "border_width": "2",
+            "shadow_width": "0",
+            "text_horiz_alignment": "center",
+            "text_vert_alignment": "center"
+        }
+    },
     "@canvas_icon": {
         "images": {
             "normal_image": {
@@ -6,74 +44,247 @@
             }
         }
     },
-    "@chat_icon": {
+    "@notepad_icon": {
         "images": {
             "normal_image": {
-                "path": "ui_icons/chat.png"
+                "path": "ui_icons/notepad.png"
             }
         }
     },
-    "#icon": {
-        "font": {
-            "name": "retro",
-            "size": 16,
-            "regular_path": "fonts/retrofont.ttf"
-        },
-        "colours": {
-            "normal_bg": "#cdc0b0",
-            "normal_border": "#cdc0b0",
-            "hovered_bg": "#cdc0b0",
-            "active_bg": "#cdc0b0"
-
+    "@word_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/word.png"
+            }
         }
     },
-    "defaults": {
-        "colours":
-         {
-             "normal_bg":"#45494e",
-             "hovered_bg":"#35393e",
-             "disabled_bg":"#25292e",
-             "selected_bg":"#193754",
-             "dark_bg":"#15191e",
-             "normal_text":"#c5cbd8",
-             "hovered_text":"#FFFFFF",
-             "selected_text":"#FFFFFF",
-             "disabled_text":"#6d736f",
-             "link_text": "#0000EE",
-             "link_hover": "#2020FF",
-             "link_selected": "#551A8B",
-             "text_shadow": "#777777",
-             "normal_border": "#DDDDDD",
-             "hovered_border": "#B0B0B0",
-             "disabled_border": "#808080",
-             "selected_border": "#8080B0",
-             "active_border": "#8080B0",
-             "filled_bar":"#f4251b",
-             "unfilled_bar":"#CCCCCC"
-         },
+    "@zoom_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/zoom.png"
+            }
+        }
+    },
+    "@winzip_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/winzip.png"
+            }
+        }
+    },
+    "@moviemaker_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/moviemaker.png"
+            }
+        }
+    },
+    "@mail_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/mail.png"
+            }
+        }
+    },
+    "@7zip_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/7zip.png"
+            }
+        }
+    },
+    "@apps_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/apps.png"
+            }
+        }
+    },
+    "@Audio_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/Audio.png"
+            }
+        }
+    },
+    "@call_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/call.png"
+            }
+        }
+    },
+    "@favourites_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/favourites.png"
+            }
+        }
+    },
+    "@fileexplorer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/fileexplorer.png"
+            }
+        }
+    },
+    "@Find_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/Find.png"
+            }
+        }
+    },
+    "@lupa_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/lupa.png"
+            }
+        }
+    },
+    "@MediaPlayer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/MediaPlayer.png"
+            }
+        }
+    },
+    "@micnetframework_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/micnetframework.png"
+            }
+        }
+    },
+    "@mypc_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/mypc.png"
+            }
+        }
+    },
+    "@networkconnections_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/networkconnections.png"
+            }
+        }
+    },
+    "@notepad_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/notepad.png"
+            }
+        }
+    },
+    "@p2p_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/p2p.png"
+            }
+        }
+    },
+    "@people_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/people.png"
+            }
+        }
+    },
+    "@pinball_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/pinball.png"
+            }
+        }
+    },
+    "@read_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/read.png"
+            }
+        }
+    },
+    "@sign_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/sign.png"
+            }
+        }
+    },
+    "@status_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/status.png"
+            }
+        }
+    },
+    "@storage_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/storage.png"
+            }
+        }
+    },
+    "@systemrestore_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/systemrestore.png"
+            }
+        }
+    },
+    "@terminal_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/terminal.png"
+            }
+        }
+    },
+    "@Transfer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/Transfer.png"
+            }
+        }
+    },
+    "@windowsexplorer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/windowsexplorer_icon.png"
+            }
+        }
+    },
+    "@winrar_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/winrar_icon.png"
+            }
+        }
+    },
+    "@winzip_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/winzip_icon.png"
+            }
+        }
+    },
+    "#desktop_label": {
+        "colours": {
+            "normal_text": "#FFFFFF",
+            "normal_bg": "#00000088",
+            "hovered_text": "#FFFFFF",
+            "hovered_bg": "#3366CC88"
+        },
+        "font": {
+            "name": "arial",
+            "size": "12",
+            "bold": "0"
+        },
         "misc": {
-            "shape": "rectangle",
-            "border_width": {
-                "left": 1,
-                "right": 1,
-                "top": 1,
-                "bottom": 1
-            },
-            "shadow_width": 2,
-            "shape_corner_radius": 2,
-            "border_overlap": 1,
-            "enable_title_bar": "1",
-            "text_horiz_alignment": "left",
+            "text_horiz_alignment": "center",
             "text_vert_alignment": "center",
-            "text_horiz_alignment_padding": 4,
-            "text_vert_alignment_padding": 4,
-            "text_shadow_size": 1,
-            "text_shadow_offset": [
-                1,
-                1
-            ],
-            "tool_tip_delay": 1.0,
-            "title_bar_height": 28
+            "border_width": "0",
+            "shadow_width": "1"
         }
     }
 }
