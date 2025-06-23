@@ -4,12 +4,12 @@ import pygame_gui
 from pygame_gui.core import ObjectID
 import json
 
-POPUP_PATH = "popups.json"
+POPUP_PATH = "../popups.json"
 
 with open(POPUP_PATH, "r", encoding="utf-8") as f:
     POPUP_DATA = json.load(f)
 
-def open_canvas_window(manager):
+def open_canvaswindow(manager):
     canvas_window = pygame_gui.elements.UIWindow(rect=pygame.Rect((100, 100), (400, 400)),manager=manager,
                                              window_display_title='Canvas',draggable=True,
                                                  object_id=ObjectID(object_id='@canvas_window',

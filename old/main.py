@@ -1,7 +1,4 @@
-import pygame
-import pygame_gui
-from pygame_gui.core import ObjectID
-from window_handler import *
+from old.window_handler import *
 import math
 pygame.init()
 pygame.display.set_caption('Quick Start')

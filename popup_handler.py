@@ -46,18 +46,7 @@ class PopupManager:
         if stage == 3:
             if len(self.active_popups) >= game_config.MAX_POP_UPS_STAGE_THREE:
                 return None
-
-        # Simple random selection for now. You can add more sophisticated logic here
-        # (e.g., ensure it hasn't been shown before, or based on specific game state)
         popup_data = random.choice(available_popups_for_stage)
-        #remove popup chosen
-        # self.all_popup_data[stage_key].remove(popup_data)
-        
-        
-        #
-        # # Check if this specific popup's ID is already present in active popups to avoid duplicates
-        # if any(p['data']['id'] == popup_data['id'] for p in self.active_popups):
-        #     return None # Don't show the same popup if it's already active
 
         new_popup_window = self._create_message_window(popup_data, screen_size)
         popup_info = {'window': new_popup_window, 'data': popup_data}
@@ -75,23 +64,13 @@ class PopupManager:
 
         title = popup_data.get("title", "Mensaje")
         message = "<font face='retro'>" + popup_data.get("message", "") + "</font>"
-        try:
-            message_window = pygame_gui.elements.UIWindow(
+        message_window = pygame_gui.elements.UIWindow(
                 rect=rect,
                 manager=self.ui_manager,
                 window_display_title=title,
                 object_id=ObjectID(class_id='#message_window',object_id=f"@message_window_{popup_data['id']}"),
                 visible=False # Initially hidden, will be shown explicitly later
             )
-        except:
-            print("Popup followup")
-            message_window = pygame_gui.elements.UIWindow(
-                rect=rect,
-                manager=self.ui_manager,
-                window_display_title=title,
-                object_id=ObjectID(class_id='#message_window', object_id=f"@popup_window_{popup_data['title']}"),
-                visible=False,
-            ) # Initially hidden, will be shown explicitly later
 
         text = pygame_gui.elements.UITextBox(
             html_text=message,
@@ -137,9 +116,9 @@ class PopupManager:
         parent_window_id = ui_element.object_ids[0]
         corresponding_popup_info = None
 
-        for popup_info in self.active_popups:
-            if popup_info['window'].object_ids[0] == parent_window_id:
-                corresponding_popup_info = popup_info
+        for popup in self.active_popups:
+            if popup['window'].object_ids[0] == parent_window_id:
+                corresponding_popup_info = popup
                 break
 
         if corresponding_popup_info:
@@ -149,28 +128,6 @@ class PopupManager:
                 if option["label"] == button_text:
                     chosen_option = option
                     break
-
-            if chosen_option and "consequence" in chosen_option:
-                self.game_state.update_player_state(chosen_option["consequence"])
-
-            # Check for followup popup
-            if "followup" in popup_data:
-                followup_condition = popup_data["followup"]["condition"]
-                condition_met = True
-                for key, value in followup_condition.items():
-                    if self.game_state.player_state.get(key) != value:
-                        condition_met = False
-                        break
-
-                if condition_met and "popup" in popup_data["followup"]:
-                    followup_popup_data = popup_data["followup"]["popup"]
-                    # Create a new, temporary popup for the followup
-                    followup_window = self._create_message_window(followup_popup_data, screen_size=self.ui_manager.window_resolution)
-                    followup_window.show()
-                    # Note: Followup popups are not added to self.active_popups for simpler management.
-                    # If you need to track them or interact with them further, you'd add them here
-                    # with a unique ID and management logic.
-
             # Remove and kill the processed popup
             corresponding_popup_info['window'].kill()
             self.active_popups.remove(corresponding_popup_info)
