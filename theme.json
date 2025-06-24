@@ -1,4 +1,47 @@
 {
+    "font_paths": {
+        "tahoma": "fonts/tahoma.ttf"
+    },
+    "default_font": "tahoma",
+
+    "#desktop_icon": {
+        "colours": {
+            "normal_bg": "#00000000",
+            "hovered_bg": "#3366CC44",
+            "pressed_bg": "#3366CC66",
+            "normal_border": "#00000000",
+            "hovered_border": "#3366CC",
+            "pressed_border": "#225599"
+        },
+        "misc": {
+            "border_width": "1",
+            "shadow_width": "0"
+        }
+    },
+    "#desktop_icon_default": {
+        "colours": {
+            "normal_bg": "#4488CC",
+            "hovered_bg": "#5599DD",
+            "pressed_bg": "#3377BB",
+            "normal_border": "#2266AA",
+            "hovered_border": "#3377BB",
+            "pressed_border": "#225599",
+            "normal_text": "#FFFFFF",
+            "hovered_text": "#FFFFFF",
+            "pressed_text": "#FFFFFF"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "24",
+            "bold": "1"
+        },
+        "misc": {
+            "border_width": "2",
+            "shadow_width": "0",
+            "text_horiz_alignment": "center",
+            "text_vert_alignment": "center"
+        }
+    },
     "@canvas_icon": {
         "images": {
             "normal_image": {
@@ -6,74 +49,544 @@
             }
         }
     },
-    "@chat_icon": {
+    "@notepad_icon": {
         "images": {
             "normal_image": {
-                "path": "ui_icons/chat.png"
+                "path": "ui_icons/notepad.png"
             }
         }
     },
-    "#icon": {
-        "font": {
-            "name": "retro",
-            "size": 16,
-            "regular_path": "fonts/retrofont.ttf"
-        },
+    "@word_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/word.png"
+            }
+        }
+    },
+    "@gmail_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/gmail.png"
+            }
+        }
+    },
+    "@zoom_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/zoom.png"
+            }
+        }
+    },
+    "@winzip_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/winzip.png"
+            }
+        }
+    },
+    "@whatsapp_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/whatsapp.png"
+            }
+        }
+    },
+    "@moviemaker_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/moviemaker.png"
+            }
+        }
+    },
+    "@mail_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/mail.png"
+            }
+        }
+    },
+    "@7zip_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/7zip.png"
+            }
+        }
+    },
+    "@apps_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/apps.png"
+            }
+        }
+    },
+    "@Audio_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/Audio.png"
+            }
+        }
+    },
+    "@call_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/call.png"
+            }
+        }
+    },
+    "@favourites_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/favourites.png"
+            }
+        }
+    },
+    "@fileexplorer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/fileexplorer.png"
+            }
+        }
+    },
+    "@Find_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/Find.png"
+            }
+        }
+    },
+    "@lupa_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/lupa.png"
+            }
+        }
+    },
+    "@MediaPlayer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/MediaPlayer.png"
+            }
+        }
+    },
+    "@micnetframework_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/micnetframework.png"
+            }
+        }
+    },
+    "@mypc_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/mypc.png"
+            }
+        }
+    },
+    "@networkconnections_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/networkconnections.png"
+            }
+        }
+    },
+    "@notepad_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/notepad.png"
+            }
+        }
+    },
+    "@p2p_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/p2p.png"
+            }
+        }
+    },
+    "@people_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/people.png"
+            }
+        }
+    },
+    "@pinball_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/pinball.png"
+            }
+        }
+    },
+    "@read_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/read.png"
+            }
+        }
+    },
+    "@sign_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/sign.png"
+            }
+        }
+    },
+    "@status_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/status.png"
+            }
+        }
+    },
+    "@storage_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/storage.png"
+            }
+        }
+    },
+    "@systemrestore_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/systemrestore.png"
+            }
+        }
+    },
+    "@terminal_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/terminal.png"
+            }
+        }
+    },
+    "@Transfer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/Transfer.png"
+            }
+        }
+    },
+    "@windowsexplorer_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/windowsexplorer.png"
+            }
+        }
+    },
+    "@winrar_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/winrar.png"
+            }
+        }
+    },
+    "@winzip_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/winzip.png"
+            }
+        }
+    },
+    "#desktop_label": {
         "colours": {
-            "normal_bg": "#cdc0b0",
-            "normal_border": "#cdc0b0",
-            "hovered_bg": "#cdc0b0",
-            "active_bg": "#cdc0b0"
+            "normal_text": "#fcfffc",
+            "normal_bg": "#fcfffc",
+            "hovered_text": "#fcfffc",
+            "hovered_bg": "#fcfffc"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "12",
+            "bold": "0"
+        },
+        "misc": {
+            "text_horiz_alignment": "center",
+            "text_vert_alignment": "center",
+            "border_width": "0",
+            "shadow_width": "1"
+        }
+    },
 
+    "#error_window": {
+        "colours": {
+            "dark_bg": "#0054ee",
+            "normal_bg": "#0054ee",
+            "normal_text": "#0054ee",
+            "normal_border": "#0054ee",
+            "title_bar": "#0054ee",
+            "title_text": "black"
+        },
+        "misc": {
+            "border_width": "1",
+            "shadow_width": "2",
+            "border_radius": "0",
+            "title_bar_height": "22"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "11",
+            "bold": "0"
+        },
+        "images": {
+                "path": "ui_icons/arrow_left.png"
+        }
+    },
+
+
+    "#error_main_panel": {
+        "colours": {
+            "dark_bg": "#fcfefe",
+            "normal_bg": "#fcfefe",
+            "normal_border": "#fcfefe"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        }
+    },
+    "#error_second_panel": {
+        "colours": {
+            "dark_bg": "#eef1ee",
+            "normal_bg": "#eef1ee",
+            "normal_border": "#eef1ee"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        }
+    },
+
+    "#error_icon": {
+        "colours": {
+            "normal_bg": "#fcfefe",
+            "hovered_bg": "#fcfefe",
+            "selected_bg": "#fcfefe",
+            "normal_border": "#fcfefe",
+            "hovered_border": "#fcfefe",
+            "selected_border": "#fcfefe"
+        },
+        "misc": {
+            "border_width": "0"
+        },
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/x.png"
+            }
+        }
+    },
+
+    "#error_text": {
+        "colours": {
+            "normal_text": "#636665",
+            "normal_bg": "#ECE9D8"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "14",
+            "bold": "0"
+        }
+    },
+
+    "#error_ok_button": {
+        "colours": {
+            "normal_bg": "#f3f1ea",
+            "hovered_bg": "#f3f1ea",
+            "selected_bg": "#f3f1ea",
+            "normal_border": "#6a86a7",
+            "hovered_border": "#6a86a7",
+            "selected_border": "#6a86a7",
+            "normal_text": "#636665"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0",
+            "shadow_width": "1"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "14",
+            "bold": "0"
         }
     },
     "defaults": {
-        "colours":
-         {
-             "normal_bg":"#45494e",
-             "hovered_bg":"#35393e",
-             "disabled_bg":"#25292e",
-             "selected_bg":"#193754",
-             "dark_bg":"#15191e",
-             "normal_text":"#c5cbd8",
-             "hovered_text":"#FFFFFF",
-             "selected_text":"#FFFFFF",
-             "disabled_text":"#6d736f",
-             "link_text": "#0000EE",
-             "link_hover": "#2020FF",
-             "link_selected": "#551A8B",
-             "text_shadow": "#777777",
-             "normal_border": "#DDDDDD",
-             "hovered_border": "#B0B0B0",
-             "disabled_border": "#808080",
-             "selected_border": "#8080B0",
-             "active_border": "#8080B0",
-             "filled_bar":"#f4251b",
-             "unfilled_bar":"#CCCCCC"
-         },
+        "colours": {
+            "normal_bg": "#0054ee",
+            "hovered_bg": "#0054ee",
+            "selected_bg": "#0054ee"
+        }
+    },
+
+    "window": {
+        "colours": {
+            "normal_bg": "#0054ee",
+            "title_bar": "#0054ee",
+            "title_text": "#0054ee",
+            "normal_border": "#0054ee"
+        },
         "misc": {
-            "shape": "rectangle",
-            "border_width": {
-                "left": 1,
-                "right": 1,
-                "top": 1,
-                "bottom": 1
-            },
-            "shadow_width": 2,
-            "shape_corner_radius": 2,
-            "border_overlap": 1,
-            "enable_title_bar": "1",
+            "border_width": "1",
+            "title_bar_height": "22"
+        }
+    },
+    "#notepad_window": {
+        "colours": {
+            "normal_bg": "#ECE9D8",
+            "title_bar": "#0054E3",
+            "title_text": "#FFFFFF",
+            "normal_border": "#0054E3"
+        },
+        "misc": {
+            "border_width": "1",
+            "shadow_width": "2",
+            "border_radius": "0",
+            "title_bar_height": "22"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "11",
+            "bold": "0"
+        }
+    },
+
+    "#note_text_area": {
+        "colours": {
+            "normal_bg": "#FFFFFF",
+            "normal_text": "#000000",
+            "normal_border": "#7F9DB9",
+            "dark_bg": "#FFFFFF",
+            "selected_bg": "#316AC5",
+            "selected_text": "#FFFFFF"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "12",
+            "bold": "0"
+        },
+        "misc": {
+            "border_width": "1",
+            "shadow_width": "1",
+            "border_radius": "0",
             "text_horiz_alignment": "left",
-            "text_vert_alignment": "center",
-            "text_horiz_alignment_padding": 4,
-            "text_vert_alignment_padding": 4,
-            "text_shadow_size": 1,
-            "text_shadow_offset": [
-                1,
-                1
-            ],
-            "tool_tip_delay": 1.0,
-            "title_bar_height": 28
+            "text_vert_alignment": "top"
+        }
+    },
+
+    "#notepad_window.#title_bar.#close_button": {
+        "colours": {
+            "normal_bg": "#E4E1D4",
+            "hovered_bg": "#FF6B6B",
+            "selected_bg": "#D32F2F",
+            "normal_border": "#9C9A91",
+            "hovered_border": "#FF6B6B",
+            "selected_border": "#D32F2F",
+            "normal_text": "#000000",
+            "hovered_text": "#FFFFFF",
+            "selected_text": "#FFFFFF"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "11",
+            "bold": "1"
+        }
+    },
+
+    "#notepad_window.#title_bar.#minimise_button": {
+        "colours": {
+            "normal_bg": "#E4E1D4",
+            "hovered_bg": "#D4D1C4",
+            "selected_bg": "#C4C1B4",
+            "normal_border": "#9C9A91",
+            "hovered_border": "#9C9A91",
+            "selected_border": "#9C9A91",
+            "normal_text": "#000000"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "11",
+            "bold": "1"
+        }
+    },
+
+    "#notepad_window.#title_bar.#enable_close_button": {
+        "colours": {
+            "normal_bg": "#E4E1D4",
+            "hovered_bg": "#D4D1C4",
+            "selected_bg": "#C4C1B4",
+            "normal_border": "#9C9A91",
+            "hovered_border": "#9C9A91",
+            "selected_border": "#9C9A91",
+            "normal_text": "#000000"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "11",
+            "bold": "1"
+        }
+    },
+
+    "#note_text_area.#vert_scroll_bar": {
+        "colours": {
+            "normal_bg": "#F0F0F0",
+            "hovered_bg": "#E0E0E0",
+            "selected_bg": "#D0D0D0",
+            "normal_border": "#969696"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        }
+    },
+
+    "#note_text_area.#vert_scroll_bar.#sliding_button": {
+        "colours": {
+            "normal_bg": "#E4E1D4",
+            "hovered_bg": "#D4D1C4",
+            "selected_bg": "#C4C1B4",
+            "normal_border": "#9C9A91"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        }
+    },
+
+    "#note_text_area.#vert_scroll_bar.#top_button": {
+        "colours": {
+            "normal_bg": "#E4E1D4",
+            "hovered_bg": "#D4D1C4",
+            "selected_bg": "#C4C1B4",
+            "normal_border": "#9C9A91",
+            "normal_text": "#000000"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        }
+    },
+
+    "#note_text_area.#vert_scroll_bar.#bottom_button": {
+        "colours": {
+            "normal_bg": "#E4E1D4",
+            "hovered_bg": "#D4D1C4",
+            "selected_bg": "#C4C1B4",
+            "normal_border": "#9C9A91",
+            "normal_text": "#000000"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
         }
     }
 }
