@@ -53,8 +53,58 @@ class IconGrid:
             ("word.png", "Word"),
             ("zoom.png", "Zoom"),
             ("gmail.png", "Gmail"),
+            #Para aqui empiezan las notepads
+            ("notepad.png", "apuntes_algoritmos"),
+            ("notepad.png", "tareas_matematica_discreta"),
+            ("notepad.png", "resumen_redes"),
+            ("notepad.png", "repaso_final_bd"),
+            ("notepad.png", "ejercicios_lógica"),
+            ("notepad.png", "proyecto_ia"),
+            ("notepad.png", "quizs_historia"),
+            ("notepad.png", "clase_etica"),
+            ("notepad.png", "apuntes_circuitos"),
+            ("notepad.png", "resumen_fisica"),
+            ("notepad.png", "simulacro_parcial"),
+            ("notepad.png", "preguntas_orales"),
+            ("notepad.png", "notas_metodología"),
+            ("notepad.png", "apuntes_tesis"),
+            ("notepad.png", "pendientes_semanales"),
+            ("notepad.png", "ideas_app"),
+            ("notepad.png", "resumen_libro"),
+            ("notepad.png", "glosario_sistemas"),
+            ("notepad.png", "resumen_normas_apa"),
+            ("notepad.png", "borrador_ensayo"),
+            ("notepad.png", "tareas_prog2"),
+            ("notepad.png", "lecturas_digitales"),
+            ("notepad.png", "mapa_mental"),
+            ("notepad.png", "listas_de_verificación"),
+            ("notepad.png", "examen_pasado_compi"),
+            ("notepad.png", "profe_comentarios"),
+            ("notepad.png", "ensayo_filosofia"),
+            ("notepad.png", "notas_reunión_grupo"),
+            ("notepad.png", "resumen_clase_28_mayo"),
+            ("notepad.png", "guias_de_laboratorio"),
+            ("notepad.png", "preparación_sustitutorio"),
+            ("notepad.png", "plan_estudio_junio"),
+            ("notepad.png", "tareas_debidas"),
+            ("notepad.png", "consultas_dudas"),
+            ("notepad.png", "lectura_semana4"),
+            ("notepad.png", "script_prueba_sql"),
+            ("notepad.png", "errores_comunes_cpp"),
+            ("notepad.png", "sintaxis_python"),
+            ("notepad.png", "esquema_memo"),
+            ("notepad.png", "pasos_para_instalar"),
+            ("notepad.png", "código_fuente_demo"),
+            ("notepad.png", "definiciones_clave"),
+            ("notepad.png", "practica_logica"),
+            ("notepad.png", "problemas_modelados"),
+            ("notepad.png", "resumen_cpp_intermedio"),
+            ("notepad.png", "tips_presentacion"),
+            ("notepad.png", "casos_estudio"),
+            ("notepad.png", "fechas_importantes"),
+            ("notepad.png", "bitacora_progreso"),
+            ("notepad.png", "metas_mensuales")
 
-            #Faltan algunas mas para ser 6x18 = 108
         ]
 
         self.check_available_icons()
@@ -104,13 +154,16 @@ class IconGrid:
         icon_x = cell_x + (self.icon_width - self.icon_size) // 2
         icon_y = cell_y + (self.icon_height - self.icon_size - 20) // 2
 
+        is_notepad = icon_file == "notepad.png"
 
         icon_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(icon_x, icon_y, self.icon_size, self.icon_size),
             text='',
             manager=self.manager,
-            object_id=ObjectID(object_id=f'@{icon_file.split(".")[0]}_icon',
-                               class_id='#desktop_icon')
+            object_id=ObjectID(
+                object_id='@notepad_icon' if is_notepad else f'@{label.lower()}_icon',
+                class_id='#desktop_icon'
+            )
         )
 
         label_x = cell_x + (self.icon_width - 80) // 2
@@ -120,7 +173,7 @@ class IconGrid:
             relative_rect=pygame.Rect(label_x, label_y, 80, 20),
             text=label,
             manager=self.manager,
-            object_id=ObjectID(object_id=f'@{icon_file.split(".")[0]}_label',
+            object_id=ObjectID(object_id=f'@{label.lower()}_label',
                                class_id='#desktop_label')
         )
 
@@ -170,10 +223,9 @@ class IconGrid:
             self.add_random_icons(icons_to_add)
 
     def handle_icon_click(self, event_ui_object_id):
-        if event_ui_object_id.endswith("_icon"):
-            icon_name = event_ui_object_id.split("_")[0][1:]
-
-            return icon_name
+        for icon in self.icons:
+            if icon['button'].object_ids[-1] == event_ui_object_id:
+                return icon['name']
         return None
 
     def update_resolution(self, new_width, new_height):

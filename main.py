@@ -142,7 +142,6 @@ def main():
                     action()
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
-                # Verificar si es el botón OK de alguna ventana de error
                 button_handled = False
                 for error_id, error_components in list(error_windows.items()):
                     if handle_error_button_click(event, error_components):
@@ -150,7 +149,6 @@ def main():
                         button_handled = True
                         break
 
-                # Si no fue un botón de error, manejar iconos del escritorio
                 if not button_handled and icon_grid:
                     clicked_icon = icon_grid.handle_icon_click(event.ui_object_id)
                     if clicked_icon:
