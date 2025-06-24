@@ -2,6 +2,7 @@ import pygame
 import pygame_gui
 from pygame_gui.core import ObjectID
 from content_generator import generate_note_content as generate_content
+import random
 
 def launch_app(app_name, manager, click_sound=None, error_sound=None):
     """Lanza la aplicación correspondiente al nombre"""
@@ -75,14 +76,25 @@ def launch_app(app_name, manager, click_sound=None, error_sound=None):
 ##def para cada uno con launch_appname
 
 def launch_error(manager, error_sound=None):
-
-    """Lanza una ventana de error estilo Windows XP clásico"""
+    """Lanza una ventana de error estilo Windows XP clásico en posición aleatoria"""
     if error_sound:
         error_sound.play()
-    # Crear ventana de error con dimensiones exactas del error de Windows XP
-    window_rect = pygame.Rect(400, 300, 340, 170)
 
-    # Crear la ventana principal del error
+    # Obtener dimensiones de la pantalla (asumiendo resolución común)
+    screen_width = 1920
+    screen_height = 1080
+
+    error_width = 340
+    error_height = 170
+
+    # Generar posición aleatoria (evitando que se salga de pantalla)
+    random_x = random.randint(0, screen_width - error_width)
+    random_y = random.randint(0, screen_height - error_height)
+
+    # Crear ventana de error en posición aleatoria
+    window_rect = pygame.Rect(random_x, random_y, error_width, error_height)
+
+    # Resto del código igual...
     error_window = pygame_gui.elements.UIWindow(
         rect=window_rect,
         manager=manager,
@@ -143,6 +155,7 @@ def launch_error(manager, error_sound=None):
         "ok_button": ok_button
     }
 
+#lo mismo para gmail y las apss verdadermente funcionales
 def launch_whatsapp(manager):
     """Simulación simple de una app estilo WhatsApp"""
     # Crear una ventana flotante tipo chat
@@ -189,22 +202,18 @@ def launch_note(manager, file_name):
 
     content = generate_content(file_name)
 
-    # Crear la ventana tipo bloc de notas
+    # Crear la ventana tipo bloc de notas con el object_id
     window_rect = pygame.Rect(200, 150, 600, 450)
     window = pygame_gui.elements.UIWindow(rect=window_rect,
                                           manager=manager,
-                                          window_display_title=file_name.replace("_", " ").title())
+                                          window_display_title=f"{file_name.replace('_', ' ').title()}.txt",
+                                          object_id="#notepad_window")
 
     # Área de texto que simula los apuntes
     text_area = pygame_gui.elements.UITextBox(
-        html_text=f"<pre>{content}</pre>",  # Usamos <pre> para conservar saltos y espaciado
-        relative_rect=pygame.Rect(10, 10, 580, 400),
+        html_text=f"<pre>{content}</pre>",
+        relative_rect=pygame.Rect(0, 0, 620, 440),
         manager=manager,
         container=window,
         object_id="#note_text_area"
     )
-
-    return {
-        "window": window,
-        "text_area": text_area
-    }
