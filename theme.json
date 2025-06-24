@@ -1,4 +1,14 @@
 {
+  "#popup_text": {
+    "colours": {
+      "normal_border": "transparent"
+    }
+  },
+  "#accept_button": {
+    "colours": {
+      "normal_bg": "green"
+    }
+  },
     "@canvas_icon": {
         "images": {
             "normal_image": {
@@ -26,6 +36,63 @@
             "active_bg": "#cdc0b0"
 
         }
+    },
+  "@wellness_bar": {
+    "colours": {
+      "dark_bg": "#1A1A1A",
+      "normal_bg": "#2A2A2A",
+      "normal_text": "#C0C0C0",
+      "filled_bar": "#00CC66",
+      "unfilled_bar": "#993333",
+      "normal_border": "#666666"
+    },
+    "font": {
+      "name": "retro",
+      "size": 18,
+      "regular_path": "fonts/retrofont.ttf"
+    },
+    "misc": {
+      "border_width": {
+        "left": 2, "right": 2, "top": 2, "bottom": 2
+      },
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": 100,
+      "shadow_width": 2,
+      "shadow_color": "#000000",
+      "padding": {
+        "left": 5, "right": 5, "top": 3, "bottom": 3
+      },
+      "text_horiz_alignment": "center",
+      "text_vert_alignment": "center"
+    }
+  },
+    "#message_window":{
+     "font": {
+            "name": "retro",
+            "size": 16,
+            "regular_path": "fonts/retrofont.ttf"
+        },
+        "colours": {
+        "normal_bg": "#222222",
+        "normal_border": "#222222",
+        "hovered_bg": "#222222",
+        "active_border": "#222222",
+        "normal_text": "#FFAA00",
+        "title_bg": "#222222",
+        "title_text": "#FFAA00"
+    },
+    "misc": {
+        "shape_corner_radius": 0,
+        "border_width": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+        },
+           "shadow_width": 4,
+   "shadow_color": "#000000"
+    }
+
     },
     "defaults": {
         "colours":

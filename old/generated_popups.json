@@ -1,0 +1,293 @@
+{
+  "stage_1": [
+    {
+      "id": "tarea_1",
+      "title": "Tarea",
+      "message": "Tarea pendiente de DBP: ejercicios 1 al 5.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "tarea_1": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "tarea_1": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "whatsapp_2",
+      "title": "Whatsapp",
+      "message": "Te mando el material de Programación 3 por WhatsApp.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "whatsapp_2": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "whatsapp_2": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "whatsapp_3",
+      "title": "Whatsapp",
+      "message": "Te mando el material de Programación 3 por WhatsApp.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "whatsapp_3": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "whatsapp_3": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "deadline_4",
+      "title": "Deadline",
+      "message": "Deadline del proyecto de Programación 3 para MAÑANA.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "deadline_4": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "deadline_4": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "whatsapp_5",
+      "title": "Whatsapp",
+      "message": "Te mando el material de Sistemas Operativos por WhatsApp.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "whatsapp_5": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "whatsapp_5": false
+          }
+        }
+      ]
+    }
+  ],
+  "stage_2": [
+    {
+      "id": "zoom_1",
+      "title": "Zoom",
+      "message": "Invitación Zoom para la sesión de Base de Datos 1 a las 15:00.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "zoom_1": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "zoom_1": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "zoom_2",
+      "title": "Zoom",
+      "message": "Aquí está el link de Zoom para Base de Datos 1.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "zoom_2": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "zoom_2": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "tarea_3",
+      "title": "Tarea",
+      "message": "La práctica de Arquitectura de Computadoras está pendiente en la plataforma.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "tarea_3": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "tarea_3": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "correo_4",
+      "title": "Correo",
+      "message": "Adjunto el informe de Sistemas Operativos.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "correo_4": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "correo_4": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "whatsapp_5",
+      "title": "Whatsapp",
+      "message": "Te mando el material de DBP por WhatsApp.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "whatsapp_5": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "whatsapp_5": false
+          }
+        }
+      ]
+    }
+  ],
+  "stage_3": [
+    {
+      "id": "tarea_1",
+      "title": "Tarea",
+      "message": "Tarea pendiente de Compiladores: ejercicios 1 al 5.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "tarea_1": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "tarea_1": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "deadline_2",
+      "title": "Deadline",
+      "message": "Recuerda que el proyecto de Sistemas Operativos vence el 17/06.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "deadline_2": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "deadline_2": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "correo_3",
+      "title": "Correo",
+      "message": "Por favor, revisa el correo con la calificación de Compiladores.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "correo_3": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "correo_3": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "tarea_4",
+      "title": "Tarea",
+      "message": "No olvides entregar la tarea de Compiladores antes del viernes.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "tarea_4": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "tarea_4": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "whatsapp_5",
+      "title": "Whatsapp",
+      "message": "Te mando el material de Programación 3 por WhatsApp.",
+      "options": [
+        {
+          "label": "Aceptar",
+          "consequence": {
+            "whatsapp_5": true
+          }
+        },
+        {
+          "label": "Ignorar",
+          "consequence": {
+            "whatsapp_5": false
+          }
+        }
+      ]
+    }
+  ]
+}

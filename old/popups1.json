@@ -1,0 +1,199 @@
+[
+    {
+        "id": "reunion",
+        "title": "Recordatorio",
+        "message": "Reunion de grupo a las 18:00.",
+        "options": [
+            {
+                "label": "Asistir",
+                "consequence": {
+                    "reunion": true
+                }
+            },
+            {
+                "label": "Ignorar",
+                "consequence": {
+                    "reunion": false
+                }
+            }
+        ],
+        "followup": {
+            "condition": {
+                "reunion": false
+            },
+            "popup": {
+                "title": "Mensaje",
+                "message": "Tus compañeros terminaron el proyecto sin vos."
+            }
+        }
+    },
+    {
+        "id": "psicologo",
+        "title": "Correo del psicologo",
+        "message": "Queres agendar una sesion gratuita?",
+        "options": [
+            {
+                "label": "Si",
+                "consequence": {
+                    "psicologo": true
+                }
+            },
+            {
+                "label": "No ahora",
+                "consequence": {
+                    "psicologo": false
+                }
+            }
+        ],
+        "followup": {
+            "condition": {
+                "psicologo": false
+            },
+            "popup": {
+                "title": "Pensamiento",
+                "message": "Tal vez necesitaba hablar con alguien..."
+            }
+        }
+    },
+    {
+        "id": "descanso",
+        "title": "Alerta",
+        "message": "Estas hace 3 horas sin descanso. Tomas un break?",
+        "options": [
+            {
+                "label": "Tomar descanso",
+                "consequence": {
+                    "descanso": true
+                }
+            },
+            {
+                "label": "Seguir trabajando",
+                "consequence": {
+                    "descanso": false
+                }
+            }
+        ],
+        "followup": {
+            "condition": {
+                "psicologo": false,
+                "descanso": false
+            },
+            "popup": {
+                "title": "Efecto",
+                "message": "Sentis que la mente empieza a apagarse..."
+            }
+        }
+    },
+    {
+        "id": "avance_proyecto",
+        "title": "Progreso del proyecto",
+        "message": "Queres avanzar en tu proyecto final ahora?",
+        "options": [
+            {
+                "label": "Si, trabajar un rato",
+                "consequence": {
+                    "avance_proyecto": true
+                }
+            },
+            {
+                "label": "Mas tarde",
+                "consequence": {
+                    "avance_proyecto": false
+                }
+            }
+        ],
+        "followup": {
+            "condition": {
+                "avance_proyecto": false
+            },
+            "popup": {
+                "title": "Procrastinacion",
+                "message": "El proyecto se empieza a acumular con otras tareas."
+            }
+        }
+    },
+    {
+        "id": "estudiar_examen",
+        "title": "Estudio",
+        "message": "Tenes un examen la proxima semana. Queres estudiar un poco hoy?",
+        "options": [
+            {
+                "label": "Estudiar ahora",
+                "consequence": {
+                    "estudiar_examen": true
+                }
+            },
+            {
+                "label": "No hoy",
+                "consequence": {
+                    "estudiar_examen": false
+                }
+            }
+        ],
+        "followup": {
+            "condition": {
+                "estudiar_examen": false
+            },
+            "popup": {
+                "title": "Preocupacion",
+                "message": "Empezas a sentir que no vas a llegar con el estudio..."
+            }
+        }
+    },
+    {
+        "id": "presentacion",
+        "title": "Exposicion grupal",
+        "message": "Tu grupo te pide preparar tus diapositivas para la presentacion.",
+        "options": [
+            {
+                "label": "Preparar ahora",
+                "consequence": {
+                    "presentacion": true
+                }
+            },
+            {
+                "label": "Despues veo",
+                "consequence": {
+                    "presentacion": false
+                }
+            }
+        ],
+        "followup": {
+            "condition": {
+                "presentacion": false
+            },
+            "popup": {
+                "title": "Conflicto",
+                "message": "Tus compañeros estan frustrados por tu falta de preparacion."
+            }
+        }
+    },
+    {
+        "id": "leer_apuntes",
+        "title": "Lectura pendiente",
+        "message": "Queres repasar los apuntes de la ultima clase?",
+        "options": [
+            {
+                "label": "Si, leer ahora",
+                "consequence": {
+                    "leer_apuntes": true
+                }
+            },
+            {
+                "label": "Lo hago despues",
+                "consequence": {
+                    "leer_apuntes": false
+                }
+            }
+        ],
+        "followup": {
+            "condition": {
+                "leer_apuntes": false
+            },
+            "popup": {
+                "title": "Desorganizacion",
+                "message": "Te cuesta recordar los temas en clase por no repasar."
+            }
+        }
+    }
+]
