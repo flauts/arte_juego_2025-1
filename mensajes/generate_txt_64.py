@@ -34,7 +34,7 @@ def guardar_json_base64(index: int, output_dir: str):
 def main():
     parser = argparse.ArgumentParser(description="Genera archivos JSON con contenido en base64.")
     parser.add_argument("--count", type=int, default=1, help="Número de archivos a generar.")
-    parser.add_argument("--output", default="base64_jsons", help="Directorio de salida.")
+    parser.add_argument("--output", default="mensajes/base64_jsons", help="Directorio de salida.")
     args = parser.parse_args()
 
     for i in range(1, args.count + 1):
