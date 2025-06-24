@@ -16,12 +16,19 @@ original_size = (WINDOWS_WIDTH, WINDOWS_HEIGHT)
 
 window_surface = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
 
+
+
 # Variables globales
 icon_grid = None
 background = None
-manager = None
+manager = pygame_gui.UIManager((WINDOWS_WIDTH, WINDOWS_HEIGHT), theme_path="theme.json")
 last_icon_add_time = 0
 icon_add_interval = 3
+
+# Lista para manejar ventanas activas
+active_windows = []
+error_windows = {}  # Diccionario para trackear las ventanas de error
+
 
 def toggle_fullscreen():
     global window_surface, is_fullscreen, WINDOWS_WIDTH, WINDOWS_HEIGHT, background, manager, icon_grid
@@ -47,6 +54,7 @@ def toggle_fullscreen():
         icon_grid.cleanup()
     icon_grid = IconGrid(manager, WINDOWS_WIDTH, WINDOWS_HEIGHT)
 
+
 def initialize_desktop():
     global background, manager, icon_grid
 
@@ -67,6 +75,7 @@ def initialize_desktop():
 
     icon_grid = IconGrid(manager, WINDOWS_WIDTH, WINDOWS_HEIGHT)
 
+
 def handle_gradual_icon_filling():
     """Manejar el llenado gradual de iconos"""
     global last_icon_add_time
@@ -81,9 +90,19 @@ def handle_gradual_icon_filling():
                 print(f"Iconos agregados. Posiciones vacías restantes: {len(icon_grid.get_empty_positions())}")
 
 
+def handle_error_button_click(event, error_components):
+    """Maneja el clic del botón OK del error"""
+    if event.ui_element == error_components["ok_button"]:
+        error_components["window"].kill()
+        if error_components["window"] in active_windows:
+            active_windows.remove(error_components["window"])
+        return True
+    return False
+
+
 def main():
     """Función principal"""
-    global is_running
+    global is_running, active_windows, error_windows
 
     initialize_desktop()
 
@@ -92,8 +111,8 @@ def main():
     start_time = time.time()
 
     print("""Escritorio Windows XP iniciado \n Controles:\n
-    - F11: Pantalla completa/Ventana\n
-    - ESC: Salir de pantalla completa""")
+        - F11: Pantalla completa/Ventana\n
+        - ESC: Salir de pantalla completa""")
 
     while is_running:
 
@@ -123,11 +142,35 @@ def main():
                     action()
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if icon_grid:
+                # Verificar si es el botón OK de alguna ventana de error
+                button_handled = False
+                for error_id, error_components in list(error_windows.items()):
+                    if handle_error_button_click(event, error_components):
+                        del error_windows[error_id]
+                        button_handled = True
+                        break
+
+                # Si no fue un botón de error, manejar iconos del escritorio
+                if not button_handled and icon_grid:
                     clicked_icon = icon_grid.handle_icon_click(event.ui_object_id)
                     if clicked_icon:
                         print(f"¡Ejecutando aplicación: {clicked_icon}!")
-                        launch_app(clicked_icon, manager)
+                        app_components = launch_app(clicked_icon, manager)
+                        if app_components and "window" in app_components:
+                            active_windows.append(app_components["window"])
+                            # Si es una ventana de error, agregarla al diccionario
+                            if "ok_button" in app_components:
+                                error_id = id(app_components["window"])
+                                error_windows[error_id] = app_components
+
+            if event.type == pygame_gui.UI_WINDOW_CLOSE:
+                # Manejar cuando se cierra una ventana con la X
+                for error_id, error_components in list(error_windows.items()):
+                    if event.ui_element == error_components["window"]:
+                        if error_components["window"] in active_windows:
+                            active_windows.remove(error_components["window"])
+                        del error_windows[error_id]
+                        break
 
             manager.process_events(event)
 
@@ -142,6 +185,7 @@ def main():
         pygame.display.update()
 
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,9 @@
 {
+    "font_paths": {
+        "tahoma": "fonts/tahoma.ttf"
+    },
+    "default_font": "tahoma",
+
     "#desktop_icon": {
         "colours": {
             "normal_bg": "#00000000",
@@ -26,7 +31,7 @@
             "pressed_text": "#FFFFFF"
         },
         "font": {
-            "name": "arial",
+            "name": "tahoma",
             "size": "24",
             "bold": "1"
         },
@@ -284,13 +289,13 @@
     },
     "#desktop_label": {
         "colours": {
-            "normal_text": "#FFFFFF",
-            "normal_bg": "#00000088",
-            "hovered_text": "#FFFFFF",
-            "hovered_bg": "#3366CC88"
+            "normal_text": "#fcfffc",
+            "normal_bg": "#fcfffc",
+            "hovered_text": "#fcfffc",
+            "hovered_bg": "#fcfffc"
         },
         "font": {
-            "name": "arial",
+            "name": "tahoma",
             "size": "12",
             "bold": "0"
         },
@@ -299,6 +304,128 @@
             "text_vert_alignment": "center",
             "border_width": "0",
             "shadow_width": "1"
+        }
+    },
+
+    "#error_window": {
+        "colours": {
+            "dark_bg": "#0054ee",
+            "normal_bg": "#0054ee",
+            "normal_text": "#0054ee",
+            "normal_border": "#0054ee",
+            "title_bar": "#0054ee",
+            "title_text": "black"
+        },
+        "misc": {
+            "border_width": "1",
+            "shadow_width": "2",
+            "border_radius": "0",
+            "title_bar_height": "22"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "11",
+            "bold": "0"
+        },
+        "images": {
+                "path": "ui_icons/arrow_left.png"
+        }
+    },
+
+
+    "#error_main_panel": {
+        "colours": {
+            "dark_bg": "#fcfefe",
+            "normal_bg": "#fcfefe",
+            "normal_border": "#fcfefe"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        }
+    },
+    "#error_second_panel": {
+        "colours": {
+            "dark_bg": "#eef1ee",
+            "normal_bg": "#eef1ee",
+            "normal_border": "#eef1ee"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0"
+        }
+    },
+
+    "#error_icon": {
+        "colours": {
+            "normal_bg": "#fcfefe",
+            "hovered_bg": "#fcfefe",
+            "selected_bg": "#fcfefe",
+            "normal_border": "#fcfefe",
+            "hovered_border": "#fcfefe",
+            "selected_border": "#fcfefe"
+        },
+        "misc": {
+            "border_width": "0"
+        },
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/x.png"
+            }
+        }
+    },
+
+    "#error_text": {
+        "colours": {
+            "normal_text": "#636665",
+            "normal_bg": "#ECE9D8"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "14",
+            "bold": "0"
+        }
+    },
+
+    "#error_ok_button": {
+        "colours": {
+            "normal_bg": "#f3f1ea",
+            "hovered_bg": "#f3f1ea",
+            "selected_bg": "#f3f1ea",
+            "normal_border": "#6a86a7",
+            "hovered_border": "#6a86a7",
+            "selected_border": "#6a86a7",
+            "normal_text": "#636665"
+        },
+        "misc": {
+            "border_width": "1",
+            "border_radius": "0",
+            "shadow_width": "1"
+        },
+        "font": {
+            "name": "tahoma",
+            "size": "14",
+            "bold": "0"
+        }
+    },
+    "defaults": {
+        "colours": {
+            "normal_bg": "#0054ee",
+            "hovered_bg": "#0054ee",
+            "selected_bg": "#0054ee"
+        }
+    },
+
+    "window": {
+        "colours": {
+            "normal_bg": "#0054ee",
+            "title_bar": "#0054ee",
+            "title_text": "#0054ee",
+            "normal_border": "#0054ee"
+        },
+        "misc": {
+            "border_width": "1",
+            "title_bar_height": "22"
         }
     }
 }

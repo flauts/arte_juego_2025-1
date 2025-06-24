@@ -1,16 +1,88 @@
 import pygame
 import pygame_gui
+from pygame_gui.core import ObjectID
+
 
 def launch_app(app_name, manager):
     """Lanza la aplicación correspondiente al nombre"""
     if app_name.lower() == "whatsapp":
         return launch_whatsapp(manager)
     # Aquí puedes agregar más aplicaciones como elif
+    elif app_name.lower() == "gmail":
+        return launch_error(manager)
+    elif app_name.lower() == "canvas":
+        return launch_error(manager)
     else:
-        print(f"[AppsHandler] No se reconoce la aplicación: {app_name}")
-        return None
+        return launch_error(manager)
 
 ##def para cada uno con launch_appname
+
+def launch_error(manager):
+    """Lanza una ventana de error estilo Windows XP clásico"""
+
+    # Crear ventana de error con dimensiones exactas del error de Windows XP
+    window_rect = pygame.Rect(400, 300, 340, 170)
+
+    # Crear la ventana principal del error
+    error_window = pygame_gui.elements.UIWindow(
+        rect=window_rect,
+        manager=manager,
+        window_display_title="Error",
+        object_id=ObjectID(class_id='#error_window'),
+        resizable=False
+    )
+
+    # Panel principal con fondo gris claro
+    main_panel = pygame_gui.elements.UIPanel(
+        relative_rect=pygame.Rect(0, 0, 340, 145),
+        manager=manager,
+        container=error_window,
+        object_id=ObjectID(class_id='#error_main_panel')
+    )
+
+    second_panel = pygame_gui.elements.UIPanel(
+        relative_rect=pygame.Rect(0, 90, 340, 145),
+        manager=manager,
+        container=error_window,
+        object_id=ObjectID(class_id='#error_second_panel')
+    )
+
+
+    # Crear el icono de error usando la imagen x.png (ahora como UIImage)
+    error_icon = pygame_gui.elements.UIImage(
+        relative_rect=pygame.Rect(20, 20, 55, 55),
+        image_surface=pygame.image.load("ui_icons/x.png"),
+        manager=manager,
+        container=main_panel,
+        object_id=ObjectID(class_id='#error_icon')
+    )
+
+    # Texto del error
+    error_text = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect(65, 35, 250, 25),
+        text="Un error desconocido ha ocurrido.",
+        manager=manager,
+        container=main_panel,
+        object_id=ObjectID(class_id='#error_text')
+    )
+
+    # Botón OK centrado en la parte inferior
+    ok_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect(130, 100, 75, 23),
+        text="OK",
+        manager=manager,
+        container=main_panel,
+        object_id=ObjectID(class_id='#error_ok_button')
+    )
+
+    return {
+        "window": error_window,
+        "panel": main_panel,
+        "bg_panel_1": second_panel,
+        "icon": error_icon,
+        "text": error_text,
+        "ok_button": ok_button
+    }
 
 def launch_whatsapp(manager):
     """Simulación simple de una app estilo WhatsApp"""
