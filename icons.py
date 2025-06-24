@@ -78,63 +78,16 @@ class IconGrid:
 
     def create_initial_icons(self):
         """Crear los iconos iniciales en el grid"""
-        # Iconos fijos en la primera fila (solo si existen las imágenes)
+        # Iconos fijos iniciales
         initial_positions = [
             (0, 0, "canvas.png", "Canvas"),
             (1, 0, "whatsapp.png", "WhatsApp"),
             (3, 0, "gmail.png", "Gmail"),
             (4, 0, "zoom.png", "Zoom")
         ]
-
         for col, row, icon_file, label in initial_positions:
-            # Verificar si el icono existe antes de agregarlo
             icon_path = os.path.join(self.icon_base_path, icon_file)
-            if os.path.exists(icon_path):
-                self.add_icon_at_position(col, row, icon_file, label)
-            else:
-                # Usar un icono por defecto o crear uno simple
-                self.add_icon_at_position_with_default(col, row, label)
-
-    def add_icon_at_position_with_default(self, col, row, label):
-        """Agregar un icono con imagen por defecto si no existe la imagen específica"""
-        if col >= self.grid_cols or row >= self.grid_rows:
-            return False
-
-        cell_x = col * self.icon_width
-        cell_y = row * self.icon_height
-
-        icon_x = cell_x + (self.icon_width - self.icon_size) // 2
-        icon_y = cell_y + (self.icon_height - self.icon_size - 20) // 2
-
-        icon_button = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(icon_x, icon_y, self.icon_size, self.icon_size),
-            text='📱',  # Usar emoji como icono por defecto
-            manager=self.manager,
-            object_id=ObjectID(object_id=f'@default_icon_{col}_{row}',
-                               class_id='#desktop_icon_default')
-        )
-
-        label_x = cell_x + (self.icon_width - 80) // 2
-        label_y = icon_y + self.icon_size + 5
-
-        text_label = pygame_gui.elements.UILabel(
-            relative_rect=pygame.Rect(label_x, label_y, 80, 20),
-            text=label,
-            manager=self.manager,
-            object_id=ObjectID(object_id=f'@default_label_{col}_{row}',
-                               class_id='#desktop_label')
-        )
-
-        self.icons.append({
-            'button': icon_button,
-            'label': text_label,
-            'col': col,
-            'row': row,
-            'icon_file': f'default_{col}_{row}.png',
-            'name': label
-        })
-
-        return True
+            self.add_icon_at_position(col, row, icon_file, label)
 
     def add_icon_at_position(self, col, row, icon_file, label):
         """Agregar un icono en una posición específica del grid"""

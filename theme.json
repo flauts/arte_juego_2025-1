@@ -264,21 +264,21 @@
     "@windowsexplorer_icon": {
         "images": {
             "normal_image": {
-                "path": "ui_icons/windowsexplorer_icon.png"
+                "path": "ui_icons/windowsexplorer.png"
             }
         }
     },
     "@winrar_icon": {
         "images": {
             "normal_image": {
-                "path": "ui_icons/winrar_icon.png"
+                "path": "ui_icons/winrar.png"
             }
         }
     },
     "@winzip_icon": {
         "images": {
             "normal_image": {
-                "path": "ui_icons/winzip_icon.png"
+                "path": "ui_icons/winzip.png"
             }
         }
     },
