@@ -6,7 +6,12 @@ from icons import IconGrid, create_desktop_background, create_default_icon_files
 from apps_handler import launch_app
 
 pygame.init()
+pygame.mixer.init()
+click_sound = pygame.mixer.Sound("sounds/click.wav")
+error_sound = pygame.mixer.Sound("sounds/error.mp3")
 pygame.display.set_caption('Mind-OS: Close the window')
+click_sound.set_volume(1.0)
+
 
 WINDOWS_WIDTH = 1024
 WINDOWS_HEIGHT = 768
@@ -93,6 +98,7 @@ def handle_gradual_icon_filling():
 def handle_error_button_click(event, error_components):
     """Maneja el clic del botón OK del error"""
     if event.ui_element == error_components["ok_button"]:
+        click_sound.play()
         error_components["window"].kill()
         if error_components["window"] in active_windows:
             active_windows.remove(error_components["window"])
@@ -151,9 +157,10 @@ def main():
 
                 if not button_handled and icon_grid:
                     clicked_icon = icon_grid.handle_icon_click(event.ui_object_id)
+                    click_sound.play()
                     if clicked_icon:
                         print(f"¡Ejecutando aplicación: {clicked_icon}!")
-                        app_components = launch_app(clicked_icon, manager)
+                        app_components = launch_app(clicked_icon, manager, click_sound=click_sound, error_sound=error_sound)
                         if app_components and "window" in app_components:
                             active_windows.append(app_components["window"])
                             # Si es una ventana de error, agregarla al diccionario

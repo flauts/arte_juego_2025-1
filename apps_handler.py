@@ -3,7 +3,7 @@ import pygame_gui
 from pygame_gui.core import ObjectID
 from content_generator import generate_note_content as generate_content
 
-def launch_app(app_name, manager):
+def launch_app(app_name, manager, click_sound=None, error_sound=None):
     """Lanza la aplicación correspondiente al nombre"""
 
     notes_apps = [
@@ -64,19 +64,21 @@ def launch_app(app_name, manager):
     if app_name_l == "whatsapp":
         return launch_whatsapp(manager)
     elif app_name_l == "gmail":
-        return launch_error(manager)
+        return launch_error(manager, error_sound)
     elif app_name_l == "canvas":
-        return launch_error(manager)
+        return launch_error(manager, error_sound)
     elif app_name_l in notes_apps:
         return launch_note(manager, app_name_l)
     else:
-        return launch_error(manager)
+        return launch_error(manager,error_sound)
 
 ##def para cada uno con launch_appname
 
-def launch_error(manager):
-    """Lanza una ventana de error estilo Windows XP clásico"""
+def launch_error(manager, error_sound=None):
 
+    """Lanza una ventana de error estilo Windows XP clásico"""
+    if error_sound:
+        error_sound.play()
     # Crear ventana de error con dimensiones exactas del error de Windows XP
     window_rect = pygame.Rect(400, 300, 340, 170)
 
