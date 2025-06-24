@@ -4,6 +4,10 @@ import time
 from end import show_end_screen
 from icons import IconGrid, create_desktop_background, create_default_icon_files
 from apps_handler import launch_app
+from popup_manager import PopupManager
+
+popup_manager = None
+
 
 pygame.init()
 pygame.mixer.init()
@@ -36,7 +40,7 @@ error_windows = {}  # Diccionario para trackear las ventanas de error
 
 
 def toggle_fullscreen():
-    global window_surface, is_fullscreen, WINDOWS_WIDTH, WINDOWS_HEIGHT, background, manager, icon_grid
+    global window_surface, is_fullscreen, WINDOWS_WIDTH, WINDOWS_HEIGHT, background, manager, icon_grid, popup_manager  # Añadir popup_manager
 
     if is_fullscreen:
         # Cambiar a VENTANA
@@ -59,9 +63,12 @@ def toggle_fullscreen():
         icon_grid.cleanup()
     icon_grid = IconGrid(manager, WINDOWS_WIDTH, WINDOWS_HEIGHT)
 
+    if popup_manager:
+        popup_manager.cleanup()
+    popup_manager = PopupManager(manager, click_sound=click_sound, error_sound=error_sound)
 
 def initialize_desktop():
-    global background, manager, icon_grid
+    global background, manager, icon_grid, popup_manager
 
     try:
         create_default_icon_files()
@@ -80,6 +87,8 @@ def initialize_desktop():
 
     icon_grid = IconGrid(manager, WINDOWS_WIDTH, WINDOWS_HEIGHT)
 
+    popup_manager = PopupManager(manager, click_sound=click_sound, error_sound=error_sound)
+    print("Popup manager inicializado")
 
 def handle_gradual_icon_filling():
     """Manejar el llenado gradual de iconos"""
@@ -108,7 +117,7 @@ def handle_error_button_click(event, error_components):
 
 def main():
     """Función principal"""
-    global is_running, active_windows, error_windows
+    global is_running, active_windows, error_windows, popup_manager
 
     initialize_desktop()
 
@@ -149,18 +158,27 @@ def main():
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 button_handled = False
-                for error_id, error_components in list(error_windows.items()):
-                    if handle_error_button_click(event, error_components):
-                        del error_windows[error_id]
-                        button_handled = True
-                        break
 
+                # Manejar clics en popups PRIMERO
+                if popup_manager and popup_manager.handle_popup_click(event):
+                    button_handled = True
+
+                # Luego manejar errores existentes
+                if not button_handled:
+                    for error_id, error_components in list(error_windows.items()):
+                        if handle_error_button_click(event, error_components):
+                            del error_windows[error_id]
+                            button_handled = True
+                            break
+
+                # Finalmente manejar iconos
                 if not button_handled and icon_grid:
                     clicked_icon = icon_grid.handle_icon_click(event.ui_object_id)
                     click_sound.play()
                     if clicked_icon:
                         print(f"¡Ejecutando aplicación: {clicked_icon}!")
-                        app_components = launch_app(clicked_icon, manager, click_sound=click_sound, error_sound=error_sound)
+                        app_components = launch_app(clicked_icon, manager, click_sound=click_sound,
+                                                    error_sound=error_sound)
                         if app_components and "window" in app_components:
                             active_windows.append(app_components["window"])
                             # Si es una ventana de error, agregarla al diccionario
@@ -169,19 +187,33 @@ def main():
                                 error_windows[error_id] = app_components
 
             if event.type == pygame_gui.UI_WINDOW_CLOSE:
-                # Manejar cuando se cierra una ventana con la X
-                for error_id, error_components in list(error_windows.items()):
-                    if event.ui_element == error_components["window"]:
-                        if error_components["window"] in active_windows:
-                            active_windows.remove(error_components["window"])
-                        del error_windows[error_id]
-                        break
+                # Manejar cierre de popups
+                if popup_manager and popup_manager.handle_popup_close(event):
+                    pass
+                else:
+                    for error_id, error_components in list(error_windows.items()):
+                        if event.ui_element == error_components["window"]:
+                            if error_components["window"] in active_windows:
+                                active_windows.remove(error_components["window"])
+                            del error_windows[error_id]
+                            break
+            if popup_manager:
+                popup_manager.update()
+
+                # Debug info (opcional - puedes comentar esto después de probar)
+                debug_info = popup_manager.get_debug_info()
+                if int(debug_info["elapsed_time"]) % 10 == 0 and int(debug_info["elapsed_time"]) > 0:
+                    print(
+                        f"Minuto: {debug_info['minute']}, Intervalo: {debug_info['interval']}, Popups activos: {debug_info['active_popups']}")
 
             manager.process_events(event)
 
         time_delta = clock.tick(60) / 1000.0
 
         handle_gradual_icon_filling()
+
+        if popup_manager:
+            popup_manager.update()
 
         manager.update(time_delta)
 
