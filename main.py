@@ -5,7 +5,6 @@ from end import show_end_screen
 from icons import IconGrid, create_desktop_background, create_default_icon_files
 from apps_handler import launch_app
 
-
 pygame.init()
 pygame.display.set_caption('Mind-OS: Close the window')
 

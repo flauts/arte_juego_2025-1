@@ -75,21 +75,6 @@ class IconGrid:
         # Usar solo los iconos disponibles
         self.available_icons = available_icons
 
-    def load_and_resize_image(self, icon_path):
-        """Cargar y redimensionar imagen al tamaño del icono"""
-        try:
-            # Cargar la imagen original
-            original_image = pygame.image.load(icon_path)
-
-            # Redimensionar al tamaño del icono
-            resized_image = pygame.transform.scale(original_image, (self.icon_size, self.icon_size))
-
-            print(f"Imagen redimensionada: {icon_path} -> {self.icon_size}x{self.icon_size}")
-            return resized_image
-
-        except (pygame.error, FileNotFoundError) as e:
-            print(f"Error al cargar/redimensionar imagen {icon_path}: {e}")
-            return None
 
     def create_initial_icons(self):
         """Crear los iconos iniciales en el grid"""
@@ -166,7 +151,6 @@ class IconGrid:
         icon_x = cell_x + (self.icon_width - self.icon_size) // 2
         icon_y = cell_y + (self.icon_height - self.icon_size - 20) // 2
 
-        resized_image = self.load_and_resize_image(icon_path)
 
         icon_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(icon_x, icon_y, self.icon_size, self.icon_size),
@@ -175,13 +159,6 @@ class IconGrid:
             object_id=ObjectID(object_id=f'@{icon_file.split(".")[0]}_icon',
                                class_id='#desktop_icon')
         )
-
-        if resized_image:
-            try:
-                icon_button.background_image = resized_image
-                icon_button.rebuild()
-            except Exception as e:
-                print(f"Error al aplicar imagen al botón {label}: {e}")
 
         label_x = cell_x + (self.icon_width - 80) // 2
         label_y = icon_y + self.icon_size + 5

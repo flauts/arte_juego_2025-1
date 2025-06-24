@@ -58,6 +58,13 @@
             }
         }
     },
+    "@gmail_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/gmail.png"
+            }
+        }
+    },
     "@zoom_icon": {
         "images": {
             "normal_image": {
@@ -69,6 +76,13 @@
         "images": {
             "normal_image": {
                 "path": "ui_icons/winzip.png"
+            }
+        }
+    },
+    "@whatsapp_icon": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/whatsapp.png"
             }
         }
     },
