@@ -136,14 +136,14 @@ def main():
 
         if elapsed_time >= 300:  # 5 minutos = 300 segundos
             show_emotional_end = True
-            show_end_screen(show_emotional_end)
+            show_end_screen(show_emotional_end, elapsed_time)
             is_running = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 is_running = False
                 show_emotional_end = True
-                show_end_screen(show_emotional_end)
+                show_end_screen(show_emotional_end, elapsed_time)
 
             # PARA MANEJAR TECLAS
             key_actions = {
