@@ -1,0 +1,4 @@
+{
+  "title": "cursos_2.txt",
+  "content": "Durante la clase de Cloud Computing discutimos sobre las arquitecturas serverless. El profesor mostró ejemplos con AWS Lambda y explicó cómo funcionan los triggers basados en eventos. Luego, analizamos casos de uso reales en los que es más conveniente usar servicios como Lambda en vez de EC2. También hubo una demostración práctica de cómo levantar un endpoint con API Gateway y conectarlo a una función Lambda. Al principio fue un poco confuso, pero al final quedó claro. Después hicimos un pequeño quiz para reforzar los conceptos. El próximo tema será contenedores y Kubernetes. Me interesa bastante porque es algo que veo mucho en ofertas laborales. Ya descargué Docker para practicar durante el fin de semana."
+}

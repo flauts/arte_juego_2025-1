@@ -1,0 +1,4 @@
+{
+  "title": "enunciado_tarea_tc.txt",
+  "content": "La siguiente tarea de Teoría de la Computación consta de dos partes. En la primera, debes determinar si un conjunto de gramáticas es LL(1) o no, aplicando los algoritmos de cálculo de FIRST y FOLLOW. En la segunda parte, deberás diseñar un autómata finito determinista para reconocer cadenas que cumplan ciertas condiciones. La entrega consiste en un archivo PDF con el desarrollo completo, demostraciones y los diagramas respectivos. Se permite usar software como JFLAP para validar autómatas. El puntaje será distribuido entre claridad en la notación, corrección formal y calidad de presentación. Fecha de entrega: lunes 1 de julio. No se aceptan tareas fuera de plazo sin justificación. En caso de dudas, pueden enviar consultas al correo del asistente de docencia."
+}
