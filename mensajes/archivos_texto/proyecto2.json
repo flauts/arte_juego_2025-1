@@ -1,0 +1,4 @@
+{
+  "title": "enunciado_proyecto_so.txt",
+  "content": "El objetivo del proyecto de Sistemas Operativos es implementar un planificador de procesos con round robin y prioridad. El simulador debe recibir un archivo de entrada con los procesos a ejecutar, sus tiempos de llegada, duración y prioridad. Además, debe mostrar una tabla Gantt con el orden de ejecución, y calcular métricas como tiempo de espera, turnaround y tiempo de respuesta. Se valorará el uso de estructuras de datos eficientes como colas y heaps. El proyecto puede implementarse en C, C++ o Python. La entrega se realizará mediante GitHub Classroom, e incluye el código, un README con instrucciones de ejecución, y un video demostrativo. La evaluación será individual, incluso si se trabaja en parejas. Fecha límite: 22 de julio. Las presentaciones orales serán durante la semana del 24 al 28 de julio. Recomendamos empezar cuanto antes para evitar acumulación de tareas."
+}

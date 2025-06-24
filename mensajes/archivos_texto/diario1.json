@@ -1,0 +1,4 @@
+{
+  "title": "diario_1.txt",
+  "content": "Hoy me levanté temprano con la intención de avanzar con el proyecto de compiladores. Después del desayuno, me senté a revisar el AST que generé ayer. Encontré un error en la validación de tipos que me tomó casi una hora solucionar. Luego de eso, dediqué un rato a leer sobre cómo implementar el visitor pattern correctamente. Por la tarde, asistí a la clase de ADA, que estuvo bastante intensa. Hablamos de algoritmos de flujo máximo, lo cual me pareció fascinante. Terminé el día preparando mi agenda para mañana y haciendo una breve meditación. Me siento satisfecho con los avances, aunque todavía queda mucho por hacer. Tengo que enfocarme mañana en terminar el verificador semántico. A veces me agobia la carga, pero sé que puedo con esto. Mañana será otro buen día para seguir creciendo."
+}

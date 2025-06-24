@@ -1,0 +1,4 @@
+{
+  "title": "enunciado_tarea_ada.txt",
+  "content": "Esta tarea de Algoritmos y Estructuras de Datos Avanzadas está centrada en la resolución de problemas usando programación dinámica. Se deben resolver 5 ejercicios del juez en línea HackerRank relacionados con caminos mínimos, particiones de arreglos y subsecuencias. Cada problema debe ser documentado en un informe PDF, indicando el enfoque elegido, la complejidad temporal, y justificaciones del algoritmo. El uso de memoización es obligatorio en al menos 2 de los problemas. Pueden usar cualquier lenguaje de programación, pero recomendamos Python o C++. El informe debe incluir capturas de pantalla de las ejecuciones exitosas y un resumen de los aprendizajes obtenidos. Fecha de entrega: viernes 5 de julio a las 11:59 pm. Entrega a través de la plataforma virtual. Puntaje máximo: 20 puntos."
+}

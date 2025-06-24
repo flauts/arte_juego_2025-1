@@ -1,0 +1,4 @@
+{
+  "title": "cursos_1.txt",
+  "content": "Hoy en la clase de ADA vimos algoritmos de recorrido de grafos. Comenzamos repasando BFS y DFS, pero el profesor luego nos mostró cómo implementar búsqueda en profundidad recursiva con marcadores de tiempo. Hicimos un ejercicio en clase donde modelamos una red de computadoras como un grafo y buscamos ciclos. Lo más interesante fue ver cómo se puede aplicar este algoritmo para detectar dependencias circulares en compiladores. Al final, el profesor nos dejó una tarea para simular un recorrido DFS con múltiples nodos raíz. Me gustó mucho la dinámica, y sentí que pude seguir bien la explicación. Mañana tengo que repasar la teoría y resolver los ejercicios del libro. Me voy quedando sin tiempo para el proyecto final, así que tengo que organizarme bien."
+}
