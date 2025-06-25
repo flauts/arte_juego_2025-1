@@ -5,10 +5,17 @@ import random
 
 
 class PopupManager:
-    def __init__(self, manager, click_sound=None, error_sound=None):
+    def __init__(self, manager, click_sound=None, error_sound=None,
+                 gmail_sound=None, canvas_sound=None, whatsapp_sound=None,
+                 windows_not1_sound=None, windows_not2_sound=None):
         self.manager = manager
         self.click_sound = click_sound
         self.error_sound = error_sound
+        self.gmail_sound = gmail_sound
+        self.canvas_sound = canvas_sound
+        self.whatsapp_sound = whatsapp_sound
+        self.windows_not1_sound = windows_not1_sound
+        self.windows_not2_sound = windows_not2_sound
         self.active_popups = []
         self.last_popup_time = 0
         self.start_time = time.time()
@@ -252,6 +259,10 @@ class PopupManager:
             return self._create_windows_info_popup(content)
 
     def _create_whatsapp_popup(self, content):
+
+        if self.whatsapp_sound:
+            self.whatsapp_sound.play()
+
         window_width, window_height = 400, 150
         x = self.manager.window_resolution[0] - window_width - 20
         y = self.manager.window_resolution[1] - window_height - 20
@@ -294,6 +305,10 @@ class PopupManager:
         return window
 
     def _create_gmail_popup(self, content):
+
+        if self.gmail_sound:
+            self.gmail_sound.play()
+
         window_width, window_height = 350, 100
         x = self.manager.window_resolution[0] - window_width - 20
         y = self.manager.window_resolution[1] - window_height - 20
@@ -321,6 +336,10 @@ class PopupManager:
         return window
 
     def _create_canvas_popup(self, content):
+
+        if self.canvas_sound:
+            self.canvas_sound.play()
+
         window_width, window_height = 350, 100
         x = self.manager.window_resolution[0] - window_width - 20
         y = self.manager.window_resolution[1] - window_height - 140
@@ -348,6 +367,10 @@ class PopupManager:
         return window
 
     def _create_windows_popup(self, content):
+
+        if self.windows_not1_sound:
+            self.windows_not1_sound.play()
+
         window_width, window_height = 300, 150
         x = random.randint(50, self.manager.window_resolution[0] - window_width - 50)
         y = random.randint(50, self.manager.window_resolution[1] - window_height - 50)
@@ -382,6 +405,10 @@ class PopupManager:
         return window
 
     def _create_windows_info_popup(self, content):
+
+        if self.windows_not2_sound:
+            self.windows_not2_sound.play()
+
         window_width, window_height = 350, 100
         x = self.manager.window_resolution[0] - window_width - 20
         y = self.manager.window_resolution[1] - window_height - 260
