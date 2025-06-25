@@ -2,7 +2,7 @@ import pygame
 import pygame_gui
 import time
 import random
-
+import env_variables as e
 
 class PopupManager:
     def __init__(self, manager, click_sound=None, error_sound=None,
@@ -24,7 +24,7 @@ class PopupManager:
         self.time_intervals = {
             1: [5, 10],  # Primer minuto: cada 5-10 segundos
             2: [3, 5],  # Segundo minuto: cada 3-5 segundos
-            3: [0.5, 1.5]  # Tercer minuto: cada 0.5-1.5 segundos (se aloca todo)
+            3: [0.8, 1.5]  # Tercer minuto: cada 0.5-1.5 segundos (se aloca todo)
         }
 
         # Contenidos hardcodeados para las ventanas
@@ -216,8 +216,14 @@ class PopupManager:
 
     def get_current_minute(self):
         """Obtiene el minuto actual desde el inicio"""
-        elapsed = time.time() - self.start_time
-        return min(int(elapsed // 60) + 1, 3)  # Máximo 3 minutos
+        elapsed_seconds = time.time() - self.start_time
+        
+        if 0 <= elapsed_seconds < e.FIRST_STAGE_TIME:
+            return 1
+        elif elapsed_seconds < e.SECOND_STAGE_TIME:
+            return 2
+        else:
+            return 3
 
     def get_current_interval(self):
         """Obtiene el intervalo actual basado en el minuto"""

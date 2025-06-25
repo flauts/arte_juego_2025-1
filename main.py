@@ -5,7 +5,7 @@ from end import show_end_screen
 from icons import IconGrid, create_desktop_background, create_default_icon_files
 from apps_handler import launch_app
 from popup_manager import PopupManager
-
+import env_variables as env
 popup_manager = None
 
 
@@ -159,7 +159,7 @@ def main():
         current_time = time.time()
         elapsed_time = current_time - start_time
 
-        if elapsed_time >= 300:  # 5 minutos = 300 segundos
+        if elapsed_time >= env.FINAL_STAGE_TIME:
             show_emotional_end = True
             show_end_screen(show_emotional_end, elapsed_time)
             is_running = False

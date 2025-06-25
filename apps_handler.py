@@ -159,7 +159,7 @@ def launch_error(manager, error_sound=None):
 def launch_whatsapp(manager):
     """Simulación simple de una app estilo WhatsApp"""
     # Crear una ventana flotante tipo chat
-    window_rect = pygame.Rect(300, 200, 400, 300)
+    window_rect = pygame.Rect(300, 20, 400, 300)
     window = pygame_gui.elements.UIWindow(rect=window_rect,
                                           manager=manager,
                                           window_display_title="WhatsApp")
@@ -191,8 +191,6 @@ def launch_whatsapp(manager):
         "input_box": input_box,
         "send_button": send_button
     }
-
-
 
 
 
