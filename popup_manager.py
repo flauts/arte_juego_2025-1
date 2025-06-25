@@ -3,6 +3,8 @@ import pygame_gui
 import time
 import random
 
+from pygame_gui.core import ObjectID
+
 
 class PopupManager:
     def __init__(self, manager, click_sound=None, error_sound=None):
@@ -113,7 +115,7 @@ class PopupManager:
             rect=pygame.Rect(x, y, window_width, window_height),
             manager=self.manager,
             window_display_title=content["header"],
-            object_id="#popup_window"
+            object_id=ObjectID(class_id='#popup_window')
         )
 
         # Crear el texto del contenido
@@ -121,7 +123,7 @@ class PopupManager:
             html_text=content["content"],
             relative_rect=pygame.Rect(10, 10, window_width - 20, window_height - 80),
             manager=self.manager,
-            container=window
+            container=window, #this is text_box in theme.json
         )
 
         # Crear botones

@@ -588,5 +588,63 @@
             "border_width": "1",
             "border_radius": "0"
         }
+    },
+    "#popup_window":
+   {
+      "colours":
+      {
+         "dark_bg": "#EFEBDF",
+         "normal_border": "blue"
+      },
+      "misc":
+      {
+         "shape": "rectangle",
+         "border_width": "1",
+         "shadow_width": "2",
+         "title_bar_height": "22",
+         "enable_title_bar": "1",
+         "enable_close_button": "1"
+      }
+   },
+   "#popup_window.#title_bar":
+   {
+      "colours":
+      {
+         "normal_bg": "blue",
+         "normal_text": "#FFFFFF"
+      },
+      "misc":
+      {
+         "text_horiz_alignment": "left",
+         "border_width": "0"
+      }
+   },
+   "#popup_window.#close_button":
+   {
+      "colours":
+      {
+         "normal_bg": "#E74C3C",
+         "hovered_bg": "#FF6B5A",
+         "selected_bg": "#C0392B",
+         "normal_text": "#FFFFFF"
+      },
+      "misc":
+      {
+         "border_width": "1",
+         "shape": "rectangle"
+      }
+   },
+    "#popup_window.text_box": {
+        "colours":
+        {
+            "normal_text": "black",
+            "dark_bg": "#EFEBDF"
+        },
+        "misc": {
+            "border_width": "0"
+        }
+    },
+    "#popup_window.text_box.vertical_scroll_bar": {
+
     }
 }
