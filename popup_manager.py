@@ -115,15 +115,27 @@ class PopupManager:
             rect=pygame.Rect(x, y, window_width, window_height),
             manager=self.manager,
             window_display_title=content["header"],
-            object_id=ObjectID(class_id='#popup_window')
+            object_id=ObjectID(class_id='#error_window')
         )
-
-        # Crear el texto del contenido
-        text_area = pygame_gui.elements.UITextBox(
-            html_text=content["content"],
-            relative_rect=pygame.Rect(10, 10, window_width - 20, window_height - 80),
+        main_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, 340, 145),
             manager=self.manager,
-            container=window, #this is text_box in theme.json
+            container=window,
+            object_id=ObjectID(class_id='#error_main_panel') #reusing class
+        )
+        second_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, 340, 145),
+            manager=self.manager,
+            container=window,
+            object_id=ObjectID(class_id='#error_second_panel')
+        )
+        # Crear el texto del contenido
+        text_area = pygame_gui.elements.UILabel(
+            text=content["content"],
+            relative_rect=pygame.Rect(0, -35, window_width - 20, window_height - 10),
+            manager=self.manager,
+            container=second_panel,
+            object_id=ObjectID(class_id='#error_text')
         )
 
         # Crear botones
@@ -131,14 +143,16 @@ class PopupManager:
             relative_rect=pygame.Rect(10, window_height - 60, 80, 30),
             text='OK',
             manager=self.manager,
-            container=window
+            container=main_panel,
+            object_id=ObjectID(class_id='#error_ok_button')
         )
 
         cancel_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(100, window_height - 60, 80, 30),
             text='Cancelar',
             manager=self.manager,
-            container=window
+            container=main_panel,
+            object_id=ObjectID(class_id='#error_ok_button')
         )
 
         # Reproducir sonido de error

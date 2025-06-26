@@ -110,14 +110,14 @@ def launch_error(manager, error_sound=None):
         container=error_window,
         object_id=ObjectID(class_id='#error_main_panel')
     )
-
-    second_panel = pygame_gui.elements.UIPanel(
-        relative_rect=pygame.Rect(0, 90, 340, 145),
-        manager=manager,
-        container=error_window,
-        object_id=ObjectID(class_id='#error_second_panel')
-    )
-
+    #
+    # second_panel = pygame_gui.elements.UIPanel(
+    #     relative_rect=pygame.Rect(0, 90, 340, 145),
+    #     manager=manager,
+    #     container=error_window,
+    #     object_id=ObjectID(class_id='#error_second_panel')
+    # )
+    # me parece que no sirve xd
 
     # Crear el icono de error usando la imagen x.png (ahora como UIImage)
     error_icon = pygame_gui.elements.UIImage(
@@ -149,7 +149,7 @@ def launch_error(manager, error_sound=None):
     return {
         "window": error_window,
         "panel": main_panel,
-        "bg_panel_1": second_panel,
+        # "bg_panel_1": second_panel,
         "icon": error_icon,
         "text": error_text,
         "ok_button": ok_button
