@@ -13,6 +13,13 @@ pygame.init()
 pygame.mixer.init()
 click_sound = pygame.mixer.Sound("sounds/click.wav")
 error_sound = pygame.mixer.Sound("sounds/error.mp3")
+gmail_sound = pygame.mixer.Sound("sounds/gmail.mp3")
+canvas_sound = pygame.mixer.Sound("sounds/canvas.mp3")
+whatsapp_sound = pygame.mixer.Sound("sounds/whatsapp.mp3")
+windows_not1_sound = pygame.mixer.Sound("sounds/windows-not1.mp3")
+windows_not2_sound = pygame.mixer.Sound("sounds/windows-not2.mp3")
+windows_start_sound = pygame.mixer.Sound("sounds/windows_start.mp3")
+
 pygame.display.set_caption('Mind-OS: Close the window')
 click_sound.set_volume(1.0)
 
@@ -65,7 +72,16 @@ def toggle_fullscreen():
 
     if popup_manager:
         popup_manager.cleanup()
-    popup_manager = PopupManager(manager, click_sound=click_sound, error_sound=error_sound)
+    popup_manager = PopupManager(
+        manager,
+        click_sound=click_sound,
+        error_sound=error_sound,
+        gmail_sound=gmail_sound,
+        canvas_sound=canvas_sound,
+        whatsapp_sound=whatsapp_sound,
+        windows_not1_sound=windows_not1_sound,
+        windows_not2_sound=windows_not2_sound
+    )
 
 def initialize_desktop():
     global background, manager, icon_grid, popup_manager
@@ -87,7 +103,16 @@ def initialize_desktop():
 
     icon_grid = IconGrid(manager, WINDOWS_WIDTH, WINDOWS_HEIGHT)
 
-    popup_manager = PopupManager(manager, click_sound=click_sound, error_sound=error_sound)
+    popup_manager = PopupManager(
+        manager,
+        click_sound=click_sound,
+        error_sound=error_sound,
+        gmail_sound=gmail_sound,
+        canvas_sound=canvas_sound,
+        whatsapp_sound=whatsapp_sound,
+        windows_not1_sound=windows_not1_sound,
+        windows_not2_sound=windows_not2_sound
+    )
     print("Popup manager inicializado")
 
 def handle_gradual_icon_filling():
@@ -136,14 +161,14 @@ def main():
 
         if elapsed_time >= 300:  # 5 minutos = 300 segundos
             show_emotional_end = True
-            show_end_screen(show_emotional_end)
+            show_end_screen(show_emotional_end, elapsed_time)
             is_running = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 is_running = False
                 show_emotional_end = True
-                show_end_screen(show_emotional_end)
+                show_end_screen(show_emotional_end, elapsed_time)
 
             # PARA MANEJAR TECLAS
             key_actions = {

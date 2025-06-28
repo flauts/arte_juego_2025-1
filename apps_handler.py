@@ -110,14 +110,14 @@ def launch_error(manager, error_sound=None):
         container=error_window,
         object_id=ObjectID(class_id='#error_main_panel')
     )
-
-    second_panel = pygame_gui.elements.UIPanel(
-        relative_rect=pygame.Rect(0, 90, 340, 145),
-        manager=manager,
-        container=error_window,
-        object_id=ObjectID(class_id='#error_second_panel')
-    )
-
+    #
+    # second_panel = pygame_gui.elements.UIPanel(
+    #     relative_rect=pygame.Rect(0, 90, 340, 145),
+    #     manager=manager,
+    #     container=error_window,
+    #     object_id=ObjectID(class_id='#error_second_panel')
+    # )
+    # me parece que no sirve xd
 
     # Crear el icono de error usando la imagen x.png (ahora como UIImage)
     error_icon = pygame_gui.elements.UIImage(
@@ -149,7 +149,7 @@ def launch_error(manager, error_sound=None):
     return {
         "window": error_window,
         "panel": main_panel,
-        "bg_panel_1": second_panel,
+        # "bg_panel_1": second_panel,
         "icon": error_icon,
         "text": error_text,
         "ok_button": ok_button
@@ -198,22 +198,39 @@ def launch_whatsapp(manager):
 
 
 def launch_note(manager, file_name):
-    """Simula una aplicación de bloc de notas con el nombre del archivo"""
+        """Simula una aplicación de bloc de notas con el nombre del archivo en una posición aleatoria"""
 
-    content = generate_content(file_name)
+        content = generate_content(file_name)
 
-    # Crear la ventana tipo bloc de notas con el object_id
-    window_rect = pygame.Rect(200, 150, 600, 450)
-    window = pygame_gui.elements.UIWindow(rect=window_rect,
-                                          manager=manager,
-                                          window_display_title=f"{file_name.replace('_', ' ').title()}.txt",
-                                          object_id="#notepad_window")
+        # Dimensiones de la ventana y de la pantalla
+        window_width = 600
+        window_height = 450
+        screen_width = 1920
+        screen_height = 1080
 
-    # Área de texto que simula los apuntes
-    text_area = pygame_gui.elements.UITextBox(
-        html_text=f"<pre>{content}</pre>",
-        relative_rect=pygame.Rect(0, 0, 620, 440),
-        manager=manager,
-        container=window,
-        object_id="#note_text_area"
-    )
+        # Generar posición aleatoria que no se salga de la pantalla
+        random_x = random.randint(0, screen_width - window_width)
+        random_y = random.randint(0, screen_height - window_height)
+
+        # Crear la ventana tipo bloc de notas en posición aleatoria
+        window_rect = pygame.Rect(random_x, random_y, window_width, window_height)
+        window = pygame_gui.elements.UIWindow(
+            rect=window_rect,
+            manager=manager,
+            window_display_title=f"{file_name.replace('_', ' ').title()}.txt",
+            object_id=ObjectID(class_id='#notepad_window', object_id=file_name)
+        )
+
+        # Área de texto que simula los apuntes
+        text_area = pygame_gui.elements.UITextBox(
+            html_text=f"<pre>{content}</pre>",
+            relative_rect=pygame.Rect(0, 0, window_width+20, window_height+10),
+            manager=manager,
+            container=window,
+            object_id="#note_text_area"
+        )
+
+        return {
+            "window": window,
+            "text_area": text_area
+        }

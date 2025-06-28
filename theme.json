@@ -331,13 +331,19 @@
                 "path": "ui_icons/arrow_left.png"
         }
     },
-
+    "#error_window.#close_button": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/xwindow.png"
+            }
+        }
+    },
 
     "#error_main_panel": {
         "colours": {
-            "dark_bg": "#fcfefe",
-            "normal_bg": "#fcfefe",
-            "normal_border": "#fcfefe"
+            "dark_bg": "#eef1ee",
+            "normal_bg": "#eef1ee",
+            "normal_border": "#eef1ee"
         },
         "misc": {
             "border_width": "1",
