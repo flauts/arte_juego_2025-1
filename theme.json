@@ -383,13 +383,20 @@
 
     "#error_text": {
         "colours": {
-            "normal_text": "#636665",
-            "normal_bg": "#ECE9D8"
+            "dark_bg": "#eef1ee",
+            "normal_bg": "#eef1ee",
+            "normal_border": "#eef1ee",
+            "normal_text": "black"
         },
         "font": {
             "name": "tahoma",
             "size": "14",
             "bold": "0"
+        }
+    },
+    "error_input_button": {
+        "colours": {
+            "normal_bg": "#eef1ee"
         }
     },
 

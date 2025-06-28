@@ -295,7 +295,7 @@ class PopupManager:
             relative_rect=pygame.Rect(10, 60, window_width - 110, 30),
             manager=self.manager,
             container=main_panel,
-            object_id=ObjectID(class_id='#error_ok_button')
+            object_id=ObjectID(class_id='#error_input_button')
         )
 
         send_button = pygame_gui.elements.UIButton(
@@ -328,15 +328,21 @@ class PopupManager:
             rect=pygame.Rect(x, y, window_width, window_height),
             manager=self.manager,
             window_display_title=content["header"],
-            object_id="#popup_window",
+            object_id=ObjectID(class_id='#error_window'),
             resizable=False
         )
-
+        main_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, window_width, window_height),
+            manager=self.manager,
+            container=window,
+            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
+        )
         text_area = pygame_gui.elements.UITextBox(
             html_text=content["content"],
             relative_rect=pygame.Rect(10, 10, window_width - 20, 50),
             manager=self.manager,
-            container=window
+            container=main_panel,
+            object_id=ObjectID(class_id='#error_text')
         )
 
         self.active_popups.append({
@@ -359,15 +365,22 @@ class PopupManager:
             rect=pygame.Rect(x, y, window_width, window_height),
             manager=self.manager,
             window_display_title=content["header"],
-            object_id="#popup_window",
+            object_id=ObjectID(class_id='#error_window'),
             resizable=False
+        )
+        main_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, window_width, window_height),
+            manager=self.manager,
+            container=window,
+            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
         )
 
         text_area = pygame_gui.elements.UITextBox(
             html_text=content["content"],
             relative_rect=pygame.Rect(10, 10, window_width - 20, 50),
             manager=self.manager,
-            container=window
+            object_id=ObjectID(class_id='#error_text'),
+            container=main_panel
         )
 
         self.active_popups.append({
@@ -390,21 +403,28 @@ class PopupManager:
             rect=pygame.Rect(x, y, window_width, window_height),
             manager=self.manager,
             window_display_title=content["header"],
-            object_id="#popup_window"
+            object_id="#error_window"
         )
-
+        main_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, window_width, window_height),
+            manager=self.manager,
+            container=window,
+            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
+        )
         text_area = pygame_gui.elements.UITextBox(
             html_text=content["content"],
             relative_rect=pygame.Rect(10, 10, window_width - 20, 60),
             manager=self.manager,
-            container=window
+            container=x,
+            object_id=ObjectID(class_id='#error_text')
         )
 
         ok_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(10, window_height - 60, 80, 30),
             text='OK',
             manager=self.manager,
-            container=window
+            container=main_panel,
+            object_id=ObjectID(class_id='#error_ok_button')
         )
 
         self.active_popups.append({
@@ -428,15 +448,23 @@ class PopupManager:
             rect=pygame.Rect(x, y, window_width, window_height),
             manager=self.manager,
             window_display_title=content["header"],
-            object_id="#popup_window",
+            object_id="#error_window",
             resizable=False
+        )
+
+        main_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, window_width, window_height),
+            manager=self.manager,
+            container=window,
+            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
         )
 
         text_area = pygame_gui.elements.UITextBox(
             html_text=content["content"],
             relative_rect=pygame.Rect(10, 10, window_width - 20, 50),
             manager=self.manager,
-            container=window
+            container=main_panel,
+            object_id=ObjectID(class_id='#error_text')
         )
 
         self.active_popups.append({
