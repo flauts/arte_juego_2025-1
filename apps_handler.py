@@ -198,22 +198,39 @@ def launch_whatsapp(manager):
 
 
 def launch_note(manager, file_name):
-    """Simula una aplicación de bloc de notas con el nombre del archivo"""
+        """Simula una aplicación de bloc de notas con el nombre del archivo en una posición aleatoria"""
 
-    content = generate_content(file_name)
+        content = generate_content(file_name)
 
-    # Crear la ventana tipo bloc de notas con el object_id
-    window_rect = pygame.Rect(200, 150, 600, 450)
-    window = pygame_gui.elements.UIWindow(rect=window_rect,
-                                          manager=manager,
-                                          window_display_title=f"{file_name.replace('_', ' ').title()}.txt",
-                                          object_id="#notepad_window")
+        # Dimensiones de la ventana y de la pantalla
+        window_width = 600
+        window_height = 450
+        screen_width = 1920
+        screen_height = 1080
 
-    # Área de texto que simula los apuntes
-    text_area = pygame_gui.elements.UITextBox(
-        html_text=f"<pre>{content}</pre>",
-        relative_rect=pygame.Rect(0, 0, 620, 440),
-        manager=manager,
-        container=window,
-        object_id="#note_text_area"
-    )
+        # Generar posición aleatoria que no se salga de la pantalla
+        random_x = random.randint(0, screen_width - window_width)
+        random_y = random.randint(0, screen_height - window_height)
+
+        # Crear la ventana tipo bloc de notas en posición aleatoria
+        window_rect = pygame.Rect(random_x, random_y, window_width, window_height)
+        window = pygame_gui.elements.UIWindow(
+            rect=window_rect,
+            manager=manager,
+            window_display_title=f"{file_name.replace('_', ' ').title()}.txt",
+            object_id=ObjectID(class_id='#notepad_window', object_id=file_name)
+        )
+
+        # Área de texto que simula los apuntes
+        text_area = pygame_gui.elements.UITextBox(
+            html_text=f"<pre>{content}</pre>",
+            relative_rect=pygame.Rect(0, 0, window_width+20, window_height+10),
+            manager=manager,
+            container=window,
+            object_id="#note_text_area"
+        )
+
+        return {
+            "window": window,
+            "text_area": text_area
+        }

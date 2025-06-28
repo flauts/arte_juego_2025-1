@@ -14,23 +14,32 @@ FINAL_WAIT_SECONDS = 7
 CURSOR_BLINK_SPEED = 0.5  # segundos entre parpadeos
 CURSOR_CHAR = "|"
 
-ERROR_COLOR = (255, 0, 0)  # Rojo para el subrayado de error
+ERROR_COLOR = (255, 0, 0)
 ERROR_UNDERLINE_THICKNESS = 2
 
-# Texto dividido en dos partes
-FIRST_PART = "Apagar no siempre es rendirse."
-SECOND_PART = " A veces es cuidarse."
-ERROR_WORD = "rendirse"  # Palabra error
 
 # El T que peiste
 T = 3.0  # en segundos
 
 
-def show_end_screen(is_emotional_end: bool):
+def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
     if not is_emotional_end:
         print("Cierre rápido solicitado. La aplicación terminará.")
         pygame.quit()
         sys.exit()
+
+    if 0 <= elapsed_seconds < 61:
+        FIRST_PART = "Frenar no siempre es fallar."
+        SECOND_PART = " A veces es respirar."
+        ERROR_WORD = "fallar"
+    elif 61 <= elapsed_seconds < 120:
+        FIRST_PART = "Caer no siempre es perder."
+        SECOND_PART = " A veces es aprender."
+        ERROR_WORD = "perder"
+    else:
+        FIRST_PART = "Apagar no siempre es rendirse."
+        SECOND_PART = " A veces es cuidarse."
+        ERROR_WORD = "rendirse"
 
     pygame.init()
 
@@ -61,23 +70,18 @@ def show_end_screen(is_emotional_end: bool):
         screen.blit(text_surface, text_rect)
 
         if show_error and ERROR_WORD in text:
-            # Encontrar la posición de la palabra con error
             error_word_start = text.find(ERROR_WORD)
             if error_word_start != -1:
-                # Calcular posición del subrayado
                 text_before_error = text[:error_word_start]
                 error_word_text = ERROR_WORD
 
-                # Obtener dimensiones del texto antes de la palabra con error
                 before_surface = font.render(text_before_error, True, TEXT_COLOR)
                 error_surface = font.render(error_word_text, True, TEXT_COLOR)
 
-                # Calcular posición del subrayado
                 underline_start_x = text_rect.left + before_surface.get_width()
                 underline_end_x = underline_start_x + error_surface.get_width()
                 underline_y = text_rect.bottom - 5
 
-                # Dibujar subrayado ondulado (simulado con líneas pequeñas)
                 for x in range(underline_start_x, underline_end_x, 3):
                     if (x - underline_start_x) % 6 < 3:
                         pygame.draw.line(screen, ERROR_COLOR,
@@ -100,15 +104,13 @@ def show_end_screen(is_emotional_end: bool):
                 break
 
         displayed_text += FIRST_PART[i]
-
-        # Mostrar error de ortografía solo cuando se ha escrito la palabra completa
         show_error = ERROR_WORD in displayed_text and displayed_text.endswith(ERROR_WORD)
         draw_text_with_error_underline(displayed_text, show_error)
 
         pygame.display.flip()
         time.sleep(TYPING_SPEED_SECONDS)
 
-    # Fase 2: Mostrar cursor parpadeante durante el tiempo T (manteniendo el error)
+    # Fase 2: Cursor parpadeante
     if running:
         start_wait_time = time.time()
         cursor_visible = True
@@ -120,18 +122,16 @@ def show_end_screen(is_emotional_end: bool):
                     running = False
                     break
 
-            # Alternar visibilidad del cursor
             if time.time() - last_cursor_toggle >= CURSOR_BLINK_SPEED:
                 cursor_visible = not cursor_visible
                 last_cursor_toggle = time.time()
 
-            # Dibujar texto con cursor y error
             display_text = displayed_text + (CURSOR_CHAR if cursor_visible else "")
-            draw_text_with_error_underline(display_text, True)  # Siempre mostrar error durante la espera
+            draw_text_with_error_underline(display_text, True)
             pygame.display.flip()
-
             clock.tick(60)
 
+    # Fase 3: Mostrar segunda parte
     if running:
         for i in range(len(SECOND_PART)):
             if not running: break
@@ -142,11 +142,10 @@ def show_end_screen(is_emotional_end: bool):
                     break
 
             displayed_text += SECOND_PART[i]
-            draw_text_with_error_underline(displayed_text, False)  # No mostrar error en la fase final
+            draw_text_with_error_underline(displayed_text, False)
             pygame.display.flip()
             time.sleep(TYPING_SPEED_SECONDS)
 
-    # Espera final
     if running:
         time.sleep(FINAL_WAIT_SECONDS)
 
@@ -155,7 +154,7 @@ def show_end_screen(is_emotional_end: bool):
 
 # QUITEN EL COMENTARIO DE ESTO DE ABAJO PARA VER COMO SE VE EL CONTENIDO FINAL
 
-#
+
 # def run_test_environment():
 #     pygame.init()
 #
@@ -201,6 +200,6 @@ def show_end_screen(is_emotional_end: bool):
 #
 #     pygame.quit()
 #
-# if __name__ == '__main__':
-#     # Al ejecutar este script directamente, se llamará a la función de prueba.
-#     run_test_environment()
+# if __name__ == "__main__":
+#     tiempo_total = 50
+#     show_end_screen(True, tiempo_total)
