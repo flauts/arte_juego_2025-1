@@ -335,9 +335,9 @@
 
     "#error_main_panel": {
         "colours": {
-            "dark_bg": "#fcfefe",
-            "normal_bg": "#fcfefe",
-            "normal_border": "#fcfefe"
+            "dark_bg": "#eef1ee",
+            "normal_bg": "#eef1ee",
+            "normal_border": "#eef1ee"
         },
         "misc": {
             "border_width": "1",
