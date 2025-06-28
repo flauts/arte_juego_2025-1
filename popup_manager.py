@@ -118,23 +118,18 @@ class PopupManager:
             object_id=ObjectID(class_id='#error_window')
         )
         main_panel = pygame_gui.elements.UIPanel(
-            relative_rect=pygame.Rect(0, 0, 340, 145),
+            relative_rect=pygame.Rect(0, 0, window_width, window_height),
             manager=self.manager,
             container=window,
             object_id=ObjectID(class_id='#error_main_panel') #reusing class
         )
-        second_panel = pygame_gui.elements.UIPanel(
-            relative_rect=pygame.Rect(0, 0, 340, 145),
-            manager=self.manager,
-            container=window,
-            object_id=ObjectID(class_id='#error_second_panel')
-        )
+
         # Crear el texto del contenido
         text_area = pygame_gui.elements.UILabel(
             text=content["content"],
-            relative_rect=pygame.Rect(0, -35, window_width - 20, window_height - 10),
+            relative_rect=pygame.Rect(0, -35, window_width, window_height - 10),
             manager=self.manager,
-            container=second_panel,
+            container=main_panel,
             object_id=ObjectID(class_id='#error_text')
         )
 

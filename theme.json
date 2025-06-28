@@ -331,7 +331,13 @@
                 "path": "ui_icons/arrow_left.png"
         }
     },
-
+    "#error_window.#close_button": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/xwindow.png"
+            }
+        }
+    },
 
     "#error_main_panel": {
         "colours": {
