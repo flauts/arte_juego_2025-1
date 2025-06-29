@@ -115,12 +115,31 @@ def initialize_desktop():
     )
     print("Popup manager inicializado")
 
+start_time = time.time()
+
+def get_current_minute():
+    """Obtiene el minuto actual desde el inicio"""
+    elapsed_seconds = time.time() - start_time
+    
+    if 0 <= elapsed_seconds < env.FIRST_STAGE_TIME:
+        return 1
+    elif elapsed_seconds < env.SECOND_STAGE_TIME:
+        return 2
+    else:
+        return 3
+
+icon_add_time = {
+    1: 5,
+    2: 3,
+    3: 1
+}
+
 def handle_gradual_icon_filling():
     """Manejar el llenado gradual de iconos"""
     global last_icon_add_time
 
     current_time = time.time()
-    if current_time - last_icon_add_time >= icon_add_interval:
+    if current_time - last_icon_add_time >= icon_add_time.get(get_current_minute(), 5):
         if icon_grid:
             empty_positions = icon_grid.get_empty_positions()
             if len(empty_positions) > 0:
