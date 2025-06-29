@@ -1,0 +1,22 @@
+[
+    {"category": "whatsapp", "header": "Juan", "content": "¿Ya terminaste la tarea de redes?"},
+    {"category": "whatsapp", "header": "María", "content": "Nos vemos en la cafetería a las 5."},
+    {"category": "whatsapp", "header": "Ana", "content": "Te llamé hace un rato, avísame cuando puedas."},
+    {"category": "whatsapp", "header": "Pedro", "content": "Mira este sticker jajaja 😂"},
+    {"category": "whatsapp", "header": "Camila", "content": "Te envié el audio con las instrucciones."},
+    {"category": "whatsapp", "header": "Alejandro", "content": "¿Tienes el archivo del laboratorio 3?"},
+    {"category": "whatsapp", "header": "Sofía", "content": "¡Hoy es mi cumple, no faltes al almuerzo!"},
+    {"category": "whatsapp", "header": "Martín", "content": "¿Vamos al gimnasio después de clases?"},
+    {"category": "whatsapp", "header": "Daniel", "content": "Revisa este video, es buenísimo."},
+    {"category": "whatsapp", "header": "Sara", "content": "Este es el link que te dije: https://..."},
+    {"category": "whatsapp", "header": "Lucía", "content": "¿Te gustó mi nueva foto de perfil?"},
+    {"category": "whatsapp", "header": "Andrés", "content": "Estoy en camino, llego en 10 min."},
+    {"category": "whatsapp", "header": "Valeria", "content": "¿Revisaste el informe que mandé?"},
+    {"category": "whatsapp", "header": "Diego", "content": "Necesito ayuda con el código del proyecto."},
+    {"category": "whatsapp", "header": "Paula", "content": "Hola! ¿Tienes las diapositivas de la clase?"},
+    {"category": "whatsapp", "header": "Rodrigo", "content": "¿Al final sí habrá quiz hoy?"},
+    {"category": "whatsapp", "header": "Elena", "content": "Gracias por prestarme el libro 😊"},
+    {"category": "whatsapp", "header": "Luis", "content": "¿Podemos reunirnos a repasar hoy?"},
+    {"category": "whatsapp", "header": "Carla", "content": "No entiendo la pregunta 3 del parcial."},
+    {"category": "whatsapp", "header": "Renato", "content": "Te compartí mi ubicación, estoy aquí."}
+]

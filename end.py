@@ -2,6 +2,7 @@ import pygame
 import pygame_gui
 import time
 import sys
+import env_variables as env
 
 WIDTH, HEIGHT = 1024, 768
 TEXT_COLOR = (220, 220, 220)
@@ -17,9 +18,7 @@ CURSOR_CHAR = "|"
 ERROR_COLOR = (255, 0, 0)
 ERROR_UNDERLINE_THICKNESS = 2
 
-
-# El T que peiste
-T = 3.0  # en segundos
+TIME_BETWEEN_WORDS = 2.0  # en segundos
 
 
 def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
@@ -27,19 +26,17 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
         print("Cierre rápido solicitado. La aplicación terminará.")
         pygame.quit()
         sys.exit()
-
-    if 0 <= elapsed_seconds < 61:
-        FIRST_PART = "Frenar no siempre es fallar."
-        SECOND_PART = " A veces es respirar."
-        ERROR_WORD = "fallar"
-    elif 61 <= elapsed_seconds < 120:
-        FIRST_PART = "Caer no siempre es perder."
-        SECOND_PART = " A veces es aprender."
-        ERROR_WORD = "perder"
+    ERROR_WORD = "$$$$$"
+    
+    if 0 <= elapsed_seconds < env.FIRST_STAGE_TIME:
+        FIRST_PART = "¿Por qué apagaste?"
+        SECOND_PART = " Aún quedan tareas pendientes."
+    elif elapsed_seconds < env.SECOND_STAGE_TIME:
+        FIRST_PART = ". . ."
+        SECOND_PART = " Tenía más espectativas."
     else:
         FIRST_PART = "Apagar no siempre es rendirse."
         SECOND_PART = " A veces es cuidarse."
-        ERROR_WORD = "rendirse"
 
     pygame.init()
 
@@ -69,6 +66,7 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
         text_rect = text_surface.get_rect(center=(width / 2, height / 2))
         screen.blit(text_surface, text_rect)
 
+        """
         if show_error and ERROR_WORD in text:
             error_word_start = text.find(ERROR_WORD)
             if error_word_start != -1:
@@ -93,6 +91,7 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
                                          (x, underline_y + ERROR_UNDERLINE_THICKNESS),
                                          (x + 2, underline_y),
                                          ERROR_UNDERLINE_THICKNESS)
+        """
 
     # Fase 1: Escribir la primera parte
     for i in range(len(FIRST_PART)):
@@ -116,7 +115,7 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
         cursor_visible = True
         last_cursor_toggle = time.time()
 
-        while running and (time.time() - start_wait_time) < T:
+        while running and (time.time() - start_wait_time) < TIME_BETWEEN_WORDS:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     running = False
