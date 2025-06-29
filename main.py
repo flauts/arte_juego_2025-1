@@ -21,7 +21,7 @@ windows_not2_sound = pygame.mixer.Sound("sounds/windows-not2.mp3")
 windows_start_sound = pygame.mixer.Sound("sounds/windows_start.mp3")
 
 pygame.display.set_caption('Mind-OS: Close the window')
-click_sound.set_volume(1.0)
+click_sound.set_volume(0.3)
 
 
 WINDOWS_WIDTH = 1024

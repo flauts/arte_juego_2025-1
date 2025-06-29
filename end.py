@@ -66,33 +66,6 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
         text_rect = text_surface.get_rect(center=(width / 2, height / 2))
         screen.blit(text_surface, text_rect)
 
-        """
-        if show_error and ERROR_WORD in text:
-            error_word_start = text.find(ERROR_WORD)
-            if error_word_start != -1:
-                text_before_error = text[:error_word_start]
-                error_word_text = ERROR_WORD
-
-                before_surface = font.render(text_before_error, True, TEXT_COLOR)
-                error_surface = font.render(error_word_text, True, TEXT_COLOR)
-
-                underline_start_x = text_rect.left + before_surface.get_width()
-                underline_end_x = underline_start_x + error_surface.get_width()
-                underline_y = text_rect.bottom - 5
-
-                for x in range(underline_start_x, underline_end_x, 3):
-                    if (x - underline_start_x) % 6 < 3:
-                        pygame.draw.line(screen, ERROR_COLOR,
-                                         (x, underline_y),
-                                         (x + 2, underline_y + ERROR_UNDERLINE_THICKNESS),
-                                         ERROR_UNDERLINE_THICKNESS)
-                    else:
-                        pygame.draw.line(screen, ERROR_COLOR,
-                                         (x, underline_y + ERROR_UNDERLINE_THICKNESS),
-                                         (x + 2, underline_y),
-                                         ERROR_UNDERLINE_THICKNESS)
-        """
-
     # Fase 1: Escribir la primera parte
     for i in range(len(FIRST_PART)):
         if not running: break

@@ -35,7 +35,10 @@ class PopupManager:
 
         # Contenidos hardcodeados para las ventanas
         self.popup_types = ["canvas", "gmail", "whatsapp", "windows-notification", "windows-notification2"]
-        self.popup_probabilities = [0.05, 0.05, 0.1, 0.6, 0.2]
+        self.popup_probabilities = [0.5, 0.1, 0.2, 0.1, 0.1]
+
+        # Lógica de aparición de pop ups
+        self.number_gmail_popup = 0
 
     def get_current_minute(self):
         """Obtiene el minuto actual desde el inicio"""
@@ -71,18 +74,35 @@ class PopupManager:
             return True
 
         return False
-
-    def create_popup_window(self):
-        category = random.choices(self.popup_types, weights=self.popup_probabilities, k = 1)[0]
-        filename = f"mensajes/notifications/{category}.json"
-        print(category)
+    
+    def open_file(self, filename):
         if(not os.path.isfile(filename)):
             print("No file exists", filename)
 
         with open(filename, 'r') as file:
             data = json.load(file)
 
-        content = random.choice(data)
+        return data
+
+    def create_popup_window(self):
+        category = random.choices(self.popup_types, weights=self.popup_probabilities, k = 1)[0]
+        filename = f"mensajes/notifications/{category}.json"
+        filename_64 = f"mensajes/notifications_base64/{category}.json"
+
+        current_minute = self.get_current_minute()
+        if (current_minute == 1):
+            content = random.choice(self.open_file(filename))
+        elif (current_minute == 2):
+            if(random.choices([1, 2], weights = [0.9, 0.1], k = 1)[0] == 1):
+                content = random.choice(self.open_file(filename))
+            else :
+                content = random.choice(self.open_file(filename_64))
+        else:
+            if(random.choices([1, 2], weights = [0.3, 0.7], k = 1)[0] == 1):
+                content = random.choice(self.open_file(filename))
+            else :
+                content = random.choice(self.open_file(filename_64))
+
 
         if category == "whatsapp":
             return self._create_whatsapp_popup(content)
@@ -156,8 +176,11 @@ class PopupManager:
             self.gmail_sound.play()
 
         window_width, window_height = 350, 100
-        x = self.manager.window_resolution[0] - window_width - 20
-        y = self.manager.window_resolution[1] - window_height - 20
+        x = 20
+        y = self.manager.window_resolution[1] - (window_height + 15) * (self.number_gmail_popup + 1) - 30
+
+        self.number_gmail_popup += 1
+        self.number_gmail_popup %= 5
 
         window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect(x, y, window_width, window_height),
@@ -193,8 +216,8 @@ class PopupManager:
             self.canvas_sound.play()
 
         window_width, window_height = 350, 100
-        x = self.manager.window_resolution[0] - window_width - 20
-        y = self.manager.window_resolution[1] - window_height - 140
+        x = random.randint(50, self.manager.window_resolution[0] - window_width - 50)
+        y = random.randint(50, self.manager.window_resolution[1] - window_height - 50)
 
         window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect(x, y, window_width, window_height),
@@ -250,7 +273,7 @@ class PopupManager:
             html_text=content["content"],
             relative_rect=pygame.Rect(10, 10, window_width - 20, 60),
             manager=self.manager,
-            container=x,
+            container=main_panel,
             object_id=ObjectID(class_id='#error_text')
         )
 
