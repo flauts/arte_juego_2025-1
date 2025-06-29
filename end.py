@@ -20,6 +20,8 @@ ERROR_UNDERLINE_THICKNESS = 2
 
 TIME_BETWEEN_WORDS = 2.0  # en segundos
 
+pygame.mixer.init()
+typing_sound = pygame.mixer.Sound("sounds/tecleo.wav")
 
 def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
     if not is_emotional_end:
@@ -67,6 +69,7 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
         screen.blit(text_surface, text_rect)
 
     # Fase 1: Escribir la primera parte
+    typing_sound.play()
     for i in range(len(FIRST_PART)):
         if not running: break
 
@@ -81,6 +84,8 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
 
         pygame.display.flip()
         time.sleep(TYPING_SPEED_SECONDS)
+
+    typing_sound.stop()
 
     # Fase 2: Cursor parpadeante
     if running:
@@ -104,6 +109,7 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
             clock.tick(60)
 
     # Fase 3: Mostrar segunda parte
+    typing_sound.play()
     if running:
         for i in range(len(SECOND_PART)):
             if not running: break
@@ -117,7 +123,8 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
             draw_text_with_error_underline(displayed_text, False)
             pygame.display.flip()
             time.sleep(TYPING_SPEED_SECONDS)
-
+    typing_sound.stop()
+    
     if running:
         time.sleep(FINAL_WAIT_SECONDS)
 
