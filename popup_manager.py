@@ -35,10 +35,11 @@ class PopupManager:
 
         # Contenidos hardcodeados para las ventanas
         self.popup_types = ["canvas", "gmail", "whatsapp", "windows-notification", "windows-notification2"]
-        self.popup_probabilities = [0.5, 0.1, 0.2, 0.1, 0.1]
+        self.popup_probabilities = [0, 0, 0, 0, 1]
 
         # Lógica de aparición de pop ups
         self.number_gmail_popup = 0
+        self.number_whatsapp_popup = 0
 
     def get_current_minute(self):
         """Obtiene el minuto actual desde el inicio"""
@@ -122,7 +123,10 @@ class PopupManager:
 
         window_width, window_height = 400, 150
         x = self.manager.window_resolution[0] - window_width - 20
-        y = self.manager.window_resolution[1] - window_height - 20
+        y = self.manager.window_resolution[1] - (window_height + 15) * (self.number_whatsapp_popup + 1) - 30
+
+        self.number_whatsapp_popup += 1
+        self.number_whatsapp_popup %= 4
 
         window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect(x, y, window_width, window_height),
