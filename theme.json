@@ -394,9 +394,11 @@
             "bold": "0"
         }
     },
-    "error_input_button": {
+    "#error_input_button": {
         "colours": {
-            "normal_bg": "#eef1ee"
+            "dark_bg": "#eef1ee",
+            "normal_bg": "#eef1ee",
+            "normal_text": "black"
         }
     },
 
@@ -601,5 +603,32 @@
             "border_width": "1",
             "border_radius": "0"
         }
+    },
+    "#whatsapp_window": {
+    "colours": {
+            "normal_border": "green"
+        },
+        "misc": {
+            "enable_title_bar": "1",
+            "enable_close_button" : "0",
+            "border_width": "0"
+        }
+    },
+    "#whatsapp_window.#title_bar": {
+        "colours": {
+            "normal_bg": "green",
+            "hovered_bg": "green",
+            "selected_bg": "green",
+            "active_bg": "green"
+        }
+    },
+    "#whatsapp_window.#close_button": {
+    "colours": {
+            "dark_bg": "green",
+            "normal_bg": "green",
+            "normal_text": "black",
+            "normal_border": "green"
+        }
     }
+
 }
