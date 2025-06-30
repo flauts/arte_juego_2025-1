@@ -2,6 +2,9 @@ import pygame
 import pygame_gui
 import os
 import random
+import time
+import env_variables as env
+
 from pygame_gui.core import ObjectID
 
 class IconGrid:
@@ -18,6 +21,12 @@ class IconGrid:
         self.start_x = 0
         self.start_y = 0
         self.icon_base_path = "ui_icons"
+        self.start_time = time.time()
+        self.weight_icon_screen = {
+            1: 0.25,
+            2: 0.5,
+            3: 1
+        }
 
         self.available_icons = [
             ("canvas.png", "Canvas"),
@@ -213,13 +222,24 @@ class IconGrid:
                     empty_positions.append((col, row))
 
         return empty_positions
+    
+    def get_current_minute(self):
+        """Obtiene el minuto actual desde el inicio"""
+        elapsed_seconds = time.time() - self.start_time
+        
+        if 0 <= elapsed_seconds < env.FIRST_STAGE_TIME:
+            return 1
+        elif elapsed_seconds < env.SECOND_STAGE_TIME:
+            return 2
+        else:
+            return 3
 
     def fill_screen_gradually(self):
         """Llenar la pantalla gradualmente con iconos"""
         empty_count = len(self.get_empty_positions())
-        if empty_count > 0:
-            # Agregar entre 1 y 10 iconos cada vez (una fila completa máximo)
-            icons_to_add = min(random.randint(1, 10), empty_count)
+        if (1 - (empty_count / (self.grid_cols * self.grid_rows))) < self.weight_icon_screen.get(self.get_current_minute(), 0):
+            # Agregar entre 1 y 3 iconos cada vez (una fila completa máximo)
+            icons_to_add = min(random.randint(1, 3), empty_count)
             self.add_random_icons(icons_to_add)
 
     def handle_icon_click(self, event_ui_object_id):

@@ -35,8 +35,7 @@ class PopupManager:
 
         # Contenidos hardcodeados para las ventanas
         self.popup_types = ["canvas", "gmail", "whatsapp", "windows-notification", "windows-notification2"]
-        self.popup_probabilities = [0.25, 0.25, 0.25, 0.25, 0]
-
+        self.popup_probabilities = [0.55, 0.1, 0.2, 0.1, 0.05] # Cambiar posicion windows 2
         # Lógica de aparición de pop ups
         self.number_gmail_popup = 0
         self.number_whatsapp_popup = 0
