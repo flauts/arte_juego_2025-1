@@ -59,6 +59,9 @@ class PopupManager:
     def should_create_popup(self):
         """Determina si es momento de crear una nueva ventana popup"""
         current_time = time.time()
+
+        if(current_time - self.start_time < 6):
+            return False
         interval_range = self.get_current_interval()
 
         # Calcular el siguiente tiempo de popup basado en el rango
