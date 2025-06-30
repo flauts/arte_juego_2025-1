@@ -79,7 +79,7 @@ class PopupManager:
         if(not os.path.isfile(filename)):
             print("No file exists", filename)
 
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf-8') as file:  # Specify UTF-8 encoding
             data = json.load(file)
 
         return data
