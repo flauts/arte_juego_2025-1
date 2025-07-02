@@ -1,42 +1,102 @@
 [
-    {"category": "windows-notification", "header": "¡Advertencia del Sistema!",
-        "content": "Tu sistema ha detectado 47 virus.\n¿Deseas escanear ahora?"},
-    {"category": "windows-notification", "header": "Actualización Crítica",
-        "content": "Windows necesita reiniciarse\npara aplicar actualizaciones."},
-    {"category": "windows-notification", "header": "Espacio en Disco Bajo",
-        "content": "El espacio en disco está casi lleno. Libera espacio para mejorar el rendimiento."},
-    {"category": "windows-notification", "header": "Problema de Registro",
-        "content": "Se ha detectado un problema con el registro del sistema."},
-    {"category": "windows-notification", "header": "Sistema Sobrecargado",
-        "content": "El sistema está experimentando una carga elevada."},
-    {"category": "windows-notification", "header": "Error de Controlador",
-        "content": "Un controlador de dispositivo ha dejado de funcionar correctamente."},
-    {"category": "windows-notification", "header": "Copia de Seguridad Pendiente",
-        "content": "Tu última copia de seguridad fue hace más de una semana."},
-    {"category": "windows-notification", "header": "Aplicación No Responde",
-        "content": "La aplicación no responde. ¿Deseas cerrarla o esperar?"},
-    {"category": "windows-notification", "header": "Memoria Insuficiente",
-        "content": "La memoria RAM está casi agotada. Cierra algunos programas."},
-    {"category": "windows-notification", "header": "Error de Disco Duro",
-        "content": "Se ha detectado un error en el disco duro. Considera hacer una revisión."},
-    {"category": "windows-notification", "header": "Nuevo Dispositivo",
-        "content": "Se ha conectado un nuevo dispositivo USB."},
-    {"category": "windows-notification", "header": "Pantalla Azul",
-        "content": "El sistema se ha recuperado de un error grave."},
-    {"category": "windows-notification", "header": "Actualización Disponible",
-        "content": "Hay actualizaciones importantes listas para instalar."},
-    {"category": "windows-notification", "header": "Activación de Windows",
-        "content": "Activa Windows para seguir usando todas las funciones."},
-    {"category": "windows-notification", "header": "Acceso Denegado",
-        "content": "No tienes permisos para realizar esta acción."},
-    {"category": "windows-notification", "header": "Configuración de Energía",
-        "content": "Tu batería está en modo de ahorro de energía."},
-    {"category": "windows-notification", "header": "Resolución Cambiada",
-        "content": "La resolución de pantalla fue ajustada automáticamente."},
-    {"category": "windows-notification", "header": "Instalación Fallida",
-        "content": "No se pudo instalar la actualización del sistema."},
-    {"category": "windows-notification", "header": "Modo Seguro",
-        "content": "Tu sistema se inició en modo seguro."},
-    {"category": "windows-notification", "header": "Error Crítico",
-        "content": "Se ha producido un error crítico del sistema. Reinicia para continuar."}
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "wqFBZHZlcnRlbmNpYSBkZWwgU2lzdGVtYSE=",
+        "content": "VHUgc2lzdGVtYSBoYSBkZXRlY3RhZG8gNDcgdmlydXMuCsK/RGVzZWFzIGVzY2FuZWFyIGFob3JhPw=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "QWN0dWFsaXphY2nDs24gQ3LDrXRpY2E=",
+        "content": "V2luZG93cyBuZWNlc2l0YSByZWluaWNpYXJzZQpwYXJhIGFwbGljYXIgYWN0dWFsaXphY2lvbmVzLg=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "RXNwYWNpbyBlbiBEaXNjbyBCYWpv",
+        "content": "RWwgZXNwYWNpbyBlbiBkaXNjbyBlc3TDoSBjYXNpIGxsZW5vLiBMaWJlcmEgZXNwYWNpbyBwYXJhIG1lam9yYXIgZWwgcmVuZGltaWVudG8u"
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "UHJvYmxlbWEgZGUgUmVnaXN0cm8=",
+        "content": "U2UgaGEgZGV0ZWN0YWRvIHVuIHByb2JsZW1hIGNvbiBlbCByZWdpc3RybyBkZWwgc2lzdGVtYS4="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "U2lzdGVtYSBTb2JyZWNhcmdhZG8=",
+        "content": "RWwgc2lzdGVtYSBlc3TDoSBleHBlcmltZW50YW5kbyB1bmEgY2FyZ2EgZWxldmFkYS4="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "RXJyb3IgZGUgQ29udHJvbGFkb3I=",
+        "content": "VW4gY29udHJvbGFkb3IgZGUgZGlzcG9zaXRpdm8gaGEgZGVqYWRvIGRlIGZ1bmNpb25hciBjb3JyZWN0YW1lbnRlLg=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "Q29waWEgZGUgU2VndXJpZGFkIFBlbmRpZW50ZQ==",
+        "content": "VHUgw7psdGltYSBjb3BpYSBkZSBzZWd1cmlkYWQgZnVlIGhhY2UgbcOhcyBkZSB1bmEgc2VtYW5hLg=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "QXBsaWNhY2nDs24gTm8gUmVzcG9uZGU=",
+        "content": "TGEgYXBsaWNhY2nDs24gbm8gcmVzcG9uZGUuIMK/RGVzZWFzIGNlcnJhcmxhIG8gZXNwZXJhcj8="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "TWVtb3JpYSBJbnN1ZmljaWVudGU=",
+        "content": "TGEgbWVtb3JpYSBSQU0gZXN0w6EgY2FzaSBhZ290YWRhLiBDaWVycmEgYWxndW5vcyBwcm9ncmFtYXMu"
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "RXJyb3IgZGUgRGlzY28gRHVybw==",
+        "content": "U2UgaGEgZGV0ZWN0YWRvIHVuIGVycm9yIGVuIGVsIGRpc2NvIGR1cm8uIENvbnNpZGVyYSBoYWNlciB1bmEgcmV2aXNpw7NuLg=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "TnVldm8gRGlzcG9zaXRpdm8=",
+        "content": "U2UgaGEgY29uZWN0YWRvIHVuIG51ZXZvIGRpc3Bvc2l0aXZvIFVTQi4="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "UGFudGFsbGEgQXp1bA==",
+        "content": "RWwgc2lzdGVtYSBzZSBoYSByZWN1cGVyYWRvIGRlIHVuIGVycm9yIGdyYXZlLg=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "QWN0dWFsaXphY2nDs24gRGlzcG9uaWJsZQ==",
+        "content": "SGF5IGFjdHVhbGl6YWNpb25lcyBpbXBvcnRhbnRlcyBsaXN0YXMgcGFyYSBpbnN0YWxhci4="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "QWN0aXZhY2nDs24gZGUgV2luZG93cw==",
+        "content": "QWN0aXZhIFdpbmRvd3MgcGFyYSBzZWd1aXIgdXNhbmRvIHRvZGFzIGxhcyBmdW5jaW9uZXMu"
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "QWNjZXNvIERlbmVnYWRv",
+        "content": "Tm8gdGllbmVzIHBlcm1pc29zIHBhcmEgcmVhbGl6YXIgZXN0YSBhY2Npw7NuLg=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "Q29uZmlndXJhY2nDs24gZGUgRW5lcmfDrWE=",
+        "content": "VHUgYmF0ZXLDrWEgZXN0w6EgZW4gbW9kbyBkZSBhaG9ycm8gZGUgZW5lcmfDrWEu"
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "UmVzb2x1Y2nDs24gQ2FtYmlhZGE=",
+        "content": "TGEgcmVzb2x1Y2nDs24gZGUgcGFudGFsbGEgZnVlIGFqdXN0YWRhIGF1dG9tw6F0aWNhbWVudGUu"
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "SW5zdGFsYWNpw7NuIEZhbGxpZGE=",
+        "content": "Tm8gc2UgcHVkbyBpbnN0YWxhciBsYSBhY3R1YWxpemFjacOzbiBkZWwgc2lzdGVtYS4="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "TW9kbyBTZWd1cm8=",
+        "content": "VHUgc2lzdGVtYSBzZSBpbmljacOzIGVuIG1vZG8gc2VndXJvLg=="
+    },
+    {
+        "category": "d2luZG93cy1ub3RpZmljYXRpb24=",
+        "header": "RXJyb3IgQ3LDrXRpY28=",
+        "content": "U2UgaGEgcHJvZHVjaWRvIHVuIGVycm9yIGNyw610aWNvIGRlbCBzaXN0ZW1hLiBSZWluaWNpYSBwYXJhIGNvbnRpbnVhci4="
+    }
 ]
