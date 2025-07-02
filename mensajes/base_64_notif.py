@@ -33,7 +33,7 @@ for filename in os.listdir(DIRECTORIO):
 
         encoded_data = encode_values_base64(data)
 
-        output_path = os.path.join(DIRECTORIO, filename.replace(".json", "_base64.json"))
+        output_path = os.path.join(DIRECTORIO + "_base64", filename)
         with open(output_path, "w", encoding="utf-8") as f_out:
             json.dump(encoded_data, f_out, indent=4, ensure_ascii=False)
 
