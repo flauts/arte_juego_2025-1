@@ -629,6 +629,13 @@
             "normal_text": "black",
             "normal_border": "green"
         }
+    },
+    "#shutdown_button": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/shutdown.png"
+            }
+        }
     }
 
 }
