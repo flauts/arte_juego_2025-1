@@ -19,8 +19,14 @@ current_user = {
 
 def show_login_screen():
     global current_user, users_array
-    
-    login_surface = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
+
+    info = pygame.display.Info()
+    login_surface = pygame.display.set_mode((info.current_w, info.current_h), pygame.FULLSCREEN | pygame.NOFRAME)
+    pygame.mouse.set_visible(True)  # O False, si quieres ocultar el cursor
+
+    WINDOWS_WIDTH = info.current_w
+    WINDOWS_HEIGHT = info.current_h
+
     pygame.display.set_caption('Mind-OS: Iniciar Sesión')
     
     background_color = (0, 32, 96)
@@ -76,7 +82,7 @@ def show_login_screen():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return False
-            
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     username_active = username_rect.collidepoint(mouse_pos)
@@ -228,7 +234,13 @@ def show_login_screen():
 
 def show_loading_screen():
     
-    loading_surface = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
+    info = pygame.display.Info()
+    loading_surface = pygame.display.set_mode((info.current_w, info.current_h), pygame.FULLSCREEN | pygame.NOFRAME)
+    pygame.mouse.set_visible(True)  # O False, si quieres ocultar el cursor
+
+    WINDOWS_WIDTH = info.current_w
+    WINDOWS_HEIGHT = info.current_h
+
     pygame.display.set_caption('Mind-OS: Iniciando...')
     
     background_color = (0, 32, 96)  
@@ -423,17 +435,12 @@ windows_start_sound = pygame.mixer.Sound("sounds/windows_start.mp3")
 pygame.display.set_caption('Mind-OS: Close the window')
 click_sound.set_volume(0.3)
 
-WINDOWS_WIDTH = 1024 
-WINDOWS_HEIGHT = 768
-
-
-
-is_fullscreen = False
+is_fullscreen = True
+info = pygame.display.Info()
+window_surface = pygame.display.set_mode((info.current_w, info.current_h), pygame.FULLSCREEN | pygame.NOFRAME)
+pygame.mouse.set_visible(False)
+WINDOWS_WIDTH, WINDOWS_HEIGHT = window_surface.get_size()
 original_size = (WINDOWS_WIDTH, WINDOWS_HEIGHT)
-
-window_surface = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
-
-
 
 # Variables globales
 icon_grid = None
@@ -558,7 +565,6 @@ def handle_error_button_click(event, error_components):
             active_windows.remove(error_components["window"])
         return True
     return False
-
 
 def main():
     """Función principal"""
