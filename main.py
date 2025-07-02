@@ -492,8 +492,9 @@ def toggle_fullscreen():
     )
 
 def initialize_desktop():
-    global background, manager, icon_grid, popup_manager
+    global background, manager, icon_grid, popup_manager, last_icon_add_time, start_time
 
+    start_time = time.time()
     try:
         create_default_icon_files()
     except Exception as e:
@@ -523,9 +524,9 @@ def initialize_desktop():
     )
     print("Popup manager inicializado")
 
-start_time = time.time()
-
 def get_current_minute():
+    global start_time
+
     """Obtiene el minuto actual desde el inicio"""
     elapsed_seconds = time.time() - start_time
     
@@ -566,124 +567,123 @@ def handle_error_button_click(event, error_components):
         return True
     return False
 
-def main():
-    """Función principal"""
-    global is_running, active_windows, error_windows, popup_manager
+def run_mind_os():
+    global is_running, active_windows, error_windows, popup_manager, start_time
 
+    while True:  # Loop que permite reiniciar el sistema
 
-    if not show_login_screen():
-        return  # Si el usuario cerró la ventana en login
-    
-    print(f"Usuario logueado: {current_user['username']}")
-    print(f"Total usuarios registrados: {len(users_array)}")
+        if not show_login_screen():
+            break  # Usuario cerró la ventana en login
 
-    if not show_loading_screen():
-        return 
+        print(f"Usuario logueado: {current_user['username']}")
+        print(f"Total usuarios registrados: {len(users_array)}")
 
-    initialize_desktop()
+        if not show_loading_screen():
+            break
 
-    clock = pygame.time.Clock()
-    is_running = True
-    start_time = time.time()
+        initialize_desktop()
 
-    print("""Escritorio Windows XP iniciado \n Controles:\n
-        - F11: Pantalla completa/Ventana\n
-        - ESC: Salir de pantalla completa""")
+        clock = pygame.time.Clock()
+        is_running = True
+        start_time = time.time()
 
-    while is_running:
+        print("""Escritorio Windows XP iniciado \n Controles:\n
+            - F11: Pantalla completa/Ventana\n
+            - ESC: Salir de pantalla completa""")
 
-        current_time = time.time()
-        elapsed_time = current_time - start_time
+        while is_running:
 
-        if elapsed_time >= env.FINAL_STAGE_TIME:
-            show_emotional_end = True
-            show_end_screen(show_emotional_end, elapsed_time)
-            is_running = False
+            current_time = time.time()
+            elapsed_time = current_time - start_time
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                is_running = False
+            if elapsed_time >= env.FINAL_STAGE_TIME:
                 show_emotional_end = True
                 show_end_screen(show_emotional_end, elapsed_time)
+                is_running = False
+                break  # Termina el ciclo interno (escritorio) y reinicia desde login
 
-            # PARA MANEJAR TECLAS
-            key_actions = {
-                pygame.K_F11: toggle_fullscreen,
-                pygame.K_ESCAPE: lambda: toggle_fullscreen() if is_fullscreen else None
-            }
 
-            if event.type == pygame.KEYDOWN:
-                action = key_actions.get(event.key)
-                if action:
-                    action()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    is_running = False
+                    show_emotional_end = True
+                    show_end_screen(show_emotional_end, elapsed_time)
 
-            if event.type == pygame_gui.UI_BUTTON_PRESSED:
-                button_handled = False
+                # PARA MANEJAR TECLAS
+                key_actions = {
+                    pygame.K_F11: toggle_fullscreen,
+                    pygame.K_ESCAPE: lambda: toggle_fullscreen() if is_fullscreen else None
+                }
 
-                # Manejar clics en popups PRIMERO
-                if popup_manager and popup_manager.handle_popup_click(event):
-                    button_handled = True
+                if event.type == pygame.KEYDOWN:
+                    action = key_actions.get(event.key)
+                    if action:
+                        action()
 
-                # Luego manejar errores existentes
-                if not button_handled:
-                    for error_id, error_components in list(error_windows.items()):
-                        if handle_error_button_click(event, error_components):
-                            del error_windows[error_id]
-                            button_handled = True
-                            break
+                if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                    button_handled = False
 
-                # Finalmente manejar iconos
-                if not button_handled and icon_grid:
-                    clicked_icon = icon_grid.handle_icon_click(event.ui_object_id)
-                    click_sound.play()
-                    if clicked_icon:
-                        print(f"¡Ejecutando aplicación: {clicked_icon}!")
-                        app_components = launch_app(clicked_icon, manager, click_sound=click_sound,
-                                                    error_sound=error_sound)
-                        if app_components and "window" in app_components:
-                            active_windows.append(app_components["window"])
-                            # Si es una ventana de error, agregarla al diccionario
-                            if "ok_button" in app_components:
-                                error_id = id(app_components["window"])
-                                error_windows[error_id] = app_components
+                    # Manejar clics en popups PRIMERO
+                    if popup_manager and popup_manager.handle_popup_click(event):
+                        button_handled = True
 
-            if event.type == pygame_gui.UI_WINDOW_CLOSE:
-                # Manejar cierre de popups
-                if popup_manager and popup_manager.handle_popup_close(event):
-                    pass
-                else:
-                    for error_id, error_components in list(error_windows.items()):
-                        if event.ui_element == error_components["window"]:
-                            if error_components["window"] in active_windows:
-                                active_windows.remove(error_components["window"])
-                            del error_windows[error_id]
-                            break
+                    # Luego manejar errores existentes
+                    if not button_handled:
+                        for error_id, error_components in list(error_windows.items()):
+                            if handle_error_button_click(event, error_components):
+                                del error_windows[error_id]
+                                button_handled = True
+                                break
+
+                    # Finalmente manejar iconos
+                    if not button_handled and icon_grid:
+                        clicked_icon = icon_grid.handle_icon_click(event.ui_object_id)
+                        click_sound.play()
+                        if clicked_icon:
+                            print(f"¡Ejecutando aplicación: {clicked_icon}!")
+                            app_components = launch_app(clicked_icon, manager, click_sound=click_sound,
+                                                        error_sound=error_sound)
+                            if app_components and "window" in app_components:
+                                active_windows.append(app_components["window"])
+                                # Si es una ventana de error, agregarla al diccionario
+                                if "ok_button" in app_components:
+                                    error_id = id(app_components["window"])
+                                    error_windows[error_id] = app_components
+
+                if event.type == pygame_gui.UI_WINDOW_CLOSE:
+                    # Manejar cierre de popups
+                    if popup_manager and popup_manager.handle_popup_close(event):
+                        pass
+                    else:
+                        for error_id, error_components in list(error_windows.items()):
+                            if event.ui_element == error_components["window"]:
+                                if error_components["window"] in active_windows:
+                                    active_windows.remove(error_components["window"])
+                                del error_windows[error_id]
+                                break
+                if popup_manager:
+                    popup_manager.update()
+
+                    # Debug info (opcional - puedes comentar esto después de probar)
+                    debug_info = popup_manager.get_debug_info()
+                    if int(debug_info["elapsed_time"]) % 10 == 0 and int(debug_info["elapsed_time"]) > 0:
+                        print(
+                            f"Minuto: {debug_info['minute']}, Intervalo: {debug_info['interval']}, Popups activos: {debug_info['active_popups']}")
+
+                manager.process_events(event)       
+                
+            time_delta = clock.tick(60) / 1000.0
+            handle_gradual_icon_filling()
             if popup_manager:
                 popup_manager.update()
+            manager.update(time_delta)
 
-                # Debug info (opcional - puedes comentar esto después de probar)
-                debug_info = popup_manager.get_debug_info()
-                if int(debug_info["elapsed_time"]) % 10 == 0 and int(debug_info["elapsed_time"]) > 0:
-                    print(
-                        f"Minuto: {debug_info['minute']}, Intervalo: {debug_info['interval']}, Popups activos: {debug_info['active_popups']}")
+            window_surface.blit(background, (0, 0))
+            manager.draw_ui(window_surface)
+            pygame.display.update()
 
-            manager.process_events(event)
-
-        time_delta = clock.tick(60) / 1000.0
-
-        handle_gradual_icon_filling()
-
-        if popup_manager:
-            popup_manager.update()
-
-        manager.update(time_delta)
-
-        window_surface.blit(background, (0, 0))
-        manager.draw_ui(window_surface)
-        pygame.display.update()
-
-    pygame.quit()
 
 
 if __name__ == "__main__":
-    main()
+    run_mind_os()
+    pygame.quit()

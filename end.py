@@ -128,5 +128,7 @@ def show_end_screen(is_emotional_end: bool, elapsed_seconds: float):
     if running:
         time.sleep(FINAL_WAIT_SECONDS)
 
-    pygame.quit()
-    sys.exit()
+    #pygame.quit()
+    #sys.exit()
+
+    return
