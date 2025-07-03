@@ -630,10 +630,24 @@
             "normal_border": "green"
         }
     },
-    "#shutdown_button": {
+    "#shutdown_button_1": {
         "images": {
             "normal_image": {
-                "path": "ui_icons/shutdown.png"
+                "path": "ui_icons/shutdown_1.png"
+            }
+        }
+    },
+    "#shutdown_button_2": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/shutdown_2.png"
+            }
+        }
+    },
+    "#shutdown_button_3": {
+        "images": {
+            "normal_image": {
+                "path": "ui_icons/shutdown_2.png"
             }
         }
     }

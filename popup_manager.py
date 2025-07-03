@@ -50,15 +50,16 @@ class PopupManager:
 
     def create_shutdown_button(self):
         """Creates the shutdown button, initially hidden."""
-        button_width, button_height = 40, 40
+        button_width, button_height = 40*self.get_current_minute(), 40*self.get_current_minute()
         x = 0
         y = self.manager.window_resolution[1] - button_height
         self.shutdown_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(x, y, button_width, button_height),
             text='',
             manager=self.manager,
-            object_id=ObjectID(class_id='#shutdown_button')
+            object_id=ObjectID(class_id=f'#shutdown_button_{self.get_current_minute()}')
         )
+        self.shutdown_button.change_layer(9999999)
         self.shutdown_button.hide()  # Start hidden
 
     def _teleport_shutdown_button(self):
