@@ -671,7 +671,14 @@ def run_mind_os():
                             f"Minuto: {debug_info['minute']}, Intervalo: {debug_info['interval']}, Popups activos: {debug_info['active_popups']}")
 
                 manager.process_events(event)       
-                
+            
+            if popup_manager and popup_manager.shutdown_requested:
+                show_emotional_end = True
+                elapsed_time = time.time() - start_time
+                show_end_screen(show_emotional_end, elapsed_time)
+                is_running = False
+                break
+
             time_delta = clock.tick(60) / 1000.0
             handle_gradual_icon_filling()
             if popup_manager:

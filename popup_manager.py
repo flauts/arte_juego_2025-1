@@ -47,20 +47,86 @@ class PopupManager:
         self.shutdown_button_teleport_interval_stage3 = [2, 5]  # Every 2-5 seconds
         self.shutdown_button_on_screen_duration = 1.5  # Stays visible for 1.5s after teleport
         self.create_shutdown_button()
+        self.shutdown_requested = False  # en __init__
+        self.last_minute_checked = 0  # Para controlar cuándo se actualiza el botón
+
 
     def create_shutdown_button(self):
-        """Creates the shutdown button, initially hidden."""
-        button_width, button_height = 40*self.get_current_minute(), 40*self.get_current_minute()
+        """Creates (or recreates) the shutdown button with updated size."""
+        # Si ya existe, destruirlo
+        if self.shutdown_button is not None:
+            self.shutdown_button.kill()
+            self.shutdown_button = None
+
+        current_minute = self.get_current_minute()
+        button_width, button_height = 20 * current_minute + 20, 20 * current_minute + 20
         x = 0
         y = self.manager.window_resolution[1] - button_height
+
         self.shutdown_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(x, y, button_width, button_height),
             text='',
             manager=self.manager,
-            object_id=ObjectID(class_id=f'#shutdown_button_{self.get_current_minute()}')
+            object_id=ObjectID(class_id=f'#shutdown_button_{current_minute}')
         )
         self.shutdown_button.change_layer(9999999)
-        self.shutdown_button.hide()  # Start hidden
+        self.shutdown_button.hide()
+
+    def show_shutdown_confirmation_popup(self):
+        """Muestra un popup de confirmación para apagar el sistema."""
+        window_width = 400
+        window_height = 200
+        window_x = (self.manager.window_resolution[0] - window_width) // 2
+        window_y = (self.manager.window_resolution[1] - window_height) // 2
+
+        shutdown_window = pygame_gui.elements.UIWindow(
+            pygame.Rect(window_x, window_y, window_width, window_height),
+            manager=self.manager,
+            window_display_title="¿Deseas apagar?",
+            object_id=ObjectID(class_id="#error_window")
+        )
+
+
+        main_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, window_width, window_height),
+            manager=self.manager,
+            container=shutdown_window,
+            object_id=ObjectID(class_id='#error_main_panel')
+        )
+
+
+        label = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect(20, 40, window_width - 40, 30),
+            text="¿Seguro que quieres apagar el sistema?",
+            manager=self.manager,
+            container=main_panel,
+            object_id=ObjectID(class_id='#error_text')
+        )
+
+        accept_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(60, 100, 100, 40),
+            text="Aceptar",
+            manager=self.manager,
+            container=main_panel,
+            object_id=ObjectID(class_id="#error_ok_button")
+        )
+
+        cancel_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(240, 100, 100, 40),
+            text="Cancelar",
+            manager=self.manager,
+            container=main_panel,
+            object_id=ObjectID(class_id="#error_ok_button")
+        )
+
+        # Guarda este popup como "especial" para manejar luego
+        self.active_popups.append({
+            "window": shutdown_window,
+            "accept_button": accept_button,
+            "cancel_button": cancel_button,
+            "type": "shutdown_confirmation"
+        })
+
 
     def _teleport_shutdown_button(self):
         """Moves the shutdown button to a new random position and shows it."""
@@ -369,11 +435,22 @@ class PopupManager:
         # --- Handle Shutdown Button Click ---
         if event.ui_element == self.shutdown_button:
             print("Shutdown button clicked!")
-            # Add your game shutdown logic here
-            # For example: pygame.event.post(pygame.event.Event(pygame.QUIT))
+            self.show_shutdown_confirmation_popup()
             return True
 
         for popup in list(self.active_popups):
+            if popup["type"] == "shutdown_confirmation":
+                if event.ui_element == popup["accept_button"]:
+                    print("Apagando el sistema...")
+                    self.shutdown_requested = True  # señal para el bucle principal
+                    popup["window"].kill()
+                    self.active_popups.remove(popup)
+                    return True
+                elif event.ui_element == popup["cancel_button"]:
+                    print("Cancelado el apagado.")
+                    popup["window"].kill()
+                    self.active_popups.remove(popup)
+                    return True
             if event.ui_element in [popup.get("ok_button"), popup.get("cancel_button"), popup.get("send_button")]:
                 if self.click_sound:
                     self.click_sound.play()
@@ -397,6 +474,13 @@ class PopupManager:
         # --- Shutdown Button Logic ---
         current_time = time.time()
         current_stage = self.get_current_minute()
+
+        # Verifica si cambió de minuto respecto al tamaño del botón actual
+        
+        # Solo recrea el botón si ha cambiado el minuto
+        if current_stage != self.last_minute_checked:
+            self.last_minute_checked = current_stage
+            self.create_shutdown_button()
 
         # Stage 1: Appear for a few seconds, then disappear
         if current_stage == 1:
