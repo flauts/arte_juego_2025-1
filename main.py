@@ -351,6 +351,12 @@ def show_loading_screen():
         percent_text = small_font.render(f"{percentage}%", True, white)
         percent_rect = percent_text.get_rect(center=(screen_center_x, bar_y + bar_height + 25))
         loading_surface.blit(percent_text, percent_rect)
+
+        instruction_text = "Intenta mantener limpias las ventanas!"
+        instruction_surface = small_font.render(instruction_text, True, (200, 200, 200))
+        instruction_rect = instruction_surface.get_rect(center=(screen_center_x, screen_center_y + 180))
+        loading_surface.blit(instruction_surface, instruction_rect)
+
         
         pygame.display.flip()
         clock.tick(60)
