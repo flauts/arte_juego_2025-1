@@ -2,10 +2,10 @@ import pygame
 import pygame_gui
 import time
 import random
-
-import env_variables as e
 import os.path
 import json
+
+import env_variables as e  # Assuming e.FIRST_STAGE_TIME and e.SECOND_STAGE_TIME are defined
 
 from pygame_gui.core import ObjectID
 
@@ -28,22 +28,121 @@ class PopupManager:
 
         # Configuración de intervalos por minuto
         self.time_intervals = {
-            1: [5, 10],  # Primer minuto: cada 5-10 segundos
-            2: [3, 5],  # Segundo minuto: cada 3-5 segundos
-            3: [0.8, 1.5]  # Tercer minuto: cada 0.5-1.5 segundos (se aloca todo)
+            1: [5, 10],  # Primer minuto
+            2: [3, 5],  # Segundo minuto
+            3: [0.8, 1.5]  # Tercer minuto
         }
 
-        # Contenidos hardcodeados para las ventanas
         self.popup_types = ["canvas", "gmail", "whatsapp", "windows-notification", "windows-notification2"]
-        self.popup_probabilities = [0.55, 0.1, 0.2, 0.1, 0.05] # Cambiar posicion windows 2
-        # Lógica de aparición de pop ups
+        self.popup_probabilities = [0.55, 0.1, 0.2, 0.1, 0.05]
         self.number_gmail_popup = 0
         self.number_whatsapp_popup = 0
+
+        # --- Shutdown Button Attributes ---
+        self.shutdown_button = None
+        self.shutdown_button_timer = 0
+        self.shutdown_button_visible_duration_stage1 = 5  # Visible for 5 seconds in stage 1
+        self.shutdown_button_last_teleport_time = 0
+        self.shutdown_button_teleport_interval_stage2 = [8, 12]  # Every 8-12 seconds
+        self.shutdown_button_teleport_interval_stage3 = [2, 5]  # Every 2-5 seconds
+        self.shutdown_button_on_screen_duration = 1.5  # Stays visible for 1.5s after teleport
+        self.create_shutdown_button()
+        self.shutdown_requested = False  # en __init__
+        self.last_minute_checked = 0  # Para controlar cuándo se actualiza el botón
+
+
+    def create_shutdown_button(self):
+        """Creates (or recreates) the shutdown button with updated size."""
+        # Si ya existe, destruirlo
+        if self.shutdown_button is not None:
+            self.shutdown_button.kill()
+            self.shutdown_button = None
+
+        current_minute = self.get_current_minute()
+        button_width, button_height = 20 * current_minute + 20, 20 * current_minute + 20
+        x = 0
+        y = self.manager.window_resolution[1] - button_height
+
+        self.shutdown_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(x, y, button_width, button_height),
+            text='',
+            manager=self.manager,
+            object_id=ObjectID(class_id=f'#shutdown_button_{current_minute}')
+        )
+        self.shutdown_button.change_layer(9999999)
+        self.shutdown_button.hide()
+
+    def show_shutdown_confirmation_popup(self):
+        """Muestra un popup de confirmación para apagar el sistema."""
+        window_width = 400
+        window_height = 200
+        window_x = (self.manager.window_resolution[0] - window_width) // 2
+        window_y = (self.manager.window_resolution[1] - window_height) // 2
+
+        shutdown_window = pygame_gui.elements.UIWindow(
+            pygame.Rect(window_x, window_y, window_width, window_height),
+            manager=self.manager,
+            window_display_title="¿Deseas apagar?",
+            object_id=ObjectID(class_id="#error_window")
+        )
+
+
+        main_panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, window_width, window_height),
+            manager=self.manager,
+            container=shutdown_window,
+            object_id=ObjectID(class_id='#error_main_panel')
+        )
+
+
+        label = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect(20, 40, window_width - 40, 30),
+            text="¿Seguro que quieres apagar el sistema?",
+            manager=self.manager,
+            container=main_panel,
+            object_id=ObjectID(class_id='#error_text')
+        )
+
+        accept_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(60, 100, 100, 40),
+            text="Aceptar",
+            manager=self.manager,
+            container=main_panel,
+            object_id=ObjectID(class_id="#error_ok_button")
+        )
+
+        cancel_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(240, 100, 100, 40),
+            text="Cancelar",
+            manager=self.manager,
+            container=main_panel,
+            object_id=ObjectID(class_id="#error_ok_button")
+        )
+
+        # Guarda este popup como "especial" para manejar luego
+        self.active_popups.append({
+            "window": shutdown_window,
+            "accept_button": accept_button,
+            "cancel_button": cancel_button,
+            "type": "shutdown_confirmation"
+        })
+
+
+    def _teleport_shutdown_button(self):
+        """Moves the shutdown button to a new random position and shows it."""
+        if self.shutdown_button:
+            button_width, button_height = self.shutdown_button.relative_rect.size
+            max_x = self.manager.window_resolution[0] - button_width
+            max_y = self.manager.window_resolution[1] - button_height
+            new_x = random.randint(0, max_x)
+            new_y = random.randint(0, max_y)
+            self.shutdown_button.set_position(pygame.Vector2(new_x, new_y))
+            self.shutdown_button.show()
 
     def get_current_minute(self):
         """Obtiene el minuto actual desde el inicio"""
         elapsed_seconds = time.time() - self.start_time
-        
+
         if 0 <= elapsed_seconds < e.FIRST_STAGE_TIME:
             return 1
         elif elapsed_seconds < e.SECOND_STAGE_TIME:
@@ -60,11 +159,10 @@ class PopupManager:
         """Determina si es momento de crear una nueva ventana popup"""
         current_time = time.time()
 
-        if(current_time - self.start_time < 6):
+        if (current_time - self.start_time < 6):
             return False
         interval_range = self.get_current_interval()
 
-        # Calcular el siguiente tiempo de popup basado en el rango
         if self.last_popup_time == 0:
             self.last_popup_time = current_time
             return True
@@ -77,35 +175,34 @@ class PopupManager:
             return True
 
         return False
-    
-    def open_file(self, filename):
-        if(not os.path.isfile(filename)):
-            print("No file exists", filename)
 
-        with open(filename, 'r', encoding='utf-8') as file:  # Specify UTF-8 encoding
+    def open_file(self, filename):
+        if (not os.path.isfile(filename)):
+            print("No file exists", filename)
+            return [{"header": "Error", "content": "File not found."}]
+
+        with open(filename, 'r', encoding='utf-8') as file:
             data = json.load(file)
 
         return data
 
     def create_popup_window(self):
-        category = random.choices(self.popup_types, weights=self.popup_probabilities, k = 1)[0]
+        category = random.choices(self.popup_types, weights=self.popup_probabilities, k=1)[0]
         filename = f"mensajes/notifications/{category}.json"
         filename_64 = f"mensajes/notifications_base64/{category}.json"
 
         current_minute = self.get_current_minute()
-        if (current_minute == 1):
-            content = random.choice(self.open_file(filename))
-        elif (current_minute == 2):
-            if(random.choices([1, 2], weights = [0.9, 0.1], k = 1)[0] == 1):
-                content = random.choice(self.open_file(filename))
-            else :
-                content = random.choice(self.open_file(filename_64))
-        else:
-            if(random.choices([1, 2], weights = [0.3, 0.7], k = 1)[0] == 1):
-                content = random.choice(self.open_file(filename))
-            else :
-                content = random.choice(self.open_file(filename_64))
+        content = {}
 
+        # Simplified content loading
+        use_base64 = False
+        if current_minute == 2:
+            use_base64 = random.random() < 0.1
+        elif current_minute == 3:
+            use_base64 = random.random() < 0.7
+
+        chosen_file = filename_64 if use_base64 else filename
+        content = random.choice(self.open_file(chosen_file))
 
         if category == "whatsapp":
             return self._create_whatsapp_popup(content)
@@ -127,8 +224,7 @@ class PopupManager:
         x = self.manager.window_resolution[0] - window_width - 20
         y = self.manager.window_resolution[1] - (window_height + 15) * (self.number_whatsapp_popup + 1) - 30
 
-        self.number_whatsapp_popup += 1
-        self.number_whatsapp_popup %= 4
+        self.number_whatsapp_popup = (self.number_whatsapp_popup + 1) % 4
 
         window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect(x, y, window_width, window_height),
@@ -140,10 +236,9 @@ class PopupManager:
             relative_rect=pygame.Rect(0, 0, window_width, window_height),
             manager=self.manager,
             container=window,
-            object_id=ObjectID(class_id='#error_main_panel') #reusing class
+            object_id=ObjectID(class_id='#error_main_panel')
         )
 
-        # Crear el texto del contenido
         text_area = pygame_gui.elements.UILabel(
             text=content["content"],
             relative_rect=pygame.Rect(0, -35, window_width, window_height - 10),
@@ -172,21 +267,19 @@ class PopupManager:
             "text_area": text_area,
             "input_box": input_box,
             "send_button": send_button,
-            "content": content
+            "content": content,
+            "type": "whatsapp"
         })
         return window
 
     def _create_gmail_popup(self, content):
-
         if self.gmail_sound:
             self.gmail_sound.play()
 
         window_width, window_height = 350, 100
         x = 20
         y = self.manager.window_resolution[1] - (window_height + 15) * (self.number_gmail_popup + 1) - 30
-
-        self.number_gmail_popup += 1
-        self.number_gmail_popup %= 5
+        self.number_gmail_popup = (self.number_gmail_popup + 1) % 5
 
         window = pygame_gui.elements.UIWindow(
             rect=pygame.Rect(x, y, window_width, window_height),
@@ -199,7 +292,7 @@ class PopupManager:
             relative_rect=pygame.Rect(0, 0, window_width, window_height),
             manager=self.manager,
             container=window,
-            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
+            object_id=ObjectID(class_id='#error_main_panel')
         )
         text_area = pygame_gui.elements.UITextBox(
             html_text=content["content"],
@@ -212,12 +305,12 @@ class PopupManager:
         self.active_popups.append({
             "window": window,
             "text_area": text_area,
-            "content": content
+            "content": content,
+            "type": "gmail"
         })
         return window
 
     def _create_canvas_popup(self, content):
-
         if self.canvas_sound:
             self.canvas_sound.play()
 
@@ -236,7 +329,7 @@ class PopupManager:
             relative_rect=pygame.Rect(0, 0, window_width, window_height),
             manager=self.manager,
             container=window,
-            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
+            object_id=ObjectID(class_id='#error_main_panel')
         )
 
         text_area = pygame_gui.elements.UITextBox(
@@ -250,12 +343,12 @@ class PopupManager:
         self.active_popups.append({
             "window": window,
             "text_area": text_area,
-            "content": content
+            "content": content,
+            "type": "canvas"
         })
         return window
 
     def _create_windows_popup(self, content):
-
         if self.windows_not1_sound:
             self.windows_not1_sound.play()
 
@@ -273,7 +366,7 @@ class PopupManager:
             relative_rect=pygame.Rect(0, 0, window_width, window_height),
             manager=self.manager,
             container=window,
-            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
+            object_id=ObjectID(class_id='#error_main_panel')
         )
         text_area = pygame_gui.elements.UITextBox(
             html_text=content["content"],
@@ -295,12 +388,12 @@ class PopupManager:
             "window": window,
             "text_area": text_area,
             "ok_button": ok_button,
-            "content": content
+            "content": content,
+            "type": "windows"
         })
         return window
 
     def _create_windows_info_popup(self, content):
-
         if self.windows_not2_sound:
             self.windows_not2_sound.play()
 
@@ -315,12 +408,11 @@ class PopupManager:
             object_id="#error_window",
             resizable=False
         )
-
         main_panel = pygame_gui.elements.UIPanel(
             relative_rect=pygame.Rect(0, 0, window_width, window_height),
             manager=self.manager,
             container=window,
-            object_id=ObjectID(class_id='#error_main_panel')  # reusing class
+            object_id=ObjectID(class_id='#error_main_panel')
         )
 
         text_area = pygame_gui.elements.UITextBox(
@@ -334,12 +426,31 @@ class PopupManager:
         self.active_popups.append({
             "window": window,
             "text_area": text_area,
-            "content": content
+            "content": content,
+            "type": "windows_info"
         })
         return window
 
     def handle_popup_click(self, event):
+        # --- Handle Shutdown Button Click ---
+        if event.ui_element == self.shutdown_button:
+            print("Shutdown button clicked!")
+            self.show_shutdown_confirmation_popup()
+            return True
+
         for popup in list(self.active_popups):
+            if popup["type"] == "shutdown_confirmation":
+                if event.ui_element == popup["accept_button"]:
+                    print("Apagando el sistema...")
+                    self.shutdown_requested = True  # señal para el bucle principal
+                    popup["window"].kill()
+                    self.active_popups.remove(popup)
+                    return True
+                elif event.ui_element == popup["cancel_button"]:
+                    print("Cancelado el apagado.")
+                    popup["window"].kill()
+                    self.active_popups.remove(popup)
+                    return True
             if event.ui_element in [popup.get("ok_button"), popup.get("cancel_button"), popup.get("send_button")]:
                 if self.click_sound:
                     self.click_sound.play()
@@ -356,13 +467,57 @@ class PopupManager:
         return False
 
     def update(self):
+        # Create popups based on timing
         if self.should_create_popup():
             self.create_popup_window()
+
+        # --- Shutdown Button Logic ---
+        current_time = time.time()
+        current_stage = self.get_current_minute()
+
+        # Verifica si cambió de minuto respecto al tamaño del botón actual
+        
+        # Solo recrea el botón si ha cambiado el minuto
+        if current_stage != self.last_minute_checked:
+            self.last_minute_checked = current_stage
+            self.create_shutdown_button()
+
+        # Stage 1: Appear for a few seconds, then disappear
+        if current_stage == 1:
+            # Show button at the start for the specified duration
+            if not self.shutdown_button.visible and (
+                    current_time - self.start_time) < self.shutdown_button_visible_duration_stage1:
+                self.shutdown_button.show()
+            # Hide it after the duration has passed
+            elif self.shutdown_button.visible and (
+                    current_time - self.start_time) >= self.shutdown_button_visible_duration_stage1:
+                self.shutdown_button.hide()
+
+        # Stages 2 & 3: Teleporting behavior
+        elif current_stage in [2, 3]:
+            # Determine teleport interval based on stage
+            interval_range = self.shutdown_button_teleport_interval_stage2 if current_stage == 2 else self.shutdown_button_teleport_interval_stage3
+
+            # Check if it's time to teleport the button
+            next_teleport_time = random.uniform(interval_range[0], interval_range[1])
+            if current_time - self.shutdown_button_last_teleport_time > next_teleport_time:
+                self._teleport_shutdown_button()
+                self.shutdown_button_last_teleport_time = current_time
+                self.shutdown_button_timer = current_time
+
+            # Check if the button has been on screen long enough to disappear
+            if self.shutdown_button.visible and (
+                    current_time - self.shutdown_button_timer) > self.shutdown_button_on_screen_duration:
+                self.shutdown_button.hide()
 
     def cleanup(self):
         for popup in self.active_popups:
             popup["window"].kill()
         self.active_popups.clear()
+
+        # --- Cleanup Shutdown Button ---
+        if self.shutdown_button:
+            self.shutdown_button.kill()
 
     def get_debug_info(self):
         return {

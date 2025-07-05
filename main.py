@@ -351,6 +351,12 @@ def show_loading_screen():
         percent_text = small_font.render(f"{percentage}%", True, white)
         percent_rect = percent_text.get_rect(center=(screen_center_x, bar_y + bar_height + 25))
         loading_surface.blit(percent_text, percent_rect)
+
+        instruction_text = "Intenta mantener limpias las ventanas!"
+        instruction_surface = small_font.render(instruction_text, True, (200, 200, 200))
+        instruction_rect = instruction_surface.get_rect(center=(screen_center_x, screen_center_y + 180))
+        loading_surface.blit(instruction_surface, instruction_rect)
+
         
         pygame.display.flip()
         clock.tick(60)
@@ -671,7 +677,14 @@ def run_mind_os():
                             f"Minuto: {debug_info['minute']}, Intervalo: {debug_info['interval']}, Popups activos: {debug_info['active_popups']}")
 
                 manager.process_events(event)       
-                
+            
+            if popup_manager and popup_manager.shutdown_requested:
+                show_emotional_end = True
+                elapsed_time = time.time() - start_time
+                show_end_screen(show_emotional_end, elapsed_time)
+                is_running = False
+                break
+
             time_delta = clock.tick(60) / 1000.0
             handle_gradual_icon_filling()
             if popup_manager:

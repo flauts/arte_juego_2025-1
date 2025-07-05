@@ -63,7 +63,7 @@ def launch_app(app_name, manager, click_sound=None, error_sound=None):
     app_name_l = app_name.lower()
 
     if app_name_l == "whatsapp":
-        return launch_whatsapp(manager)
+        return launch_error(manager, error_sound)
     elif app_name_l == "gmail":
         return launch_error(manager, error_sound)
     elif app_name_l == "canvas":
